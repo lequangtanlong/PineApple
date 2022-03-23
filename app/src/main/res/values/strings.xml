@@ -1,3 +1,88 @@
 <resources>
     <string name="app_name">PineApple</string>
+    <string name="match_notification">You have a New Match!</string>
+
+    <!-- Firebase messages -->
+    <string name="auth_failed">Failed to Authenticate</string>
+    <string name="auth_success">Authentication Success</string>
+
+    <!-- Firebase database fields -->
+    <string name="dbfemale">female</string>
+    <string name="dbmale">male</string>
+    <string name="title_activity_check_profile_before_matched">activity_checkProfileBeforeMatched
+    </string>
+
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="login">Login</string>
+    <string name="sign_up">Sign up</string>
+    <string name="get_started">Get started</string>
+    <string name="already_have_an_account_login">Already have an account? Login!</string>
+    <string name="splash_welcome">splash_welcome</string>
+    <string name="welcome_to_pineapple">Welcome to PineApple</string>
+    <string name="a_place_where">A place where you can connect to people\nwho can help with your study, and vice versa</string>
+    <string name="welcome_back">Welcome back!</string>
+    <string name="email">Email</string>
+    <string name="password">Password</string>
+    <string name="have_no_account"><u>Haven\'t got an account yet? Sign up!</u></string>
+    <string name="configure_your_profile">Configure your profile</string>
+    <string name="splash_profile">splash_profile</string>
+    <string name="_1_5">1/5</string>
+    <string name="username">Username</string>
+    <string name="next">Next</string>
+    <string name="_2_5">2/5</string>
+    <string name="splash_gender">splash_gender</string>
+    <string name="whats_your_gender">What\'s your gender?</string>
+    <string name="male">Male</string>
+    <string name="_2_4">2/4</string>
+    <string name="_1_4">1/4</string>
+    <string name="female">Female</string>
+    <string name="splash_date">splash_date</string>
+    <string name="when_birthday">When was your birthday?</string>
+    <string name="_3_4">3/4</string>
+    <string name="rate_yourself">Rate yourself</string>
+    <string name="_4_4">4/4</string>
+    <string name="configure_your_interests">Configure your interests</string>
+    <string name="select_subjects">Select hobbies that you are interested in and evaluate yourself so you get matched with appropriate people.</string>
+    <string name="software_engineering">Software Engineering</string>
+    <string name="database">Database</string>
+    <string name="ui_design">UI Design</string>
+    <string name="object_oriented_programming">Object-oriented Programming</string>
+    <string name="not_interested">Not interested</string>
+    <string name="dislike_image">dislike_image</string>
+    <string name="interested">Interested</string>
+    <string name="chat">Chat</string>
+    <string name="match">Match</string>
+    <string name="profile">Profile</string>
+    <string name="matches">Matches</string>
+    <string name="search_matches">Search Matches</string>
+    <string name="message">message</string>
+    <string name="message_sender">message sender</string>
+    <string name="edit">edit</string>
+    <string name="tungtran">tungtran</string>
+    <string name="likes">Likes</string>
+    <string name="_0">0</string>
+    <string name="august_5th_2001">August 5th, 2001</string>
+    <string name="_1">1</string>
+    <string name="liked_by">Liked by</string>
+    <string name="education">Education</string>
+    <string name="dummy">dummy</string>
+    <string name="rose_j">Rose J</string>
+    <string name="august_5th_2001_male">August 5th, 2001 | Male</string>
+    <string name="oop">OOP</string>
+    <string name="gender">Gender</string>
+    <string name="interests">Interests</string>
+    <string name="about_me">About me</string>
+    <string name="phone_number">Phone Number</string>
+    <string name="log_out">Log out</string>
+    <string name="about">About</string>
+    <string name="something_about_victoria">Something about Victoria</string>
+
+    <!-- introduction pictures-->
+    <integer-array name="img_id_arr">
+        <item>@drawable/img1</item>
+        <item>@drawable/img2</item>
+        <item>@drawable/img3</item>
+        <item>@drawable/img4</item>
+    </integer-array>
 </resources>

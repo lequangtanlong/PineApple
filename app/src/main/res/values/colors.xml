@@ -1,10 +1,29 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <color name="purple_200">#FFBB86FC</color>
-    <color name="purple_500">#FF6200EE</color>
-    <color name="purple_700">#FF3700B3</color>
-    <color name="teal_200">#FF03DAC5</color>
-    <color name="teal_700">#FF018786</color>
-    <color name="black">#FF000000</color>
-    <color name="white">#FFFFFFFF</color>
+    <color name="colorPrimary">#ff9900</color>
+    <color name="colorPrimaryDark">#23211e</color>
+    <color name="colorPrimaryGrey">#7a6f63</color>
+    <color name="colorAccent">#fcc647</color>
+    <color name="transparentPink">#e0992f</color>
+
+    <color name="grey">#bfbfbf</color>
+    <color name="white">#fff3e1</color>
+    <color name="black">#000000</color>
+    <color name="link_blue">#1781DB</color>
+    <color name="light_grey">#D1CECE</color>
+    <color name="textColor">#111111</color>
+    <color name="text_color_adapter_group">#626262</color>
+
+    <color name="likegreen">#59f022</color>
+    <color name="dislikered">#f04122</color>
+
+    <color name="message_text_sender">#fff3e1</color>
+    <color name="message_text_receiver">#111111</color>
+    <color name="message_background_sender">#ff9900</color>
+    <color name="message_background_receiver">#E9E9E9</color>
+    <color name="button_send_tint">#ff9900</color>
+    <color name="button_send_tint_not_working">#7F7D7D</color>
+
+    <color name="top_navigation">#00CC33</color>
+
 </resources>
