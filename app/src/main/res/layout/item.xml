@@ -1,0 +1,109 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_gravity="center"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:paddingLeft="10sp"
+    android:paddingRight="10sp"
+    android:paddingBottom="10sp"
+    android:outlineProvider="bounds"
+    android:clipToPadding="false">
+
+    <androidx.cardview.widget.CardView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_gravity="center"
+        app:cardCornerRadius="6dp"
+        android:elevation="2dp"
+        android:id="@+id/cardView"
+        android:background="@drawable/rounded_corner_layout">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginBottom="10dp"
+            android:orientation="vertical"
+            android:background="@color/white">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:paddingVertical="16dp"
+                android:background="@drawable/rounded_corner_layout_orange">
+
+                <TextView
+                    android:id="@+id/name"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textSize="20sp"
+                    android:text="Tung Tran, 19"
+                    android:fontFamily="@font/iciel_cadena"
+                    android:layout_weight="1"
+                    android:layout_marginLeft="20dp"
+                    android:textColor="@color/textColor"
+                    android:layout_gravity="center"/>
+
+                <ImageButton
+                    android:id="@+id/checkInfoBeforeMatched"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:src="@drawable/ic_new_info"
+                    android:tint="@color/colorPrimaryDark"
+                    android:background="@color/colorPrimary"
+                    android:layout_marginEnd="20dp"
+                    android:onClick="checkInfo"
+                    android:layout_gravity="center"/>
+
+            </LinearLayout>
+
+            <FrameLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_weight="1">
+
+                <ImageView
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:id="@+id/image"
+                    android:scaleType="fitCenter"/>
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/item_swipe_left_indicator"
+                    android:alpha="0"
+                    android:text="LIKE"
+                    android:layout_margin="10dp"
+                    android:textColor="@color/likegreen"
+                    android:textSize="35sp"
+                    android:background="@drawable/like_border"
+                    android:paddingLeft="10dp"
+                    android:paddingRight="10dp"
+                    android:paddingTop="5dp"
+                    android:paddingBottom="5dp"/>
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/item_swipe_right_indicator"
+                    android:alpha="0"
+                    android:layout_margin="10dp"
+                    android:layout_gravity="right"
+                    android:text="NOPE"
+                    android:textSize="35sp"
+                    android:textColor="@color/dislikered"
+                    android:background="@drawable/dislike_border"
+                    android:paddingLeft="10dp"
+                    android:paddingRight="10dp"
+                    android:paddingTop="5dp"
+                    android:paddingBottom="5dp"/>
+
+            </FrameLayout>
+
+        </LinearLayout>
+
+    </androidx.cardview.widget.CardView>
+
+</LinearLayout>

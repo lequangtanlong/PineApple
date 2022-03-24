@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:background="@color/white"
+    tools:context="com.ZellyCookies.PineApple.Profile.SettingsActivity">
+
+    <!--<include layout="@layout/layout_top_navigation_back"/>-->
+    <include layout="@layout/layout_top_navigation_back" />
+    
+
+
+
+
+    <Button
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="30dp"
+        android:background="@drawable/btn_main"
+        android:gravity="center"
+        android:onClick="Logout"
+        android:text="@string/log_out"
+        android:fontFamily="@font/iciel_cadena"
+        android:textColor="@drawable/fnt_col_main"
+        android:textSize="18sp"/>
+
+</LinearLayout>

@@ -1,0 +1,260 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:divider="?android:dividerHorizontal"
+    android:showDividers="middle"
+    android:background="@color/white">
+
+    <TextView
+        android:id="@+id/numberOfPagesLeft"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/_4_4"
+        android:fontFamily="@font/iciel_cadena"
+        android:textSize="24sp"
+        android:textColor="@color/colorPrimaryDark"
+        android:textAlignment="textEnd"
+        android:layout_marginEnd="24dp"
+        android:layout_marginTop="12dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent"/>
+
+    <TextView
+        android:id="@+id/txt_welcome"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/configure_your_interests"
+        android:fontFamily="@font/iciel_cadena"
+        android:textColor="@color/colorPrimaryDark"
+        android:textSize="28sp"
+        android:layout_marginTop="16dp"
+        android:layout_marginStart="20dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/numberOfPagesLeft"/>
+
+    <TextView
+        android:id="@+id/txt_description"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/select_subjects"
+        android:fontFamily="@font/bubbler_one"
+        android:textColor="@color/colorPrimaryGrey"
+        android:textSize="18sp"
+        android:textStyle="bold"
+        android:layout_marginTop="8dp"
+        android:layout_marginStart="20dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/txt_welcome"/>
+
+    <LinearLayout
+        android:id="@+id/layout_interest"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:layout_marginTop="12dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/txt_description">
+
+        <Button
+            android:id="@+id/seSelectionButton"
+            android:layout_width="320dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="20dp"
+            android:background="@drawable/btn_alt"
+            android:fontFamily="@font/iciel_cadena"
+            android:text="@string/software_engineering"
+            android:textAllCaps="false"
+            android:textAlignment="center"
+            android:textColor="@drawable/fnt_col_main"
+            android:textSize="20sp"
+            android:gravity="center"
+            android:textStyle="bold" />
+
+        <Button
+            android:id="@+id/dbSelectionButton"
+            android:layout_width="320dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="20dp"
+            android:background="@drawable/btn_alt"
+            android:fontFamily="@font/iciel_cadena"
+            android:text="@string/database"
+            android:textAllCaps="false"
+            android:textAlignment="center"
+            android:textColor="@drawable/fnt_col_main"
+            android:textSize="20sp"
+            android:gravity="center"
+            android:textStyle="bold" />
+
+        <Button
+            android:id="@+id/uiSelectionButton"
+            android:layout_width="320dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="20dp"
+            android:background="@drawable/btn_alt"
+            android:fontFamily="@font/iciel_cadena"
+            android:text="@string/ui_design"
+            android:textAllCaps="false"
+            android:textAlignment="center"
+            android:textColor="@drawable/fnt_col_main"
+            android:textSize="20sp"
+            android:gravity="center"
+            android:textStyle="bold" />
+
+        <Button
+            android:id="@+id/opSelectionButton"
+            android:layout_width="320dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="20dp"
+            android:background="@drawable/btn_alt"
+            android:fontFamily="@font/iciel_cadena"
+            android:text="@string/object_oriented_programming"
+            android:textAllCaps="false"
+            android:textAlignment="center"
+            android:textColor="@drawable/fnt_col_main"
+            android:textSize="19sp"
+            android:gravity="center"
+            android:textStyle="bold" />
+
+    </LinearLayout>
+
+
+    <Button
+        android:id="@+id/hobbiesContinueButton"
+        android:layout_width="320dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        android:background="@drawable/btn_main"
+        android:fontFamily="@font/iciel_cadena"
+        android:text="@string/sign_up"
+        android:textColor="@drawable/fnt_col_main"
+        android:textSize="20sp"
+        android:textStyle="bold"
+        app:backgroundTint="#FFFFFF"
+        app:backgroundTintMode="multiply"
+        android:layout_marginBottom="36dp"
+        android:textAlignment="center"
+        android:gravity="center"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent"/>
+
+
+    <!--
+
+
+    <TextView
+        android:id="@+id/numberOfPagesLeft"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="right"
+        android:gravity="right"
+        android:layout_marginRight="24dp"
+        android:text="5/5"
+        android:textColor="#747474"
+        android:textSize="24sp"
+        android:textStyle="bold" />
+
+    <TextView
+        android:id="@+id/getStartedTextView"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="24dp"
+        android:layout_marginRight="24dp"
+        android:layout_marginTop="120dp"
+        android:text="Please select your hobbies:"
+        android:textColor="#747474"
+        android:textSize="24sp"
+        android:textStyle="bold" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+
+        <Button
+            android:id="@+id/sportsSelectionButton"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="24dp"
+            android:layout_marginTop="16dp"
+            android:layout_weight="1"
+            android:background="#ff4081"
+            android:elevation="24dp"
+            android:text="SPORTS"
+            android:textColor="@android:color/white"
+            android:textSize="30sp"
+            android:textStyle="bold" />
+
+        <Button
+            android:id="@+id/travelSelectionButton"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="16dp"
+            android:layout_marginRight="24dp"
+            android:layout_marginTop="16dp"
+            android:layout_weight="1"
+            android:background="#ff4081"
+            android:elevation="24dp"
+            android:text="TRAVEL"
+            android:textColor="@android:color/white"
+            android:textSize="30sp"
+            android:textStyle="bold" />
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+
+        <Button
+            android:id="@+id/musicSelectionButton"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="24dp"
+            android:layout_marginTop="16dp"
+            android:layout_weight="1"
+            android:background="#ff4081"
+            android:elevation="24dp"
+            android:text="MUSIC"
+            android:textColor="@android:color/white"
+            android:textSize="30sp"
+            android:textStyle="bold" />
+
+        <Button
+            android:id="@+id/fishingSelectionButton"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="16dp"
+            android:layout_marginRight="24dp"
+            android:layout_marginTop="16dp"
+            android:layout_weight="1"
+            android:background="#ff4081"
+            android:elevation="24dp"
+            android:text="Fishing"
+            android:textColor="@android:color/white"
+            android:textSize="30sp"
+            android:textStyle="bold" />
+
+    </LinearLayout>
+
+    <Button
+        android:id="@+id/hobbiesContinueButton"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="24dp"
+        android:layout_marginRight="24dp"
+        android:layout_marginTop="16dp"
+        android:background="#ff4081"
+        android:backgroundTint="#ff4081"
+        android:elevation="24dp"
+        android:text="Register"
+        android:textColor="@android:color/white"
+        android:textStyle="bold" />
+-->
+
+</androidx.constraintlayout.widget.ConstraintLayout>

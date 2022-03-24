@@ -1,0 +1,202 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="fill_parent"
+    android:layout_height="wrap_content">
+
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_weight="1"
+        android:focusable="false"
+        android:focusableInTouchMode="true"
+        android:orientation="vertical">
+
+
+        <!--<include layout="@layout/layout_top_navigation_back"/>-->
+        <include layout="@layout/layout_top_navigation_back" />
+
+        <com.ZellyCookies.PineApple.Utils.SquareImageView
+            android:id="@+id/profileImage"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:adjustViewBounds="true"
+            android:contentDescription="Click to change profile photo"
+            android:scaleType="centerCrop" />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_vertical"
+            android:paddingBottom="5dp"
+            android:paddingLeft="10dp"
+            android:paddingTop="5dp"
+            android:background="@color/colorPrimaryGrey"
+            android:text="@string/about_me"
+            android:fontFamily="@font/bubbler_one"
+            android:textStyle="bold"
+            android:textColor="@color/white"
+            android:textSize="18sp"/>
+
+        <EditText
+            android:id="@+id/edit_aboutme"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@android:color/transparent"
+            android:fontFamily="@font/bubbler_one"
+            android:textStyle="bold"
+            android:textColor="@color/colorPrimaryDark"
+            android:textSize="18sp"
+            android:hint="Enter information about yourself which others can see."
+            android:paddingBottom="10dp"
+            android:paddingLeft="10dp"
+            android:paddingTop="10dp" />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_vertical"
+            android:background="@color/colorPrimaryGrey"
+            android:paddingBottom="5dp"
+            android:paddingLeft="10dp"
+            android:paddingTop="5dp"
+            android:text="@string/interests"
+            android:fontFamily="@font/bubbler_one"
+            android:textStyle="bold"
+            android:textColor="@color/white"
+            android:textSize="18sp" />
+
+        <LinearLayout
+            android:orientation="horizontal"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+            <CheckBox android:id="@+id/checkbox_se"
+                android:layout_width="192dp"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/bubbler_one"
+                android:textStyle="bold"
+                android:textColor="@color/colorPrimaryDark"
+                android:textSize="18sp"
+                android:text="@string/software_engineering"
+                android:onClick="onHobbyCheckBoxClicked"/>
+            <CheckBox android:id="@+id/checkbox_database"
+                android:layout_width="192dp"
+                android:layout_height="wrap_content"
+                android:text="@string/database"
+                android:fontFamily="@font/bubbler_one"
+                android:textStyle="bold"
+                android:textColor="@color/colorPrimaryDark"
+                android:textSize="18sp"
+                android:onClick="onHobbyCheckBoxClicked"/>
+        </LinearLayout>
+        <LinearLayout
+            android:orientation="horizontal"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+            <CheckBox android:id="@+id/checkbox_design"
+                android:layout_width="192dp"
+                android:layout_height="wrap_content"
+                android:text="@string/ui_design"
+                android:fontFamily="@font/bubbler_one"
+                android:textStyle="bold"
+                android:textColor="@color/colorPrimaryDark"
+                android:textSize="18sp"
+                android:onClick="onHobbyCheckBoxClicked"/>
+            <CheckBox android:id="@+id/checkbox_oop"
+                android:layout_width="192dp"
+                android:layout_height="wrap_content"
+                android:text="@string/oop"
+                android:fontFamily="@font/bubbler_one"
+                android:textStyle="bold"
+                android:textColor="@color/colorPrimaryDark"
+                android:textSize="18sp"
+                android:onClick="onHobbyCheckBoxClicked"/>
+        </LinearLayout>
+
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_vertical"
+            android:background="@color/colorPrimaryGrey"
+            android:paddingBottom="5dp"
+            android:paddingLeft="10dp"
+            android:paddingTop="5dp"
+            android:text="@string/gender"
+            android:fontFamily="@font/bubbler_one"
+            android:textStyle="bold"
+            android:textColor="@color/white"
+            android:textSize="18sp" />
+
+        <RadioGroup
+            android:id="@+id/radioGroupUserSex"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentTop="true"
+            android:layout_centerVertical="true"
+            android:orientation="horizontal">
+
+            <RadioButton
+                android:id="@+id/maleSelction"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:enabled="false"
+                android:text="Male" />
+
+            <RadioButton
+                android:id="@+id/femaleSelection"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:enabled="false"
+                android:text="Female" />
+
+        </RadioGroup>
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_vertical"
+            android:background="@color/colorPrimaryGrey"
+            android:paddingBottom="5dp"
+            android:paddingLeft="10dp"
+            android:paddingTop="5dp"
+            android:text="@string/phone_number"
+            android:fontFamily="@font/bubbler_one"
+            android:textStyle="bold"
+            android:textColor="@color/white"
+            android:textSize="18sp" />
+
+        <EditText
+            android:id="@+id/edit_phone"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@android:color/transparent"
+            android:hint="Enter Your Phone Number"
+            android:paddingBottom="10dp"
+            android:paddingLeft="10dp"
+            android:paddingTop="10dp"
+            android:fontFamily="@font/bubbler_one"
+            android:textStyle="bold"
+            android:textColor="@color/colorPrimaryDark"
+            android:textSize="18sp" />
+
+
+        <Button
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:background="@drawable/btn_main"
+            android:gravity="center"
+            android:onClick="saveAndBack"
+            android:text="Save and back"
+            android:fontFamily="@font/iciel_cadena"
+            android:textStyle="bold"
+            android:textColor="@drawable/fnt_col_main"
+            android:textSize="18sp" />
+
+    </LinearLayout>
+
+
+</ScrollView>
