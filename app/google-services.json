@@ -1,0 +1,40 @@
+{
+  "project_info": {
+    "project_number": "390204613014",
+    "firebase_url": "https://pineapple-20197-default-rtdb.asia-southeast1.firebasedatabase.app",
+    "project_id": "pineapple-20197",
+    "storage_bucket": "pineapple-20197.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:390204613014:android:9910dde9164b2c6ae6fdb7",
+        "android_client_info": {
+          "package_name": "com.ZellyCookies.PineApple"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "390204613014-hk4shlicjr9adghh77u9ql15avuuho84.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyD8M_o1SqlQLpSwNv-YBdYhwzoUkPO8ROY"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "390204613014-hk4shlicjr9adghh77u9ql15avuuho84.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
