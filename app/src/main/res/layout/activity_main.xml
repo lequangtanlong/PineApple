@@ -53,9 +53,9 @@
                 android:background="@drawable/round_button_with_border"
                 android:padding="10dp"
                 android:src="@drawable/ic_check_no"
-                android:tint="@color/white"
                 android:backgroundTint="@color/dislikered"
-                android:onClick="DislikeBtn" />
+                android:onClick="DislikeBtn"
+                app:tint="@color/white" />
 
             <ImageButton
                 android:id="@+id/likebtn"
@@ -67,9 +67,9 @@
                 android:background="@drawable/round_button_with_border"
                 android:padding="10dp"
                 android:src="@drawable/ic_check_yes"
-                android:tint="@color/white"
                 android:backgroundTint="@color/likegreen"
-                android:onClick="LikeBtn"/>
+                android:onClick="LikeBtn"
+                app:tint="@color/white" />
 
 
         </RelativeLayout>

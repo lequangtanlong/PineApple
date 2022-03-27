@@ -4,6 +4,22 @@
     <option name="filePathToZoomLevelMap">
       <map>
         <entry key="..\:/Users/Minh Duc/Desktop/PineApple/app/src/main/res/layout/activity_main.xml" value="0.136" />
+        <entry key="..\:/Users/lequa/OneDrive/Documents/GitHub/PineApple/app/src/main/res/layout/activity_btn_dislike.xml" value="0.25" />
+        <entry key="..\:/Users/lequa/OneDrive/Documents/GitHub/PineApple/app/src/main/res/layout/activity_btn_like.xml" value="0.25" />
+        <entry key="..\:/Users/lequa/OneDrive/Documents/GitHub/PineApple/app/src/main/res/layout/activity_edit_profile.xml" value="0.25" />
+        <entry key="..\:/Users/lequa/OneDrive/Documents/GitHub/PineApple/app/src/main/res/layout/activity_introduction_main.xml" value="0.25" />
+        <entry key="..\:/Users/lequa/OneDrive/Documents/GitHub/PineApple/app/src/main/res/layout/activity_main.xml" value="0.25" />
+        <entry key="..\:/Users/lequa/OneDrive/Documents/GitHub/PineApple/app/src/main/res/layout/activity_matched.xml" value="0.25" />
+        <entry key="..\:/Users/lequa/OneDrive/Documents/GitHub/PineApple/app/src/main/res/layout/activity_profile.xml" value="0.25" />
+        <entry key="..\:/Users/lequa/OneDrive/Documents/GitHub/PineApple/app/src/main/res/layout/activity_profile_checkin_main.xml" value="0.10989583333333333" />
+        <entry key="..\:/Users/lequa/OneDrive/Documents/GitHub/PineApple/app/src/main/res/layout/activity_profile_checkin_matched.xml" value="0.25" />
+        <entry key="..\:/Users/lequa/OneDrive/Documents/GitHub/PineApple/app/src/main/res/layout/activity_register_age.xml" value="0.25" />
+        <entry key="..\:/Users/lequa/OneDrive/Documents/GitHub/PineApple/app/src/main/res/layout/activity_register_gender.xml" value="0.25" />
+        <entry key="..\:/Users/lequa/OneDrive/Documents/GitHub/PineApple/app/src/main/res/layout/activity_register_gender_prefection.xml" value="0.25" />
+        <entry key="..\:/Users/lequa/OneDrive/Documents/GitHub/PineApple/app/src/main/res/layout/activity_register_hobby.xml" value="0.25" />
+        <entry key="..\:/Users/lequa/OneDrive/Documents/GitHub/PineApple/app/src/main/res/layout/activity_registerbasic_info.xml" value="0.25" />
+        <entry key="..\:/Users/lequa/OneDrive/Documents/GitHub/PineApple/app/src/main/res/layout/layout_top_navigation_view.xml" value="0.25" />
+        <entry key="..\:/Users/lequa/OneDrive/Documents/GitHub/PineApple/app/src/main/res/layout/popup_interest.xml" value="0.25" />
       </map>
     </option>
   </component>
