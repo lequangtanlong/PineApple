@@ -160,7 +160,7 @@ class ConversationActivity : AppCompatActivity() {
         val mMessageDb = mGroupMessageDb!!.collection("messages").document(messageId)
         val cal = Calendar.getInstance(Locale.ENGLISH)
         val dateTime = DateFormat.format("dd/MM/yyyy hh:mm aa", cal).toString()
-        val newMessageMap: MutableMap<Any, Any> = mutableMapOf()
+        var newMessageMap: MutableMap<Any, Any> = mutableMapOf()
         userId?.let { newMessageMap.put("sendBy", it) }
         newMessageMap.put("sendAt", dateTime)
         newMessageMap.put("timestamp", FieldValue.serverTimestamp())

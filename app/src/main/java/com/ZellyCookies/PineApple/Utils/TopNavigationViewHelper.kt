@@ -2,7 +2,12 @@ package com.ZellyCookies.PineApple.Utils
 
 import android.content.ContentValues
 import android.content.Context
+import android.content.Intent
 import android.util.Log
+import com.ZellyCookies.PineApple.Main.MainActivity
+import com.ZellyCookies.PineApple.Matched.Matched_Activity
+import com.ZellyCookies.PineApple.Profile.Profile_Activity
+import com.ZellyCookies.PineApple.R
 import com.ittianyu.bottomnavigationviewex.BottomNavigationViewEx
 
 class TopNavigationViewHelper {
@@ -19,7 +24,7 @@ class TopNavigationViewHelper {
         }
 
         fun enableNavigation(context: Context, view: BottomNavigationViewEx) {
-
+            
         }
     }
 }
