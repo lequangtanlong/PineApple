@@ -131,7 +131,7 @@ class MainActivity : Activity() {
 
     private fun updateSwipeCard() {
         val flingContainer = findViewById<View>(R.id.frame) as SwipeFlingAdapterView
-        flingContainer.setAdapter(arrayAdapter)
+        flingContainer.adapter = arrayAdapter
         flingContainer.setFlingListener(object : SwipeFlingAdapterView.onFlingListener {
             override fun removeFirstObjectInAdapter() {
                 // this is the simplest way to delete an object from the Adapter (/AdapterView)
@@ -167,10 +167,8 @@ class MainActivity : Activity() {
 
             override fun onScroll(scrollProgressPercent: Float) {
                 val view = flingContainer.selectedView
-                view.findViewById<View>(R.id.item_swipe_right_indicator)
-                    .setAlpha((if (scrollProgressPercent < 0) -scrollProgressPercent else 0) as Float)
-                view.findViewById<View>(R.id.item_swipe_left_indicator)
-                    .setAlpha((if (scrollProgressPercent > 0) scrollProgressPercent else 0) as Float)
+                view.findViewById<View>(R.id.item_swipe_right_indicator).alpha = (if (scrollProgressPercent < 0) (-scrollProgressPercent) else 0.0F)
+                view.findViewById<View>(R.id.item_swipe_left_indicator).alpha = (if (scrollProgressPercent > 0) scrollProgressPercent else 0.0F)
             }
         })
     }
