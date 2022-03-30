@@ -7,14 +7,17 @@
         android:background="@drawable/orange_dark_border_bottom">
 
         <ImageButton
+            android:id="@+id/back"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:id="@+id/back"
-            android:src="@drawable/ic_new_backarrow"
-            android:tint="@color/colorPrimaryDark"
-            android:background="@color/colorPrimary"
+            android:layout_gravity="center_vertical"
             android:layout_marginLeft="20dp"
-            android:layout_gravity="center_vertical"/>
+            android:background="@color/colorPrimary"
+            android:contentDescription="@string/dummy"
+            android:minWidth="48dp"
+            android:minHeight="48dp"
+            android:src="@drawable/ic_new_backarrow"
+            app:tint="@color/colorPrimaryDark" />
 
         <TextView
             android:id="@+id/toolbartag"

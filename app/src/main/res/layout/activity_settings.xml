@@ -6,25 +6,45 @@
     android:layout_height="match_parent"
     android:orientation="vertical"
     android:background="@color/white"
-    tools:context="com.ZellyCookies.PineApple.Profile.SettingsActivity">
+    tools:context="com.zellycookies.pineapple.profile.SettingsActivity">
 
     <!--<include layout="@layout/layout_top_navigation_back"/>-->
     <include layout="@layout/layout_top_navigation_back" />
-    
 
 
-
-
-    <Button
+    <LinearLayout
+        android:id="@+id/layout_entry"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="30dp"
-        android:background="@drawable/btn_main"
-        android:gravity="center"
-        android:onClick="Logout"
-        android:text="@string/log_out"
-        android:fontFamily="@font/iciel_cadena"
-        android:textColor="@drawable/fnt_col_main"
-        android:textSize="18sp"/>
+        android:orientation="vertical"
+        android:layout_marginTop="16dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/txt_welcome">
+
+        <Button
+            android:id="@+id/btn_changePassword"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
+            android:background="@drawable/btn_main"
+            android:gravity="center"
+            android:text="@string/change_password"
+            android:fontFamily="@font/iciel_cadena"
+            android:textColor="@drawable/fnt_col_main"
+            android:textSize="18sp"/>
+
+        <Button
+            android:id="@+id/btn_logout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
+            android:background="@drawable/btn_main"
+            android:gravity="center"
+            android:text="@string/log_out"
+            android:fontFamily="@font/iciel_cadena"
+            android:textColor="@drawable/fnt_col_main"
+            android:textSize="18sp"/>
+    </LinearLayout>
 
 </LinearLayout>
