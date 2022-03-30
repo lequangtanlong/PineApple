@@ -6,7 +6,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/white"
-    tools:context="com.ZellyCookies.PineApple.Main.ProfileCheckinMain">
+    tools:context="com.zellycookies.pineapple.main.ProfileCheckinMain">
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -16,7 +16,7 @@
         <!-- contain back activity -->
         <include layout="@layout/layout_top_navigation_back"/>
 
-        <com.ZellyCookies.PineApple.Utils.SquareImageView
+        <com.zellycookies.pineapple.utils.SquareImageView
             android:id="@+id/image_matched"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"

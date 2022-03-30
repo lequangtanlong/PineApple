@@ -6,7 +6,7 @@
     android:layout_height="match_parent"
     android:orientation="vertical"
     android:background="@color/white"
-    tools:context="com.ZellyCookies.PineApple.Profile.SettingsActivity">
+    tools:context="com.zellycookies.pineapple.profile.SettingsActivity">
 
     <!--<include layout="@layout/layout_top_navigation_back"/>-->
     <include layout="@layout/layout_top_navigation_back" />

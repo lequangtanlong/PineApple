@@ -1,57 +1,61 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.ZellyCookies.PineApple">
+    package="com.zellycookies.pineapple">
 
-<!--    <application-->
-<!--        android:allowBackup="true"-->
-<!--        android:icon="@mipmap/ic_launcher_true"-->
-<!--        android:label="@string/app_name"-->
-<!--        android:roundIcon="@mipmap/ic_launcher_true_round"-->
-<!--        android:supportsRtl="true"-->
-<!--        android:theme="@style/AppTheme">-->
-<!--        <activity-->
-<!--            android:name=".MainActivity"-->
-<!--            android:exported="false"-->
-<!--            android:label="@string/title_activity_main"-->
-<!--            android:theme="@style/NoActionBar" />-->
-<!--    </application>-->
+    <!--    <application-->
+    <!--        android:allowBackup="true"-->
+    <!--        android:icon="@mipmap/ic_launcher_true"-->
+    <!--        android:label="@string/app_name"-->
+    <!--        android:roundIcon="@mipmap/ic_launcher_true_round"-->
+    <!--        android:supportsRtl="true"-->
+    <!--        android:theme="@style/AppTheme">-->
+    <!--        <activity-->
+    <!--            android:name=".MainActivity"-->
+    <!--            android:exported="false"-->
+    <!--            android:label="@string/title_activity_main"-->
+    <!--            android:theme="@style/NoActionBar" />-->
+    <!--    </application>-->
 
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
-    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION"/>
-    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION"/>
+    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
+    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
 
     <application
         android:allowBackup="true"
-        android:label="@string/app_name"
         android:icon="@mipmap/ic_launcher_true"
+        android:label="@string/app_name"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
 
         <activity
-            android:name="com.ZellyCookies.PineApple.Login.Login"
+            android:name="com.zellycookies.pineapple.login.Login"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
-
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-<!--        <activity android:name="com.ZellyCookies.PineApple.Login.Login" />-->
-        <activity android:name="com.ZellyCookies.PineApple.Login.RegisterBasicInfo" />
-<!--        <activity android:name="com.ZellyCookies.PineApple.Matched.Matched_Activity" />-->
-<!--        <activity android:name="com.ZellyCookies.PineApple.Conversation.ConversationActivity"/>-->
-<!--        <activity android:name="com.ZellyCookies.PineApple.Profile.Profile_Activity" />-->
-<!--        <activity android:name="com.ZellyCookies.PineApple.Main.ProfileCheckinMain" />-->
-<!--        <activity android:name="com.ZellyCookies.PineApple.Matched.ProfileCheckinMatched" />-->
-<!--        <activity android:name="com.ZellyCookies.PineApple.Profile.EditProfileActivity" />-->
-        <activity android:name="com.ZellyCookies.PineApple.Introduction.IntroductionMain" />
-        <activity android:name="com.ZellyCookies.PineApple.Login.RegisterGender" />
-        <activity android:name="com.ZellyCookies.PineApple.Login.RegisterGenderPrefection" />
-        <activity android:name="com.ZellyCookies.PineApple.Login.RegisterAge" />
-        <activity android:name="com.ZellyCookies.PineApple.Login.RegisterHobby" />
-<!--        <activity android:name="com.ZellyCookies.PineApple.Profile.SettingsActivity" />-->
-<!--        <activity android:name="com.ZellyCookies.PineApple.Main.BtnLikeActivity" />-->
-<!--        <activity android:name="com.ZellyCookies.PineApple.Main.BtnDislikeActivity"></activity>-->
+        <activity android:name="com.zellycookies.pineapple.login.RegisterBasicInfo" />
+        <activity android:name="com.zellycookies.pineapple.login.RegisterGender" />
+        <activity android:name="com.zellycookies.pineapple.login.RegisterGenderPrefection" />
+        <activity android:name="com.zellycookies.pineapple.login.RegisterAge" />
+        <activity android:name="com.zellycookies.pineapple.login.RegisterHobby" />
+
+        <activity android:name="com.zellycookies.pineapple.main.MainActivity" />
+        <activity android:name="com.zellycookies.pineapple.main.BtnDislikeActivity" />
+        <activity android:name="com.zellycookies.pineapple.main.BtnLikeActivity" />
+        <activity android:name="com.zellycookies.pineapple.main.ProfileCheckinMain" />
+        <activity android:name="com.zellycookies.pineapple.main.TestingActivity"/>
+
+        <activity android:name="com.zellycookies.pineapple.profile.EditProfileActivity"/>
+        <activity android:name="com.zellycookies.pineapple.profile.Profile_Activity" />
+        <activity android:name="com.zellycookies.pineapple.profile.SettingsActivity"/>
+
+        <activity android:name="com.zellycookies.pineapple.matched.Matched_Activity"/>
+        <activity android:name="com.zellycookies.pineapple.conversation.ConversationActivity"/>
+        <activity android:name="com.zellycookies.pineapple.matched.ProfileCheckinMatched"/>
+
+        <activity android:name="com.zellycookies.pineapple.introduction.IntroductionMain" />
     </application>
 
 </manifest>
