@@ -44,6 +44,7 @@
     <string name="_4_4">4/4</string>
     <string name="configure_your_interests">Configure your interests</string>
     <string name="select_subjects">Select hobbies that you are interested in and evaluate yourself so you get matched with appropriate people.</string>
+    <string name="changepw_des">Press the button below so we can send you an email\nfor you to reset your password.</string>
     <string name="software_engineering">Software Engineering</string>
     <string name="database">Database</string>
     <string name="ui_design">UI Design</string>
@@ -78,6 +79,12 @@
     <string name="about">About</string>
     <string name="something_about_victoria">Something about Victoria</string>
     <string name="hello_world">Hello world!</string>
+    <string name="change_password">Change Password</string>
+    <string name="current_password">Current password</string>
+    <string name="new_password">New password</string>
+    <string name="confirm_new_password">Confirm new password</string>
+    <string name="submit">Submit</string>
+    <string name="send_email">Send email</string>
 
     <!-- introduction pictures-->
     <integer-array name="img_id_arr">
