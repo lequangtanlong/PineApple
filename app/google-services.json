@@ -1,34 +1,34 @@
 {
   "project_info": {
-    "project_number": "390204613014",
-    "firebase_url": "https://pineapple-20197-default-rtdb.asia-southeast1.firebasedatabase.app",
-    "project_id": "pineapple-20197",
-    "storage_bucket": "pineapple-20197.appspot.com"
+    "project_number": "207966208171",
+    "firebase_url": "https://pineapple-agile-default-rtdb.asia-southeast1.firebasedatabase.app",
+    "project_id": "pineapple-agile",
+    "storage_bucket": "pineapple-agile.appspot.com"
   },
   "client": [
     {
       "client_info": {
-        "mobilesdk_app_id": "1:390204613014:android:9910dde9164b2c6ae6fdb7",
+        "mobilesdk_app_id": "1:207966208171:android:f35c0398a59b7aacd477ee",
         "android_client_info": {
-          "package_name": "com.ZellyCookies.PineApple"
+          "package_name": "vn.agile.mad.pineapple"
         }
       },
       "oauth_client": [
         {
-          "client_id": "390204613014-hk4shlicjr9adghh77u9ql15avuuho84.apps.googleusercontent.com",
+          "client_id": "207966208171-c8s88jvpj7lc46mqb1qqgk2ms2a7ult8.apps.googleusercontent.com",
           "client_type": 3
         }
       ],
       "api_key": [
         {
-          "current_key": "AIzaSyD8M_o1SqlQLpSwNv-YBdYhwzoUkPO8ROY"
+          "current_key": "AIzaSyCXXvWZdjey-xE1hIFvpA8uVJZV_RbbBK4"
         }
       ],
       "services": {
         "appinvite_service": {
           "other_platform_oauth_client": [
             {
-              "client_id": "390204613014-hk4shlicjr9adghh77u9ql15avuuho84.apps.googleusercontent.com",
+              "client_id": "207966208171-c8s88jvpj7lc46mqb1qqgk2ms2a7ult8.apps.googleusercontent.com",
               "client_type": 3
             }
           ]
