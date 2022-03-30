@@ -12,7 +12,7 @@
                 android:layout_height="wrap_content"
                 android:id="@+id/back_matched_activity"
                 android:src="@drawable/ic_new_backarrow"
-                android:tint="@color/colorPrimaryDark"
+                app:tint="@color/colorPrimaryDark"
                 android:background="@color/colorPrimary"
                 android:layout_marginLeft="20dp"
                 android:layout_gravity="center_vertical"/>
@@ -43,7 +43,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:src="@drawable/ic_new_info"
-                android:tint="@color/colorPrimaryDark"
+                app:tint="@color/colorPrimaryDark"
                 android:background="@color/colorPrimary"
                 android:layout_marginEnd="20dp"/>
     </LinearLayout>

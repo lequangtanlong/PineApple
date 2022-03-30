@@ -9,7 +9,7 @@ android {
 //    buildToolsVersion "31.0.0"
 
     defaultConfig {
-        applicationId "com.ZellyCookies.PineApple"
+        applicationId "com.zellycookies.pineapple"
         minSdkVersion 22
         targetSdkVersion 31
         versionCode 1
@@ -67,7 +67,7 @@ dependencies {
     implementation "androidx.lifecycle:lifecycle-viewmodel-ktx:$lifecycle_version"
 
     implementation 'com.github.ittianyu:BottomNavigationViewEx:2.0.4'
-    implementation "com.android.support:design:28.0.0"
+    implementation 'com.google.android.material:material:1.6.0-beta01'
     implementation platform('com.google.firebase:firebase-bom:29.2.1')
     implementation 'com.google.firebase:firebase-analytics-ktx'
 }

@@ -77,6 +77,7 @@
     <string name="log_out">Log out</string>
     <string name="about">About</string>
     <string name="something_about_victoria">Something about Victoria</string>
+    <string name="hello_world">Hello world!</string>
 
     <!-- introduction pictures-->
     <integer-array name="img_id_arr">
