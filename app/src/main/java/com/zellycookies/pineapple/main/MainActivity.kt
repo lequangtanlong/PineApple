@@ -243,7 +243,7 @@ class MainActivity : Activity() {
                         )
                         userSex = "male"
                         //updateLocation
-                        updateLocation()
+                        //updateLocation()
                         lookforSex = dataSnapshot.getValue(
                             User::class.java
                         )!!.preferSex
@@ -267,7 +267,7 @@ class MainActivity : Activity() {
                         )
                         userSex = "female"
                         //update location
-                        updateLocation()
+                        //updateLocation()
                         lookforSex = dataSnapshot.getValue(
                             User::class.java
                         )!!.preferSex
@@ -349,7 +349,7 @@ class MainActivity : Activity() {
                             }
 
                             //calculate distance
-                            gps = GPS(mContext)
+                            // gps = GPS(mContext)
                             Log.d(
                                 TAG,
                                 "onChildAdded: the x, y of user is $latitude, $longtitude"
@@ -358,12 +358,13 @@ class MainActivity : Activity() {
                                 TAG,
                                 "onChildAdded: the other user x y is " + curUser.latitude + ", " + curUser.longtitude
                             )
-                            val distance = gps!!.calculateDistance(
-                                latitude,
-                                longtitude,
-                                curUser.latitude,
-                                curUser.longtitude
-                            )
+//                            val distance = gps!!.calculateDistance(
+//                                latitude,
+//                                longtitude,
+//                                curUser.latitude,
+//                                curUser.longtitude
+//                            )
+                            val distance = 0
                             val item = Cards(
                                 dataSnapshot.key!!, username, dob, age,
                                 profileImageUrl, bio, interest.toString(), distance
