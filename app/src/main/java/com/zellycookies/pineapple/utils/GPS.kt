@@ -13,11 +13,30 @@ import android.location.Location
 
 
 class GPS(var mContext: Context) : LocationListener {
-    var location: Location? = null
-    var mLocationManager: LocationManager
+    var mlocation: Location? = null
+    var mLocationManager: LocationManager = mContext.getSystemService(Context.LOCATION_SERVICE) as LocationManager
     var mProvider = LocationManager.GPS_PROVIDER
+
+    init {
+        if (ActivityCompat.checkSelfPermission(mContext, Manifest.permission.ACCESS_FINE_LOCATION)
+            != PackageManager.PERMISSION_GRANTED &&
+            ActivityCompat.checkSelfPermission(mContext, Manifest.permission.ACCESS_COARSE_LOCATION)
+            != PackageManager.PERMISSION_GRANTED
+        ) {
+            // Return
+        } else {
+            mlocation = mLocationManager.getLastKnownLocation(LocationManager.NETWORK_PROVIDER)
+            //onLocationChanged(mlocation!!)
+            onChangedLocation(mlocation)
+        }
+    }
+
+    fun onChangedLocation(location: Location?) {
+        this.mlocation = location
+    }
+
     override fun onLocationChanged(location: Location) {
-        this.location = this.location
+        this.mlocation = location
     }
 
     override fun onStatusChanged(provider: String, status: Int, extras: Bundle) {}
@@ -46,18 +65,5 @@ class GPS(var mContext: Context) : LocationListener {
         return rad * 180 / Math.PI
     }
 
-    init {
-        mLocationManager = mContext.getSystemService(Context.LOCATION_SERVICE) as LocationManager
-        if (ActivityCompat.checkSelfPermission(mContext, Manifest.permission.ACCESS_FINE_LOCATION)
-            != PackageManager.PERMISSION_GRANTED &&
-            ActivityCompat.checkSelfPermission(mContext, Manifest.permission.ACCESS_COARSE_LOCATION)
-            != PackageManager.PERMISSION_GRANTED
-        ) {
 
-        } else {
-            location = mLocationManager.getLastKnownLocation(LocationManager.NETWORK_PROVIDER)
-            onLocationChanged(location!!)
-        }
-
-    }
 }

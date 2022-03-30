@@ -82,7 +82,7 @@ class MainActivity : Activity() {
             )
         } else {
             gps = GPS(this)
-            val location = gps!!.location
+            val location = gps!!.mlocation
             // made the changes to set location only if location object is not null, else default location is taken
             if (location != null) {
                 latitude = location.latitude
@@ -241,7 +241,7 @@ class MainActivity : Activity() {
                         )
                         userSex = "male"
                         //updateLocation
-                        //updateLocation()
+                        updateLocation()
                         lookforSex = dataSnapshot.getValue(
                             User::class.java
                         )!!.preferSex
@@ -265,7 +265,7 @@ class MainActivity : Activity() {
                         )
                         userSex = "female"
                         //update location
-                        //updateLocation()
+                        updateLocation()
                         lookforSex = dataSnapshot.getValue(
                             User::class.java
                         )!!.preferSex
