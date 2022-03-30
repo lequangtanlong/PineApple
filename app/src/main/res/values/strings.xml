@@ -25,6 +25,7 @@
     <string name="email">Email</string>
     <string name="password">Password</string>
     <string name="have_no_account"><u>Haven\'t got an account yet? Sign up!</u></string>
+    <string name="forgot_password"><u>Forgot password</u></string>
     <string name="configure_your_profile">Configure your profile</string>
     <string name="splash_profile">splash_profile</string>
     <string name="_1_5">1/5</string>
@@ -45,6 +46,7 @@
     <string name="configure_your_interests">Configure your interests</string>
     <string name="select_subjects">Select hobbies that you are interested in and evaluate yourself so you get matched with appropriate people.</string>
     <string name="changepw_des">Press the button below so we can send you an email\nfor you to reset your password.</string>
+    <string name="forgotpw_des">Please enter your email so we can send you an email\nfor you to reset your password.</string>
     <string name="software_engineering">Software Engineering</string>
     <string name="database">Database</string>
     <string name="ui_design">UI Design</string>
