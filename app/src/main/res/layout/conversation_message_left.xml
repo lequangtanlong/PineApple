@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+              android:layout_width="match_parent"
+              android:layout_height="match_parent"
+              xmlns:app="http://schemas.android.com/apk/res-auto"
+              android:orientation="vertical"
+              android:padding="10dp">
+
+    <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+        <de.hdodenhof.circleimageview.CircleImageView
+                android:layout_width="50dp"
+                android:layout_height="50dp"
+                android:id="@+id/person_image"
+                app:civ_border_color="@color/white"
+                android:src="@drawable/img_ava_male" />
+
+        <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textSize="16sp"
+                android:padding="13dp"
+                android:background="@drawable/bg_receiver"
+                android:textColor="@color/message_text_receiver"
+                android:text="@string/message"
+                android:fontFamily="@font/bubbler_one"
+                android:textStyle="bold"
+                android:id="@+id/message" />
+
+        <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="16/12/2020 3:05PM"
+                android:id="@+id/time_send" />
+
+    </LinearLayout>
+
+    <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="end"
+            android:textAlignment="textEnd"
+            android:text="Delivered"
+            android:visibility="gone"/>
+</LinearLayout>
