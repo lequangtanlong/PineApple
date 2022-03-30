@@ -356,13 +356,13 @@ class MainActivity : Activity() {
                                 TAG,
                                 "onChildAdded: the other user x y is " + curUser.latitude + ", " + curUser.longtitude
                             )
-//                            val distance = gps!!.calculateDistance(
-//                                latitude,
-//                                longtitude,
-//                                curUser.latitude,
-//                                curUser.longtitude
-//                            )
-                            val distance = 0
+                            val distance = gps!!.calculateDistance(
+                                latitude,
+                                longtitude,
+                                curUser.latitude,
+                                curUser.longtitude
+                            )
+                            //val distance = 0
                             val item = Cards(
                                 dataSnapshot.key!!, username, dob, age,
                                 profileImageUrl, bio, interest.toString(), distance
