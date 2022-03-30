@@ -120,4 +120,22 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/input_email"/>
 
+    <TextView
+        android:id="@+id/link_forgotPassword"
+        android:layout_width="320dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        android:fontFamily="@font/bubbler_one"
+        android:text="@string/forgot_password"
+        android:textColor="@color/colorPrimary"
+        android:textSize="18sp"
+        android:textStyle="bold"
+        android:textAlignment="viewEnd"
+        app:backgroundTint="#FFFFFF"
+        app:backgroundTintMode="multiply"
+        android:layout_marginBottom="24dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/input_password"/>
+
 </androidx.constraintlayout.widget.ConstraintLayout>

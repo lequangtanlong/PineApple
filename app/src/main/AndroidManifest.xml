@@ -25,6 +25,9 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
         <activity
+            android:name=".login.ForgotPasswordActivity"
+            android:exported="false" />
+        <activity
             android:name=".login.Login"
             android:exported="true">
             <intent-filter>
@@ -46,7 +49,7 @@
         <activity android:name=".profile.EditProfileActivity" />
         <activity android:name=".profile.Profile_Activity" />
         <activity android:name=".profile.SettingsActivity" />
-        <activity android:name=".profile.ChangePasswordActivity"/>
+        <activity android:name=".profile.ChangePasswordActivity" />
         <activity android:name=".matched.Matched_Activity" />
         <activity android:name=".conversation.ConversationActivity" />
         <activity android:name=".matched.ProfileCheckinMatched" />

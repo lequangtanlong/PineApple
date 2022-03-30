@@ -112,6 +112,13 @@ class Login : AppCompatActivity() {
         /**
          * If the user is logged in then navigate to HomeActivity and call 'finish()'
          */
+
+        val linkForgotPassword = findViewById<View>(R.id.link_forgotPassword)
+        linkForgotPassword.setOnClickListener {
+            Log.d(TAG, "onClick: navigating to forgot password screen")
+            val intent = Intent(this@Login, ForgotPasswordActivity::class.java)
+            startActivity(intent)
+        }
         if (mAuth != null && mAuth?.currentUser != null) {
             val intent = Intent(this@Login, Profile_Activity::class.java)
             startActivity(intent)
