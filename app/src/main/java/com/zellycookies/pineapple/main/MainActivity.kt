@@ -2,15 +2,21 @@ package com.zellycookies.pineapple.main
 
 import android.Manifest
 import android.app.Activity
+import android.app.Notification
+import android.app.NotificationChannel
+import android.app.NotificationManager
 import android.content.Context
 import android.content.Intent
 import android.content.pm.PackageManager
+import android.os.Build
 import android.os.Bundle
 import android.util.Log
 import android.view.View
 import android.widget.ListView
 import android.widget.Toast
 import androidx.core.app.ActivityCompat
+import androidx.core.app.NotificationCompat
+import androidx.core.app.NotificationManagerCompat
 import androidx.core.content.ContextCompat
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import com.zellycookies.pineapple.introduction.IntroductionMain
@@ -58,6 +64,7 @@ class MainActivity : Activity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
+        createNotificationChannel()
         usersDb = FirebaseDatabase.getInstance().reference
         mFirebaseFirestore = FirebaseFirestore.getInstance()
         mNotificationHelper = NotificationHelper(this)
@@ -217,11 +224,37 @@ class MainActivity : Activity() {
     }
 
     fun sendNotification() {
-        val nb = mNotificationHelper!!.getChannel1Notification(
+        /*val nb = mNotificationHelper!!.getChannel1Notification(
             mContext.getString(R.string.app_name),
             mContext.getString(R.string.match_notification)
         )
-        mNotificationHelper!!.manager!!.notify(1, nb.build())
+        mNotificationHelper!!.manager!!.notify(1, nb.build())*/
+
+        createNotificationChannel()
+
+        val builder = NotificationCompat.Builder(this, "channel_match")
+            .setSmallIcon(R.drawable.ic_baseline_notifications_24)
+            .setContentTitle("PineApple")
+            .setContentText("You've got a new match!")
+            .setPriority(NotificationCompat.PRIORITY_DEFAULT)
+
+        with(NotificationManagerCompat.from(this)) {
+            notify(0, builder.build())
+        }
+    }
+
+    private fun createNotificationChannel() {
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+            val name = "Matching Channel"
+            val descriptionContent = "A channel for matching"
+            val importance = NotificationManager.IMPORTANCE_DEFAULT
+            val channel = NotificationChannel("channel_match", name, importance).apply {
+                description = descriptionContent
+            }
+            val notificationManager : NotificationManager =
+                getSystemService(Context.NOTIFICATION_SERVICE) as NotificationManager
+            notificationManager.createNotificationChannel(channel)
+        }
     }
 
     /**
@@ -356,13 +389,19 @@ class MainActivity : Activity() {
                                 TAG,
                                 "onChildAdded: the other user x y is " + curUser.latitude + ", " + curUser.longtitude
                             )
-                            val distance = gps!!.calculateDistance(
-                                latitude,
-                                longtitude,
-                                curUser.latitude,
-                                curUser.longtitude
+                            val distance =
+                                if (gps != null)
+                                    gps!!.calculateDistance(
+                                        latitude,
+                                        longtitude,
+                                        curUser.latitude,
+                                        curUser.longtitude
+                                    )
+                                else 0
+                            Log.d(
+                                TAG,
+                                "distance is " + distance
                             )
-                            //val distance = 0
                             val item = Cards(
                                 dataSnapshot.key!!, username, dob, age,
                                 profileImageUrl, bio, interest.toString(), distance
