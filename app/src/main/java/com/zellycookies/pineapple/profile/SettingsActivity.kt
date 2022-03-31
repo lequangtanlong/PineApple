@@ -27,7 +27,7 @@ class SettingsActivity : AppCompatActivity() {
         //setup display content
         buttonSetup()
         val toolbar = findViewById<View>(R.id.toolbartag) as TextView
-        toolbar.text = "Profile"
+        toolbar.text = "Settings"
 
         //setup buttons
         val back = findViewById<View>(R.id.back) as ImageButton

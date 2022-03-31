@@ -25,6 +25,9 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
         <activity
+            android:name=".profile.ViewWhoLikesYouActivity"
+            android:exported="false" />
+        <activity
             android:name=".login.Login"
             android:exported="true">
             <intent-filter>

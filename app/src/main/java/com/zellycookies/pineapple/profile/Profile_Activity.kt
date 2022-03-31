@@ -5,6 +5,7 @@ import android.content.Intent
 import android.os.Bundle
 import android.util.Log
 import android.view.View
+import android.widget.Button
 import android.widget.ImageButton
 import android.widget.ImageView
 import android.widget.TextView
@@ -62,6 +63,12 @@ class Profile_Activity : AppCompatActivity() {
             val intent = Intent(this@Profile_Activity, SettingsActivity::class.java)
             startActivity(intent)
         }
+        val btnVWLY = findViewById<View>(R.id.btnVWLY)
+        btnVWLY.setOnClickListener {
+            val intent = Intent(this@Profile_Activity, ViewWhoLikesYouActivity::class.java)
+            startActivity(intent)
+        }
+
     }
 
     override fun onResume() {
