@@ -101,6 +101,7 @@ class Login : AppCompatActivity() {
                             // ...
                         }
                     })
+                Log.d(TAG, "Finished logging in.")
             }
         }
         val linkSignUp: TextView = findViewById<View>(R.id.link_signup) as TextView
