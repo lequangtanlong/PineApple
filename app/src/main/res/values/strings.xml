@@ -87,6 +87,7 @@
     <string name="confirm_new_password">Confirm new password</string>
     <string name="submit">Submit</string>
     <string name="send_email">Send email</string>
+    <string name="view_who_likes_you">View who likes you</string>
 
     <!-- introduction pictures-->
     <integer-array name="img_id_arr">
