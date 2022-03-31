@@ -56,7 +56,7 @@ class RegisterBasicInfo : AppCompatActivity() {
             password = mPassword?.getText().toString()
             if (checkInputs(email, username, password)) {
                 //find geo location
-                val location: Location? = gps?.location
+                val location: Location? = gps?.mlocation
                 var latitude = 37.349642
                 var longtitude = -121.938987
                 if (location != null) {
