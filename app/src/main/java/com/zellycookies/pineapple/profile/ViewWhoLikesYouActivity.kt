@@ -7,10 +7,7 @@ import android.text.Editable
 import android.text.TextWatcher
 import android.util.Log
 import android.view.View
-import android.widget.AdapterView
-import android.widget.EditText
-import android.widget.ListView
-import android.widget.TextView
+import android.widget.*
 import androidx.appcompat.app.AppCompatActivity
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import com.zellycookies.pineapple.conversation.ConversationActivity
@@ -59,6 +56,9 @@ class ViewWhoLikesYouActivity : AppCompatActivity() {
         toolbar.text = "View who likes you"
 
         setupFirebaseAuth()
+
+        val back = findViewById<View>(R.id.back) as ImageButton
+        back.setOnClickListener { onBackPressed() }
         searchFunc()
         userId = FirebaseAuth.getInstance().currentUser!!.uid
         gps = GPS(this)
@@ -206,7 +206,24 @@ class ViewWhoLikesYouActivity : AppCompatActivity() {
         val intent = Intent(this, ProfileCheckinMain::class.java)
         //        intent.putExtra("classUser", user);
 //        intent.putExtra("distance", distance);
-        intent.putExtra("groupObject", groupObject)
+
+        val name: String? = user.username
+        val dob: String? = user.dateOfBirth
+        val bio: String? = user.description
+        val isSE: String = if (user.isSE) "SE\t" else ""
+        val isOOP: String = if (user.isOop) "OOP\t" else ""
+        val isUI: String = if (user.isDesign) "UI/UX\t" else ""
+        val isDB: String = if (user.isDatabase) "DB" else ""
+        val interest: String = "$isSE$isOOP$isUI$isDB."
+        val profileImageURL : String? = user.profileImageUrl
+
+        intent.putExtra("name", name)
+        intent.putExtra("dob", dob)
+        intent.putExtra("bio", bio)
+        intent.putExtra("interest", interest)
+        intent.putExtra("distance", distance)
+        intent.putExtra("photo", profileImageURL)
+
         startActivity(intent)
     }
 
@@ -233,7 +250,6 @@ class ViewWhoLikesYouActivity : AppCompatActivity() {
         }
     }
 
-    override fun onBackPressed() {}
     public override fun onStart() {
         super.onStart()
         // Check if user is signed in (non-null) and update UI accordingly.
