@@ -38,7 +38,7 @@
         <activity android:name=".login.RegisterGenderPrefection" />
         <activity android:name=".login.RegisterAge" />
         <activity android:name=".login.RegisterHobby" />
-        <activity android:name=".login.ForgotPasswordActivity"/>
+        <activity android:name=".login.ForgotPasswordActivity" />
         <activity android:name=".main.MainActivity" />
         <activity android:name=".main.BtnDislikeActivity" />
         <activity android:name=".main.BtnLikeActivity" />
