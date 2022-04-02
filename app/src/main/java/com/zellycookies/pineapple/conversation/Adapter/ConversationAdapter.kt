@@ -14,21 +14,18 @@ import com.google.firebase.auth.FirebaseUser
 
 class ConversationAdapter(messageList: ArrayList<MessageObject>) :
     RecyclerView.Adapter<ConversationAdapter.MessageViewHolder>() {
-    var messageList: ArrayList<MessageObject>
+    var messageList: ArrayList<MessageObject> = messageList
     var mFirebaseUser: FirebaseUser? = null
     override fun onCreateViewHolder(
         parent: ViewGroup,
         viewType: Int
     ): MessageViewHolder {
-        val layoutView: View
-        if (viewType == MSG_TYPE_RIGHT) {
-            layoutView = LayoutInflater.from(parent.context)
-                .inflate(R.layout.conversation_message_right, null, false)
+        var layoutView: View = if (viewType == MSG_TYPE_RIGHT) {
+            LayoutInflater.from(parent.context).inflate(R.layout.conversation_message_right, null, false)
         } else {
-            layoutView = LayoutInflater.from(parent.context)
-                .inflate(R.layout.conversation_message_left, null, false)
+            LayoutInflater.from(parent.context).inflate(R.layout.conversation_message_left, null, false)
         }
-        val lp = RecyclerView.LayoutParams(
+        var lp = RecyclerView.LayoutParams(
             ViewGroup.LayoutParams.MATCH_PARENT,
             ViewGroup.LayoutParams.WRAP_CONTENT
         )
@@ -48,8 +45,8 @@ class ConversationAdapter(messageList: ArrayList<MessageObject>) :
     }
 
     override fun onBindViewHolder(holder: MessageViewHolder, position: Int) {
-        holder.mTimeSend.setText(messageList[position].datetime)
-        holder.mMessage.setText(messageList[position].senderId)
+        holder.mTimeSend.text = messageList[position].datetime
+        holder.mMessage.text = messageList[position].message
     }
 
     override fun getItemCount(): Int {
@@ -60,11 +57,11 @@ class ConversationAdapter(messageList: ArrayList<MessageObject>) :
     inner class MessageViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         var mMessage: TextView
         var mTimeSend: TextView
-        var mLayout: LinearLayout
+        //var mLayout: LinearLayout
 
         init {
-            Log.d(TAG, "MessageViewHolder: is actived")
-            mLayout = itemView.findViewById(R.id.sendLayout)
+            Log.d(TAG, "MessageViewHolder: is activated")
+            //mLayout = itemView.findViewById(R.id.sendLayout)
             mTimeSend = itemView.findViewById(R.id.time_send)
             mMessage = itemView.findViewById(R.id.message)
         }
@@ -76,7 +73,4 @@ class ConversationAdapter(messageList: ArrayList<MessageObject>) :
         private const val MSG_TYPE_RIGHT = 1
     }
 
-    init {
-        this.messageList = messageList
-    }
 }
