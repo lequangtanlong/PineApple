@@ -22,4 +22,11 @@
 
     </item>
 
+    <item
+        android:id="@+id/ic_utility"
+        android:icon="@drawable/ic_baseline_dashboard_24"
+        android:title="@string/utility">
+
+    </item>
+
 </menu>
