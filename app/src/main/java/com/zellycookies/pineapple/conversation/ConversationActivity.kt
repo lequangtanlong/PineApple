@@ -146,13 +146,13 @@ class ConversationActivity : AppCompatActivity() {
     private fun initializeMessage() {
         messageList = ArrayList()
         mChat = findViewById(R.id.messageList)
-        mChat?.setNestedScrollingEnabled(false)
+        mChat?.isNestedScrollingEnabled = false
         mChat?.setHasFixedSize(false)
         mChatLayoutManager =
             LinearLayoutManager(applicationContext, LinearLayoutManager.VERTICAL, false)
-        mChat?.setLayoutManager(mChatLayoutManager)
+        mChat?.layoutManager = mChatLayoutManager
         mChatAdapter = ConversationAdapter(messageList!!)
-        mChat?.setAdapter(mChatAdapter)
+        mChat?.adapter = mChatAdapter
     }
 
     private fun sendMessage() {
