@@ -18,7 +18,9 @@ import androidx.core.app.ActivityCompat
 import androidx.core.app.NotificationCompat
 import androidx.core.app.NotificationManagerCompat
 import androidx.core.content.ContextCompat
+import androidx.viewpager.widget.ViewPager
 import com.google.android.material.bottomnavigation.BottomNavigationView
+import com.google.android.material.tabs.TabLayout
 import com.zellycookies.pineapple.introduction.IntroductionMain
 import com.zellycookies.pineapple.utils.CalculateAge
 import com.zellycookies.pineapple.utils.GPS
@@ -56,6 +58,9 @@ class MainActivity : Activity() {
     var rowItems: MutableList<Cards>? = null
     var gps: GPS? = null
 
+    private var tabLayout : TabLayout? = null
+    private var viewPager : ViewPager? = null
+
     //firebase
     private var mAuth: FirebaseAuth? = null
     private var mAuthListener: FirebaseAuth.AuthStateListener? = null
@@ -69,6 +74,7 @@ class MainActivity : Activity() {
         mFirebaseFirestore = FirebaseFirestore.getInstance()
         mNotificationHelper = NotificationHelper(this)
         setupFirebaseAuth()
+        setupTabLayout()
         setupTopNavigationView()
         checkUserSex()
         rowItems = ArrayList()
@@ -453,6 +459,23 @@ class MainActivity : Activity() {
             btnClick.putExtra("url", card_item.profileImageUrl)
             startActivity(btnClick)
         }
+    }
+
+    private fun setupTabLayout() {
+        tabLayout = findViewById(R.id.tabLayout)
+
+        tabLayout!!.addTab(tabLayout!!.newTab().setText("Swipe"))
+        tabLayout!!.addTab(tabLayout!!.newTab().setText("Blind Date"))
+        tabLayout!!.tabGravity = TabLayout.GRAVITY_FILL
+
+        tabLayout!!.addOnTabSelectedListener(object: TabLayout.OnTabSelectedListener {
+            override fun onTabSelected(tab: TabLayout.Tab?) {
+
+            }
+
+            override fun onTabUnselected(tab: TabLayout.Tab?) {}
+            override fun onTabReselected(tab: TabLayout.Tab?) {}
+        })
     }
 
     /**
