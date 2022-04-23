@@ -20,6 +20,7 @@
     <string name="already_have_an_account_login">Already have an account? Login!</string>
     <string name="splash_welcome">splash_welcome</string>
     <string name="welcome_to_pineapple">Welcome to PineApple</string>
+    <string name="confirm_delete_account">You\'re about to delete your account\nEnter your email and password to confirm</string>
     <string name="a_place_where">A place where you can connect to people\nwho can help with your study, and vice versa</string>
     <string name="welcome_back">Welcome back!</string>
     <string name="email">Email</string>
@@ -89,6 +90,8 @@
     <string name="send_email">Send email</string>
     <string name="view_who_likes_you">View who likes you</string>
     <string name="utility">Utility</string>
+    <string name="delete_account">Delete Account</string>
+    <string name="are_you_sure">Are you sure?</string>
 
     <!-- introduction pictures-->
     <integer-array name="img_id_arr">
