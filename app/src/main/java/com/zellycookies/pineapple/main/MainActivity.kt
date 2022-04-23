@@ -519,6 +519,6 @@ class MainActivity : Activity() {
 
     companion object {
         private const val TAG = "MainActivity"
-        private const val ACTIVITY_NUM = 1
+        private const val ACTIVITY_NUM = 0
     }
 }

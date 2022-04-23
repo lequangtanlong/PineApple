@@ -254,6 +254,6 @@ class Matched_Activity : AppCompatActivity() {
 
     companion object {
         private const val TAG = "Matched_Activity"
-        private const val ACTIVITY_NUM = 0
+        private const val ACTIVITY_NUM = 1
     }
 }
