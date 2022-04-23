@@ -23,21 +23,25 @@ class TopNavigationViewHelper {
         fun enableNavigation(context: Context, view: BottomNavigationView) {
             view.setOnNavigationItemSelectedListener { item ->
                 when (item.itemId) {
-                    R.id.ic_profile -> {
-                        val intent2 = Intent(context, Profile_Activity::class.java)
-                        context.startActivity(intent2)
-                    }
                     R.id.ic_main -> {
-                        val intent1 = Intent(context, MainActivity::class.java)
-                        context.startActivity(intent1)
+                        val intent = Intent(context, MainActivity::class.java)
+                        context.startActivity(intent)
+                    }
+                    R.id.ic_fire -> {
+                        val intent = Intent(context, Matched_Activity::class.java)
+                        context.startActivity(intent)
                     }
                     R.id.ic_matched -> {
-                        val intent3 = Intent(context, Matched_Activity::class.java)
-                        context.startActivity(intent3)
+                        val intent = Intent(context, Matched_Activity::class.java)
+                        context.startActivity(intent)
                     }
                     R.id.ic_utility -> {
-                        val intent4 = Intent(context, UtilityActivity::class.java)
-                        context.startActivity(intent4)
+                        val intent = Intent(context, UtilityActivity::class.java)
+                        context.startActivity(intent)
+                    }
+                    R.id.ic_settings -> {
+                        val intent = Intent(context, Profile_Activity::class.java)
+                        context.startActivity(intent)
                     }
                 }
                 false
