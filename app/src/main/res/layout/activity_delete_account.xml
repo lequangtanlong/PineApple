@@ -1,0 +1,102 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".DeleteAccountActivity"
+    android:background="@color/white">
+
+    <!--<include layout="@layout/layout_top_navigation_back"/>-->
+    <include layout="@layout/layout_top_navigation_back" />
+
+    <TextView
+        android:id="@+id/txt_welcome"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/are_you_sure"
+        android:fontFamily="@font/iciel_cadena"
+        android:textColor="@color/colorPrimaryDark"
+        android:textSize="32sp"
+        android:layout_marginTop="80dp"
+        app:layout_constraintStart_toStartOf="@id/layout_entry"
+        app:layout_constraintTop_toTopOf="parent"/>
+
+    <TextView
+        android:id="@+id/txt_content"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/confirm_delete_account"
+        android:fontFamily="@font/bubbler_one"
+        android:textStyle="bold"
+        android:textColor="@color/colorPrimaryGrey"
+        android:textSize="18sp"
+        android:textAlignment="textStart"
+        android:layout_marginTop="16dp"
+        app:layout_constraintTop_toBottomOf="@id/txt_welcome"
+        app:layout_constraintStart_toStartOf="@id/txt_welcome"/>
+
+    <LinearLayout
+        android:id="@+id/layout_entry"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:layout_marginTop="8dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/txt_content">
+        <EditText
+            android:id="@+id/input_email"
+            android:layout_width="320dp"
+            android:layout_height="wrap_content"
+            android:ems="10"
+            android:background="@drawable/custom_entry"
+            android:drawableStart="@drawable/ic_email"
+            android:drawableTint="@color/grey"
+            android:paddingHorizontal="12dp"
+            android:paddingVertical="12dp"
+            android:drawablePadding="12dp"
+            android:autofillHints="Email"
+            android:hint="@string/email"
+            android:inputType="textEmailAddress"
+            android:fontFamily="@font/bubbler_one"
+            android:textSize="18sp"
+            android:textStyle="bold"
+            android:layout_marginTop="16dp"
+            tools:targetApi="m" />
+
+        <EditText
+            android:id="@+id/input_password"
+            android:layout_width="320dp"
+            android:layout_height="wrap_content"
+            android:ems="10"
+            android:background="@drawable/custom_entry"
+            android:drawableStart="@drawable/ic_password"
+            android:paddingHorizontal="12dp"
+            android:paddingVertical="12dp"
+            android:drawablePadding="12dp"
+            android:autofillHints="Password"
+            android:hint="@string/password"
+            android:inputType="textPassword"
+            android:fontFamily="@font/bubbler_one"
+            android:textSize="18sp"
+            android:textStyle="bold"
+            android:drawableTint="@color/grey"
+            android:layout_marginTop="16dp"
+            tools:targetApi="m" />
+
+        <Button
+            android:id="@+id/btn_deleteAccount"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="32dp"
+            android:background="@drawable/btn_danger"
+            android:gravity="center"
+            android:text="@string/delete_account"
+            android:fontFamily="@font/iciel_cadena"
+            android:textColor="@drawable/fnt_col_main"
+            android:textSize="18sp" />
+
+    </LinearLayout>
+
+</androidx.constraintlayout.widget.ConstraintLayout>

@@ -35,11 +35,23 @@
             android:textSize="18sp"/>
 
         <Button
+            android:id="@+id/btn_deleteAccount"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
+            android:background="@drawable/btn_danger"
+            android:gravity="center"
+            android:text="@string/delete_account"
+            android:fontFamily="@font/iciel_cadena"
+            android:textColor="@drawable/fnt_col_main"
+            android:textSize="18sp"/>
+
+        <Button
             android:id="@+id/btn_logout"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="16dp"
-            android:background="@drawable/btn_main"
+            android:background="@drawable/btn_alt"
             android:gravity="center"
             android:text="@string/log_out"
             android:fontFamily="@font/iciel_cadena"

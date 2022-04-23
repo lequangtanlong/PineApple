@@ -12,6 +12,7 @@ import com.zellycookies.pineapple.login.Login
 import com.zellycookies.pineapple.R
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.FirebaseAuth.AuthStateListener
+import com.zellycookies.pineapple.DeleteAccountActivity
 
 class SettingsActivity : AppCompatActivity() {
     //firebase
@@ -41,6 +42,9 @@ class SettingsActivity : AppCompatActivity() {
         findViewById<Button>(R.id.btn_changePassword).setOnClickListener {
             funChangePassword()
         }
+        findViewById<Button>(R.id.btn_deleteAccount).setOnClickListener {
+            funDeleteAccount()
+        }
     }
 
     //Logout/Signout
@@ -52,6 +56,13 @@ class SettingsActivity : AppCompatActivity() {
     // Change password
     private fun funChangePassword() {
         val intent = Intent(this@SettingsActivity, ChangePasswordActivity::class.java)
+        startActivity(intent)
+        finish()
+    }
+
+    // Delete account
+    private fun funDeleteAccount() {
+        val intent = Intent(this@SettingsActivity, DeleteAccountActivity::class.java)
         startActivity(intent)
         finish()
     }
