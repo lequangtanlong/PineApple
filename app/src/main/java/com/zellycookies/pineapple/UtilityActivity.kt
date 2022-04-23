@@ -31,6 +31,6 @@ class UtilityActivity : AppCompatActivity() {
 
     companion object {
         private const val TAG = "UtilityActivity"
-        private const val ACTIVITY_NUM = 2
+        private const val ACTIVITY_NUM = 3
     }
 }

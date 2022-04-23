@@ -212,7 +212,7 @@ class Profile_Activity : AppCompatActivity() {
 
     companion object {
         private const val TAG = "Profile_Activity"
-        private const val ACTIVITY_NUM = 3
+        private const val ACTIVITY_NUM = 4
         var active = false
     }
 }
