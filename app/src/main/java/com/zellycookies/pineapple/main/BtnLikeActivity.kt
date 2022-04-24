@@ -57,6 +57,6 @@ class BtnLikeActivity : AppCompatActivity()  {
 
     companion object {
         private const val TAG = "BtnLikeActivity"
-        private const val ACTIVITY_NUM = 1
+        private const val ACTIVITY_NUM = 0
     }
 }

@@ -61,6 +61,6 @@ class BtnDislikeActivity : AppCompatActivity() {
 
     companion object {
         private const val TAG = "BtnDislikeActivity"
-        private const val ACTIVITY_NUM = 1
+        private const val ACTIVITY_NUM = 0
     }
 }
