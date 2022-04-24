@@ -51,7 +51,7 @@ class DeleteAccountActivity : AppCompatActivity() {
             } else {
                 Toast.makeText(
                     this@DeleteAccountActivity,
-                    "Failed to re-authenticate.",
+                    "Failed to re-authenticate",
                     Toast.LENGTH_SHORT
                 ).show()
                 Log.d(TAG, "Failed to re-authenticate user")

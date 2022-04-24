@@ -101,6 +101,7 @@
     <string name="logout">Logout</string>
     <string name="home">Home</string>
     <string name="account">Account</string>
+    <string name="confirm">Confirm</string>
 
     <!-- introduction pictures-->
     <integer-array name="img_id_arr">
