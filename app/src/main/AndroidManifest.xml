@@ -54,7 +54,7 @@
         <activity android:name=".login.RegisterAge" />
         <activity android:name=".login.RegisterHobby" />
         <activity android:name=".login.ForgotPasswordActivity" />
-        <activity android:name=".main.MainActivity" />
+        <activity android:name=".home.HomeSwipeActivity" />
         <activity android:name=".main.BtnDislikeActivity" />
         <activity android:name=".main.BtnLikeActivity" />
         <activity android:name=".main.ProfileCheckinMain" />

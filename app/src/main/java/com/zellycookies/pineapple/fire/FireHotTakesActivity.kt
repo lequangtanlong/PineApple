@@ -20,7 +20,7 @@ class FireHotTakesActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_utility_likes)
+        setContentView(R.layout.activity_fire_hot_takes)
         setupTabLayout()
         setupTopNavigationView()
     }

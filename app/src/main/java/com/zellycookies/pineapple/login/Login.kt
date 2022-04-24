@@ -17,9 +17,8 @@ import com.google.firebase.auth.AuthResult
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.FirebaseUser
 import com.zellycookies.pineapple.R
+import com.zellycookies.pineapple.home.HomeSwipeActivity
 
-import com.zellycookies.pineapple.main.MainActivity
-import com.zellycookies.pineapple.main.TestingActivity
 import com.zellycookies.pineapple.profile.Profile_Activity
 import java.lang.NullPointerException
 
@@ -72,7 +71,7 @@ class Login : AppCompatActivity() {
                                     if (user != null) {
                                         if (user.isEmailVerified()) {
                                             Log.d(TAG, "onComplete: success, email is verified.")
-                                            val intent = Intent(this@Login, MainActivity::class.java)
+                                            val intent = Intent(this@Login, HomeSwipeActivity::class.java)
                                             startActivity(intent)
                                         } else {
                                             Toast.makeText(

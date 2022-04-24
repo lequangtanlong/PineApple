@@ -11,8 +11,8 @@ import androidx.appcompat.app.AppCompatActivity
 import com.zellycookies.pineapple.utils.TopNavigationViewHelper
 import com.bumptech.glide.Glide
 import com.google.android.material.bottomnavigation.BottomNavigationView
-import com.ittianyu.bottomnavigationviewex.BottomNavigationViewEx
 import com.zellycookies.pineapple.R
+import com.zellycookies.pineapple.home.HomeSwipeActivity
 
 class BtnLikeActivity : AppCompatActivity()  {
     private val mContext: Context = this@BtnLikeActivity
@@ -39,7 +39,7 @@ class BtnLikeActivity : AppCompatActivity()  {
             } catch (e: InterruptedException) {
                 e.printStackTrace()
             }
-            val mainIntent = Intent(this@BtnLikeActivity, MainActivity::class.java)
+            val mainIntent = Intent(this@BtnLikeActivity, HomeSwipeActivity::class.java)
             startActivity(mainIntent)
         }.start()
     }
