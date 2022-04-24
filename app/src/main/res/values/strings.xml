@@ -20,7 +20,7 @@
     <string name="already_have_an_account_login">Already have an account? Login!</string>
     <string name="splash_welcome">splash_welcome</string>
     <string name="welcome_to_pineapple">Welcome to PineApple</string>
-    <string name="confirm_delete_account">You\'re about to delete your account\nEnter your email and password to confirm</string>
+    <string name="confirm_delete_account">You\'re about to delete your account\nEnter your password to confirm</string>
     <string name="a_place_where">A place where you can connect to people\nwho can help with your study, and vice versa</string>
     <string name="welcome_back">Welcome back!</string>
     <string name="email">Email</string>
