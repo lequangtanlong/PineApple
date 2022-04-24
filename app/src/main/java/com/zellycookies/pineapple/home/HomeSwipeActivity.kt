@@ -151,8 +151,9 @@ class HomeSwipeActivity : Activity() {
                 // this is the simplest way to delete an object from the Adapter (/AdapterView)
                 Log.d("LIST", "removed object!")
 
-                val removedCard = rowItems!!.removeAt(0)
-                swipedCards.addLast(removedCard)
+                //val removedCard =
+                rowItems!!.removeAt(0)
+                //swipedCards.addLast(removedCard)
 
                 arrayAdapter?.notifyDataSetChanged()
             }
@@ -461,7 +462,7 @@ class HomeSwipeActivity : Activity() {
             isConnectionMatch(userId)
 
             rowItems!!.removeAt(0)
-            swipedCards.addLast(card_item)
+            //swipedCards.addLast(card_item)
 
             arrayAdapter?.notifyDataSetChanged()
             val btnClick = Intent(mContext, BtnLikeActivity::class.java)
@@ -474,8 +475,6 @@ class HomeSwipeActivity : Activity() {
         if (swipedCards.size != 0) {
             val swipedCard = swipedCards.removeLast()
             rowItems!!.add(0, swipedCard)
-            Log.d("Rewind", swipedCard.userId.toString())
-            Log.d("Rewind", rowItems!![0].userId)
 
             arrayAdapter?.notifyDataSetChanged()
         }
