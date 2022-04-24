@@ -99,6 +99,7 @@
     <string name="information">Information</string>
     <string name="notifications">Notifications</string>
     <string name="logout">Logout</string>
+    <string name="home">Home</string>
 
     <!-- introduction pictures-->
     <integer-array name="img_id_arr">
