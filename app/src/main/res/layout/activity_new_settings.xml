@@ -47,7 +47,7 @@
             android:layout_height="wrap_content"
             android:textColor="@color/colorPrimaryDark"
             android:drawableStart="@drawable/ic_baseline_info_36"
-            android:text="@string/information"
+            android:text="@string/account"
             android:textSize="20sp"
             android:fontFamily="@font/iciel_cadena"
             android:background="@drawable/btn_option"
@@ -63,19 +63,6 @@
             android:textSize="20sp"
             android:fontFamily="@font/iciel_cadena"
             android:background="@drawable/btn_option"
-            android:layout_marginTop="16dp"/>
-
-        <Button
-            android:id="@+id/btn_settings_logout"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:textColor="@color/dislikered"
-            android:drawableStart="@drawable/ic_baseline_exit_to_app_36"
-            android:text="@string/logout"
-            android:textSize="20sp"
-            android:fontFamily="@font/iciel_cadena"
-            android:drawableTint="@color/dislikered"
-            android:background="@drawable/btn_option_danger"
             android:layout_marginTop="16dp"/>
 
     </LinearLayout>

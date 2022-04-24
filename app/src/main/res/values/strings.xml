@@ -100,6 +100,7 @@
     <string name="notifications">Notifications</string>
     <string name="logout">Logout</string>
     <string name="home">Home</string>
+    <string name="account">Account</string>
 
     <!-- introduction pictures-->
     <integer-array name="img_id_arr">

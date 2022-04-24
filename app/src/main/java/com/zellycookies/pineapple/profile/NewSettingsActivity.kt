@@ -27,26 +27,16 @@ import java.util.ArrayList
 
 class NewSettingsActivity : AppCompatActivity() {
     private val mContext: Context = this@NewSettingsActivity
-    private var userId: String? = null
-    var gps: GPS? = null
 
     //firebase
     private var mAuth: FirebaseAuth? = null
     private var mAuthListener: FirebaseAuth.AuthStateListener? = null
-    private var dbRef: DatabaseReference? = null
-    private var firebaseMethods: FirebaseMethods? = null
-    private var mFirebaseFirestore: FirebaseFirestore? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_new_settings)
-        firebaseMethods = FirebaseMethods(mContext)
         setupFirebaseAuth()
         setupTopNavigationView()
-        userId = FirebaseAuth.getInstance().currentUser!!.uid
-        gps = GPS(this)
-        dbRef = FirebaseDatabase.getInstance().reference
-        mFirebaseFirestore = FirebaseFirestore.getInstance()
 
         addButtonListener()
     }
@@ -56,15 +46,10 @@ class NewSettingsActivity : AppCompatActivity() {
         val btnFilter : Button = findViewById(R.id.btn_settings_filter)
         val btnInfo : Button = findViewById(R.id.btn_settings_info)
         val btnNoti : Button = findViewById(R.id.btn_settings_noti)
-        val btnLogout : Button = findViewById(R.id.btn_logout)
 
         btnEditProfile.setOnClickListener {
             val intent = Intent(this@NewSettingsActivity, EditProfileActivity::class.java)
             startActivity(intent)
-        }
-        btnLogout.setOnClickListener {
-            mAuth!!.signOut()
-            finish()
         }
     }
 
