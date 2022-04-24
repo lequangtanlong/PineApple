@@ -11,6 +11,7 @@ import android.os.Build
 import android.os.Bundle
 import android.util.Log
 import android.view.View
+import android.widget.Button
 import android.widget.ListView
 import android.widget.Toast
 import androidx.core.app.ActivityCompat
@@ -18,22 +19,23 @@ import androidx.core.app.NotificationCompat
 import androidx.core.app.NotificationManagerCompat
 import androidx.core.content.ContextCompat
 import com.google.android.material.bottomnavigation.BottomNavigationView
+import com.google.android.material.snackbar.Snackbar
 import com.google.android.material.tabs.TabLayout
-import com.zellycookies.pineapple.introduction.IntroductionMain
-import com.zellycookies.pineapple.utils.CalculateAge
-import com.zellycookies.pineapple.utils.GPS
-import com.zellycookies.pineapple.utils.User
 import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.auth.FirebaseAuth.AuthStateListener
 import com.google.firebase.auth.FirebaseUser
 import com.google.firebase.database.*
 import com.google.firebase.firestore.FieldValue
 import com.google.firebase.firestore.FirebaseFirestore
 import com.lorentzos.flingswipe.SwipeFlingAdapterView
-import com.zellycookies.pineapple.utils.TopNavigationViewHelper
-import com.google.firebase.auth.FirebaseAuth.AuthStateListener
 import com.zellycookies.pineapple.R
+import com.zellycookies.pineapple.introduction.IntroductionMain
 import com.zellycookies.pineapple.main.*
-import com.zellycookies.pineapple.utility.UtilityLikesActivity
+import com.zellycookies.pineapple.utils.CalculateAge
+import com.zellycookies.pineapple.utils.GPS
+import com.zellycookies.pineapple.utils.TopNavigationViewHelper
+import com.zellycookies.pineapple.utils.User
+
 
 class HomeSwipeActivity : Activity() {
     private val MY_PERMISSIONS_REQUEST_LOCATION = 123
@@ -55,6 +57,7 @@ class HomeSwipeActivity : Activity() {
     private var arrayAdapter: PhotoAdapter? = null
     var listView: ListView? = null
     var rowItems: MutableList<Cards>? = null
+    var swipedCards = ArrayDeque<Cards>(listOf())
     var gps: GPS? = null
 
     private var tabLayout : TabLayout? = null
@@ -147,7 +150,10 @@ class HomeSwipeActivity : Activity() {
             override fun removeFirstObjectInAdapter() {
                 // this is the simplest way to delete an object from the Adapter (/AdapterView)
                 Log.d("LIST", "removed object!")
-                rowItems!!.removeAt(0)
+
+                var removedCard = rowItems!!.removeAt(0)
+                swipedCards.addLast(removedCard)
+
                 arrayAdapter?.notifyDataSetChanged()
             }
 
@@ -185,9 +191,7 @@ class HomeSwipeActivity : Activity() {
     }
 
     private fun isConnectionMatch(userId: String) {
-        val currentUserConnectionsDb =
-            usersDb!!.child(userSex!!).child(currentUID!!).child("connections").child("likeme")
-                .child(userId)
+        val currentUserConnectionsDb = usersDb!!.child(userSex!!).child(currentUID!!).child("connections").child("likeme").child(userId)
         currentUserConnectionsDb.addListenerForSingleValueEvent(object : ValueEventListener {
             override fun onDataChange(dataSnapshot: DataSnapshot) {
                 if (dataSnapshot.exists()) {
@@ -258,6 +262,20 @@ class HomeSwipeActivity : Activity() {
             val notificationManager : NotificationManager =
                 getSystemService(Context.NOTIFICATION_SERVICE) as NotificationManager
             notificationManager.createNotificationChannel(channel)
+        }
+    }
+
+
+    override fun onBackPressed() {
+        val rewindButton = findViewById<View>(R.id.rewindbtn) as Button
+
+        rewindButton.setOnClickListener {
+            if (swipedCards.size != 0) {
+                rowItems!!.add(0, swipedCards.removeLast())
+
+                arrayAdapter?.notifyDataSetChanged()
+                arrayAdapter?.notifyDataSetInvalidated()
+            }
         }
     }
 
@@ -459,6 +477,17 @@ class HomeSwipeActivity : Activity() {
         }
     }
 
+    fun RewindBtn(v: View?) {
+        if (swipedCards.size != 0) {
+            rowItems!!.add(0, swipedCards.removeLast())
+
+            Log.d("Rewind", rowItems!![0].toString())
+
+            arrayAdapter?.notifyDataSetChanged()
+            arrayAdapter?.notifyDataSetInvalidated()
+        }
+    }
+
     private fun setupTabLayout() {
         tabLayout = findViewById(R.id.tabLayout)
 
@@ -502,8 +531,6 @@ class HomeSwipeActivity : Activity() {
             startActivity(intent)
         }
     }
-
-    override fun onBackPressed() {}
 
     /**
      * Setup the firebase auth object
