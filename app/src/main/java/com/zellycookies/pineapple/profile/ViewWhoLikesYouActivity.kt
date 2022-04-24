@@ -52,9 +52,6 @@ class ViewWhoLikesYouActivity : AppCompatActivity() {
         setContentView(R.layout.activity_view_who_likes_you)
         firebaseMethods = FirebaseMethods(mContext)
 
-        val toolbar = findViewById<View>(R.id.toolbartag) as TextView
-        toolbar.text = "View who likes you"
-
         setupFirebaseAuth()
 
         val back = findViewById<View>(R.id.back) as ImageButton
