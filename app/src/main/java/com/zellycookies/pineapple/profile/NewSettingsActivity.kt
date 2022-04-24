@@ -7,6 +7,7 @@ import android.os.Bundle
 import android.util.Log
 import android.view.View
 import android.widget.AdapterView
+import android.widget.Button
 import android.widget.EditText
 import android.widget.ListView
 import com.google.android.material.bottomnavigation.BottomNavigationView
@@ -46,6 +47,25 @@ class NewSettingsActivity : AppCompatActivity() {
         gps = GPS(this)
         dbRef = FirebaseDatabase.getInstance().reference
         mFirebaseFirestore = FirebaseFirestore.getInstance()
+
+        addButtonListener()
+    }
+
+    private fun addButtonListener() {
+        val btnEditProfile : Button = findViewById(R.id.btn_settings_profile)
+        val btnFilter : Button = findViewById(R.id.btn_settings_filter)
+        val btnInfo : Button = findViewById(R.id.btn_settings_info)
+        val btnNoti : Button = findViewById(R.id.btn_settings_noti)
+        val btnLogout : Button = findViewById(R.id.btn_logout)
+
+        btnEditProfile.setOnClickListener {
+            val intent = Intent(this@NewSettingsActivity, EditProfileActivity::class.java)
+            startActivity(intent)
+        }
+        btnLogout.setOnClickListener {
+            mAuth!!.signOut()
+            finish()
+        }
     }
 
     private fun setupTopNavigationView() {
