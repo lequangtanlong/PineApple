@@ -6,7 +6,7 @@
     android:layout_height="match_parent"
     android:orientation="vertical"
     android:background="@color/white"
-    tools:context="com.zellycookies.pineapple.profile.SettingsActivity">
+    tools:context="com.zellycookies.pineapple.profile.AccountActivity">
 
     <com.google.android.material.tabs.TabLayout
         android:id="@+id/tabLayout"

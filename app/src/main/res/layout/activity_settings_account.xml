@@ -6,7 +6,7 @@
     android:layout_height="match_parent"
     android:orientation="vertical"
     android:background="@color/white"
-    tools:context="com.zellycookies.pineapple.profile.SettingsActivity">
+    tools:context="com.zellycookies.pineapple.profile.AccountActivity">
 
     <!--<include layout="@layout/layout_top_navigation_back"/>-->
     <include layout="@layout/layout_top_navigation_back" />
@@ -20,6 +20,8 @@
         android:layout_marginTop="16dp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
+        android:layout_marginStart="32dp"
+        android:layout_marginEnd="32dp"
         app:layout_constraintTop_toBottomOf="@id/txt_welcome">
 
         <Button
@@ -27,7 +29,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="16dp"
-            android:background="@drawable/btn_main"
+            android:background="@drawable/btn_option"
             android:gravity="center"
             android:text="@string/change_password"
             android:fontFamily="@font/iciel_cadena"
@@ -39,7 +41,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="16dp"
-            android:background="@drawable/btn_danger"
+            android:background="@drawable/btn_option_danger"
             android:gravity="center"
             android:text="@string/delete_account"
             android:fontFamily="@font/iciel_cadena"
@@ -51,7 +53,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="16dp"
-            android:background="@drawable/btn_alt"
+            android:background="@drawable/btn_option"
             android:gravity="center"
             android:text="@string/log_out"
             android:fontFamily="@font/iciel_cadena"

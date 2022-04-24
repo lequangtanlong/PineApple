@@ -9,7 +9,7 @@ import com.zellycookies.pineapple.R
 import com.zellycookies.pineapple.fire.FireHotTakesActivity
 import com.zellycookies.pineapple.home.HomeSwipeActivity
 import com.zellycookies.pineapple.matched.Matched_Activity
-import com.zellycookies.pineapple.profile.Profile_Activity
+import com.zellycookies.pineapple.profile.NewSettingsActivity
 import com.zellycookies.pineapple.utility.UtilityLikesActivity
 
 class TopNavigationViewHelper {
@@ -40,7 +40,7 @@ class TopNavigationViewHelper {
                         context.startActivity(intent)
                     }
                     R.id.ic_settings -> {
-                        val intent = Intent(context, Profile_Activity::class.java)
+                        val intent = Intent(context, NewSettingsActivity::class.java)
                         context.startActivity(intent)
                     }
                 }
