@@ -9,8 +9,7 @@ import com.zellycookies.pineapple.main.MainActivity
 import com.zellycookies.pineapple.matched.Matched_Activity
 import com.zellycookies.pineapple.profile.Profile_Activity
 import com.zellycookies.pineapple.R
-import com.ittianyu.bottomnavigationviewex.BottomNavigationViewEx
-import com.zellycookies.pineapple.UtilityActivity
+import com.zellycookies.pineapple.utility.UtilityLikesActivity
 
 class TopNavigationViewHelper {
     private val TAG = "TopNavigationViewHelper"
@@ -36,7 +35,7 @@ class TopNavigationViewHelper {
                         context.startActivity(intent)
                     }
                     R.id.ic_utility -> {
-                        val intent = Intent(context, UtilityActivity::class.java)
+                        val intent = Intent(context, UtilityLikesActivity::class.java)
                         context.startActivity(intent)
                     }
                     R.id.ic_settings -> {

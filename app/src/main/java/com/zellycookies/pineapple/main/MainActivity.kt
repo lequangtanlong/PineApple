@@ -59,7 +59,6 @@ class MainActivity : Activity() {
     var gps: GPS? = null
 
     private var tabLayout : TabLayout? = null
-    private var viewPager : ViewPager? = null
 
     //firebase
     private var mAuth: FirebaseAuth? = null

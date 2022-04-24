@@ -25,10 +25,13 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
         <activity
+            android:name=".utility.UtilityTopPicksActivity"
+            android:exported="false" />
+        <activity
             android:name=".DeleteAccountActivity"
             android:exported="false" />
         <activity
-            android:name=".UtilityActivity"
+            android:name=".utility.UtilityLikesActivity"
             android:exported="false" />
         <activity
             android:name=".profile.ViewWhoLikesYouActivity"
