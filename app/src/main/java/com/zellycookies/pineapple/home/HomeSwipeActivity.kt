@@ -151,7 +151,7 @@ class HomeSwipeActivity : Activity() {
                 // this is the simplest way to delete an object from the Adapter (/AdapterView)
                 Log.d("LIST", "removed object!")
 
-                var removedCard = rowItems!!.removeAt(0)
+                val removedCard = rowItems!!.removeAt(0)
                 swipedCards.addLast(removedCard)
 
                 arrayAdapter?.notifyDataSetChanged()
@@ -267,16 +267,6 @@ class HomeSwipeActivity : Activity() {
 
 
     override fun onBackPressed() {
-        val rewindButton = findViewById<View>(R.id.rewindbtn) as Button
-
-        rewindButton.setOnClickListener {
-            if (swipedCards.size != 0) {
-                rowItems!!.add(0, swipedCards.removeLast())
-
-                arrayAdapter?.notifyDataSetChanged()
-                arrayAdapter?.notifyDataSetInvalidated()
-            }
-        }
     }
 
     /**
@@ -469,7 +459,10 @@ class HomeSwipeActivity : Activity() {
 
             //check matches
             isConnectionMatch(userId)
+
             rowItems!!.removeAt(0)
+            swipedCards.addLast(card_item)
+
             arrayAdapter?.notifyDataSetChanged()
             val btnClick = Intent(mContext, BtnLikeActivity::class.java)
             btnClick.putExtra("url", card_item.profileImageUrl)
@@ -479,12 +472,12 @@ class HomeSwipeActivity : Activity() {
 
     fun RewindBtn(v: View?) {
         if (swipedCards.size != 0) {
-            rowItems!!.add(0, swipedCards.removeLast())
-
-            Log.d("Rewind", rowItems!![0].toString())
+            val swipedCard = swipedCards.removeLast()
+            rowItems!!.add(0, swipedCard)
+            Log.d("Rewind", swipedCard.userId.toString())
+            Log.d("Rewind", rowItems!![0].userId)
 
             arrayAdapter?.notifyDataSetChanged()
-            arrayAdapter?.notifyDataSetInvalidated()
         }
     }
 
