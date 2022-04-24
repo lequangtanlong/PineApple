@@ -94,6 +94,11 @@
     <string name="are_you_sure">Are you sure?</string>
     <string name="settings">Settings</string>
     <string name="fire">Fire</string>
+    <string name="edit_profile">Edit Profile</string>
+    <string name="filter">Filter</string>
+    <string name="information">Information</string>
+    <string name="notifications">Notifications</string>
+    <string name="logout">Logout</string>
 
     <!-- introduction pictures-->
     <integer-array name="img_id_arr">
