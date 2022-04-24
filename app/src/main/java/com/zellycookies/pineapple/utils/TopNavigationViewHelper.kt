@@ -5,12 +5,12 @@ import android.content.Context
 import android.content.Intent
 import android.util.Log
 import com.google.android.material.bottomnavigation.BottomNavigationView
-import com.zellycookies.pineapple.main.MainActivity
+import com.zellycookies.pineapple.R
+import com.zellycookies.pineapple.fire.FireHotTakesActivity
+import com.zellycookies.pineapple.home.HomeSwipeActivity
 import com.zellycookies.pineapple.matched.Matched_Activity
 import com.zellycookies.pineapple.profile.Profile_Activity
-import com.zellycookies.pineapple.R
-import com.ittianyu.bottomnavigationviewex.BottomNavigationViewEx
-import com.zellycookies.pineapple.UtilityActivity
+import com.zellycookies.pineapple.utility.UtilityLikesActivity
 
 class TopNavigationViewHelper {
     private val TAG = "TopNavigationViewHelper"
@@ -24,11 +24,11 @@ class TopNavigationViewHelper {
             view.setOnNavigationItemSelectedListener { item ->
                 when (item.itemId) {
                     R.id.ic_main -> {
-                        val intent = Intent(context, MainActivity::class.java)
+                        val intent = Intent(context, HomeSwipeActivity::class.java)
                         context.startActivity(intent)
                     }
                     R.id.ic_fire -> {
-                        val intent = Intent(context, Matched_Activity::class.java)
+                        val intent = Intent(context, FireHotTakesActivity::class.java)
                         context.startActivity(intent)
                     }
                     R.id.ic_matched -> {
@@ -36,7 +36,7 @@ class TopNavigationViewHelper {
                         context.startActivity(intent)
                     }
                     R.id.ic_utility -> {
-                        val intent = Intent(context, UtilityActivity::class.java)
+                        val intent = Intent(context, UtilityLikesActivity::class.java)
                         context.startActivity(intent)
                     }
                     R.id.ic_settings -> {

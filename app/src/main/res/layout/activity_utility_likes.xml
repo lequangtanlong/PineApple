@@ -8,29 +8,28 @@
     android:background="@color/white"
     tools:context="com.zellycookies.pineapple.profile.SettingsActivity">
 
-    <LinearLayout
-        android:id="@+id/layout_entry"
+    <com.google.android.material.tabs.TabLayout
+        android:id="@+id/tabLayout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="vertical"
-        android:layout_marginTop="16dp"
+        android:background="@color/white"
+        app:tabIndicatorColor="@color/colorPrimary"
+        app:tabTextAppearance="@style/TabFont"
+        app:tabTextColor="@color/colorPrimaryDark"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent">
+
+    </com.google.android.material.tabs.TabLayout>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="parent">
-
-        <Button
-            android:id="@+id/btn1"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="16dp"
-            android:background="@drawable/btn_main"
-            android:gravity="center"
-            android:text="@string/change_password"
-            android:fontFamily="@font/iciel_cadena"
-            android:textColor="@drawable/fnt_col_main"
-            android:textSize="18sp"/>
-    </LinearLayout>
-
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent"
+        android:text="Likes"/>
 
     <!-- bottom navigation -->
     <LinearLayout

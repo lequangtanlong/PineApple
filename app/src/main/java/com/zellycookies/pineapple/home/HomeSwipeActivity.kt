@@ -1,8 +1,7 @@
-package com.zellycookies.pineapple.main
+package com.zellycookies.pineapple.home
 
 import android.Manifest
 import android.app.Activity
-import android.app.Notification
 import android.app.NotificationChannel
 import android.app.NotificationManager
 import android.content.Context
@@ -18,7 +17,6 @@ import androidx.core.app.ActivityCompat
 import androidx.core.app.NotificationCompat
 import androidx.core.app.NotificationManagerCompat
 import androidx.core.content.ContextCompat
-import androidx.viewpager.widget.ViewPager
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import com.google.android.material.tabs.TabLayout
 import com.zellycookies.pineapple.introduction.IntroductionMain
@@ -30,15 +28,16 @@ import com.google.firebase.auth.FirebaseUser
 import com.google.firebase.database.*
 import com.google.firebase.firestore.FieldValue
 import com.google.firebase.firestore.FirebaseFirestore
-import com.ittianyu.bottomnavigationviewex.BottomNavigationViewEx
 import com.lorentzos.flingswipe.SwipeFlingAdapterView
 import com.zellycookies.pineapple.utils.TopNavigationViewHelper
 import com.google.firebase.auth.FirebaseAuth.AuthStateListener
 import com.zellycookies.pineapple.R
+import com.zellycookies.pineapple.main.*
+import com.zellycookies.pineapple.utility.UtilityLikesActivity
 
-class MainActivity : Activity() {
+class HomeSwipeActivity : Activity() {
     private val MY_PERMISSIONS_REQUEST_LOCATION = 123
-    private val mContext: Context = this@MainActivity
+    private val mContext: Context = this@HomeSwipeActivity
     private var userSex: String? = null
     private var lookforSex: String? = null
     private var latitude = 37.349642
@@ -59,7 +58,6 @@ class MainActivity : Activity() {
     var gps: GPS? = null
 
     private var tabLayout : TabLayout? = null
-    private var viewPager : ViewPager? = null
 
     //firebase
     private var mAuth: FirebaseAuth? = null
@@ -68,7 +66,7 @@ class MainActivity : Activity() {
     private var mFirebaseFirestore: FirebaseFirestore? = null
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_main)
+        setContentView(R.layout.activity_home_swipe)
         createNotificationChannel()
         usersDb = FirebaseDatabase.getInstance().reference
         mFirebaseFirestore = FirebaseFirestore.getInstance()
@@ -128,7 +126,7 @@ class MainActivity : Activity() {
                             updateLocation()
                         } else {
                             Toast.makeText(
-                                this@MainActivity,
+                                this@HomeSwipeActivity,
                                 "Location Permission Denied. You have to give permission inorder to know the user range ",
                                 Toast.LENGTH_SHORT
                             )
@@ -468,6 +466,8 @@ class MainActivity : Activity() {
         tabLayout!!.addTab(tabLayout!!.newTab().setText("Blind Date"))
         tabLayout!!.tabGravity = TabLayout.GRAVITY_FILL
 
+        tabLayout!!.getTabAt(TAB_NUM)?.select()
+
         tabLayout!!.addOnTabSelectedListener(object: TabLayout.OnTabSelectedListener {
             override fun onTabSelected(tab: TabLayout.Tab?) {
 
@@ -541,7 +541,8 @@ class MainActivity : Activity() {
     }
 
     companion object {
-        private const val TAG = "MainActivity"
+        private const val TAG = "HomeSwipeActivity"
+        private const val TAB_NUM = 0
         private const val ACTIVITY_NUM = 0
     }
 }

@@ -25,10 +25,16 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
         <activity
+            android:name=".fire.FireHotTakesActivity"
+            android:exported="false" />
+        <activity
+            android:name=".utility.UtilityTopPicksActivity"
+            android:exported="false" />
+        <activity
             android:name=".DeleteAccountActivity"
             android:exported="false" />
         <activity
-            android:name=".UtilityActivity"
+            android:name=".utility.UtilityLikesActivity"
             android:exported="false" />
         <activity
             android:name=".profile.ViewWhoLikesYouActivity"
@@ -48,7 +54,7 @@
         <activity android:name=".login.RegisterAge" />
         <activity android:name=".login.RegisterHobby" />
         <activity android:name=".login.ForgotPasswordActivity" />
-        <activity android:name=".main.MainActivity" />
+        <activity android:name=".home.HomeSwipeActivity" />
         <activity android:name=".main.BtnDislikeActivity" />
         <activity android:name=".main.BtnLikeActivity" />
         <activity android:name=".main.ProfileCheckinMain" />
