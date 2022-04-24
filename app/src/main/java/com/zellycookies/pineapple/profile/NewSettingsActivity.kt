@@ -51,6 +51,11 @@ class NewSettingsActivity : AppCompatActivity() {
             val intent = Intent(this@NewSettingsActivity, EditProfileActivity::class.java)
             startActivity(intent)
         }
+
+        btnInfo.setOnClickListener {
+            val intent = Intent(this@NewSettingsActivity, AccountActivity::class.java)
+            startActivity(intent)
+        }
     }
 
     private fun setupTopNavigationView() {

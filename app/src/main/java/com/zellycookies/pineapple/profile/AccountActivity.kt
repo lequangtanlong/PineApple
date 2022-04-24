@@ -14,13 +14,13 @@ import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.FirebaseAuth.AuthStateListener
 import com.zellycookies.pineapple.DeleteAccountActivity
 
-class SettingsActivity : AppCompatActivity() {
+class AccountActivity : AppCompatActivity() {
     //firebase
     private var mAuth: FirebaseAuth? = null
     private var mAuthListener: AuthStateListener? = null
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_settings)
+        setContentView(R.layout.activity_settings_account)
 
         //setup firebase
         setupFirebaseAuth()
@@ -55,14 +55,14 @@ class SettingsActivity : AppCompatActivity() {
 
     // Change password
     private fun funChangePassword() {
-        val intent = Intent(this@SettingsActivity, ChangePasswordActivity::class.java)
+        val intent = Intent(this@AccountActivity, ChangePasswordActivity::class.java)
         startActivity(intent)
         finish()
     }
 
     // Delete account
     private fun funDeleteAccount() {
-        val intent = Intent(this@SettingsActivity, DeleteAccountActivity::class.java)
+        val intent = Intent(this@AccountActivity, DeleteAccountActivity::class.java)
         startActivity(intent)
         finish()
     }
@@ -82,7 +82,7 @@ class SettingsActivity : AppCompatActivity() {
                 //user is signed out
                 Log.d(TAG, "onAuthStateChanged: signed_out")
                 Log.d(TAG, "onAuthStateChanged: navigating back to login screen.")
-                val intent = Intent(this@SettingsActivity, Login::class.java)
+                val intent = Intent(this@AccountActivity, Login::class.java)
 
                 //clear the activity stack， in case when sign out, the back button will bring the user back to the previous activity
                 startActivity(intent)
@@ -104,6 +104,6 @@ class SettingsActivity : AppCompatActivity() {
     }
 
     companion object {
-        private const val TAG = "SettingsActivity"
+        private const val TAG = "AccountActivity"
     }
 }

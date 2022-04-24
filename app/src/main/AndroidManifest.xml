@@ -64,7 +64,7 @@
         <activity android:name=".main.TestingActivity" />
         <activity android:name=".profile.EditProfileActivity" />
         <activity android:name=".profile.Profile_Activity" />
-        <activity android:name=".profile.SettingsActivity" />
+        <activity android:name=".profile.AccountActivity" />
         <activity android:name=".profile.ChangePasswordActivity" />
         <activity android:name=".matched.Matched_Activity" />
         <activity android:name=".conversation.ConversationActivity" />

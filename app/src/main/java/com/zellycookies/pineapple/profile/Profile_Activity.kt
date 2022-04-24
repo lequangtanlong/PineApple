@@ -5,7 +5,6 @@ import android.content.Intent
 import android.os.Bundle
 import android.util.Log
 import android.view.View
-import android.widget.Button
 import android.widget.ImageButton
 import android.widget.ImageView
 import android.widget.TextView
@@ -19,7 +18,6 @@ import com.google.android.material.bottomnavigation.BottomNavigationView
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.FirebaseAuth.AuthStateListener
 import com.google.firebase.database.*
-import com.ittianyu.bottomnavigationviewex.BottomNavigationViewEx
 import com.zellycookies.pineapple.R
 
 class Profile_Activity : AppCompatActivity() {
@@ -60,7 +58,7 @@ class Profile_Activity : AppCompatActivity() {
         }
         val settings = findViewById<View>(R.id.settings) as ImageButton
         settings.setOnClickListener {
-            val intent = Intent(this@Profile_Activity, SettingsActivity::class.java)
+            val intent = Intent(this@Profile_Activity, AccountActivity::class.java)
             startActivity(intent)
         }
         val btnVWLY = findViewById<View>(R.id.btnVWLY)

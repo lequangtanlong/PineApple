@@ -10,8 +10,6 @@ import com.zellycookies.pineapple.fire.FireHotTakesActivity
 import com.zellycookies.pineapple.home.HomeSwipeActivity
 import com.zellycookies.pineapple.matched.Matched_Activity
 import com.zellycookies.pineapple.profile.NewSettingsActivity
-import com.zellycookies.pineapple.profile.Profile_Activity
-import com.zellycookies.pineapple.profile.SettingsActivity
 import com.zellycookies.pineapple.utility.UtilityLikesActivity
 
 class TopNavigationViewHelper {
