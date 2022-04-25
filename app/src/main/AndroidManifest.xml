@@ -25,6 +25,11 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
         <activity
+            android:name=".News.NewsActivity"
+            android:exported="false"
+            android:label="@string/title_activity_news"
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity
             android:name=".profile.NewSettingsActivity"
             android:exported="false" />
         <activity
