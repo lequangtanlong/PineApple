@@ -102,6 +102,8 @@
     <string name="home">Home</string>
     <string name="account">Account</string>
     <string name="confirm">Confirm</string>
+    <string name="login_with_google">Login with Google</string>
+    <string name="login_with_facebook">Login with Facebook</string>
 
     <!-- introduction pictures-->
     <integer-array name="img_id_arr">
