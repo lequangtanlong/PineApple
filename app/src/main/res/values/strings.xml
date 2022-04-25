@@ -104,6 +104,7 @@
     <string name="confirm">Confirm</string>
     <string name="login_with_google">Login with Google</string>
     <string name="login_with_facebook">Login with Facebook</string>
+    <string name="web_client_id">365322481758-peo9njteob2bv50ktue6n49nfceb2tfq.apps.googleusercontent.com</string>
 
     <!-- introduction pictures-->
     <integer-array name="img_id_arr">
