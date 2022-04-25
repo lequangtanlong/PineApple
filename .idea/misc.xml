@@ -4,14 +4,17 @@
     <option name="filePathToZoomLevelMap">
       <map>
         <entry key="..\:/Users/Minh Duc/Desktop/PineApple/app/src/main/res/layout/activity_main.xml" value="0.136" />
+        <entry key="..\:/Users/lequa/OneDrive/Documents/GitHub/PineApple/app/src/main/res/drawable/ic_check_no.xml" value="0.2265" />
+        <entry key="..\:/Users/lequa/OneDrive/Documents/GitHub/PineApple/app/src/main/res/drawable/ic_check_yes.xml" value="0.2265" />
         <entry key="..\:/Users/lequa/OneDrive/Documents/GitHub/PineApple/app/src/main/res/drawable/ic_menu_chat.xml" value="0.2265" />
         <entry key="..\:/Users/lequa/OneDrive/Documents/GitHub/PineApple/app/src/main/res/drawable/ic_menu_profile.xml" value="0.2265" />
         <entry key="..\:/Users/lequa/OneDrive/Documents/GitHub/PineApple/app/src/main/res/drawable/ic_menu_star.xml" value="0.2265" />
         <entry key="..\:/Users/lequa/OneDrive/Documents/GitHub/PineApple/app/src/main/res/layout/activity_btn_dislike.xml" value="0.25" />
-        <entry key="..\:/Users/lequa/OneDrive/Documents/GitHub/PineApple/app/src/main/res/layout/activity_btn_like.xml" value="0.25" />
+        <entry key="..\:/Users/lequa/OneDrive/Documents/GitHub/PineApple/app/src/main/res/layout/activity_btn_like.xml" value="0.2" />
         <entry key="..\:/Users/lequa/OneDrive/Documents/GitHub/PineApple/app/src/main/res/layout/activity_change_password.xml" value="0.12158054711246201" />
         <entry key="..\:/Users/lequa/OneDrive/Documents/GitHub/PineApple/app/src/main/res/layout/activity_edit_profile.xml" value="0.25" />
         <entry key="..\:/Users/lequa/OneDrive/Documents/GitHub/PineApple/app/src/main/res/layout/activity_forgot_password.xml" value="0.12158054711246201" />
+        <entry key="..\:/Users/lequa/OneDrive/Documents/GitHub/PineApple/app/src/main/res/layout/activity_home_swipe.xml" value="0.2" />
         <entry key="..\:/Users/lequa/OneDrive/Documents/GitHub/PineApple/app/src/main/res/layout/activity_introduction_main.xml" value="0.25" />
         <entry key="..\:/Users/lequa/OneDrive/Documents/GitHub/PineApple/app/src/main/res/layout/activity_login.xml" value="0.12158054711246201" />
         <entry key="..\:/Users/lequa/OneDrive/Documents/GitHub/PineApple/app/src/main/res/layout/activity_main.xml" value="0.25" />
@@ -24,6 +27,7 @@
         <entry key="..\:/Users/lequa/OneDrive/Documents/GitHub/PineApple/app/src/main/res/layout/activity_register_gender_prefection.xml" value="0.25" />
         <entry key="..\:/Users/lequa/OneDrive/Documents/GitHub/PineApple/app/src/main/res/layout/activity_register_hobby.xml" value="0.25" />
         <entry key="..\:/Users/lequa/OneDrive/Documents/GitHub/PineApple/app/src/main/res/layout/activity_registerbasic_info.xml" value="0.25" />
+        <entry key="..\:/Users/lequa/OneDrive/Documents/GitHub/PineApple/app/src/main/res/layout/activity_testing.xml" value="0.25" />
         <entry key="..\:/Users/lequa/OneDrive/Documents/GitHub/PineApple/app/src/main/res/layout/activity_utility.xml" value="0.25" />
         <entry key="..\:/Users/lequa/OneDrive/Documents/GitHub/PineApple/app/src/main/res/layout/activity_view_who_likes_you.xml" value="0.25" />
         <entry key="..\:/Users/lequa/OneDrive/Documents/GitHub/PineApple/app/src/main/res/layout/conversation_activity.xml" value="0.11145833333333334" />
