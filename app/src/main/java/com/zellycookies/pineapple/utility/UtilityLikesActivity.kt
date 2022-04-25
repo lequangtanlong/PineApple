@@ -32,6 +32,13 @@ class UtilityLikesActivity : AppCompatActivity() {
             val intent = Intent(this@UtilityLikesActivity, ViewWhoLikesYouActivity::class.java)
             startActivity(intent)
         }
+
+        val btnViewWhoYouLike = findViewById<View>(R.id.btnVWYL) as ImageButton
+        btnViewWhoYouLike.setOnClickListener {
+            Log.d("View Who You Like", "Hello world")
+            val intent1 = Intent(this@UtilityLikesActivity, ViewWhoYouLikeActivity::class.java)
+            startActivity(intent1)
+        }
     }
 
     private fun setupTabLayout() {
