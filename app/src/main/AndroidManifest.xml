@@ -43,6 +43,9 @@
             android:name=".profile.ViewWhoLikesYouActivity"
             android:exported="false" />
         <activity
+            android:name=".utility.ViewWhoYouLikeActivity"
+            android:exported="false" />
+        <activity
             android:name=".login.Login"
             android:exported="true">
             <intent-filter>

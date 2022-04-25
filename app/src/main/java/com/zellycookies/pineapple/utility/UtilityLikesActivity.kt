@@ -6,10 +6,14 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
 import android.view.View
+import android.widget.Button
+import android.widget.ImageButton
+import android.widget.TextView
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import com.google.android.material.tabs.TabLayout
 import com.zellycookies.pineapple.R
 import com.zellycookies.pineapple.utils.TopNavigationViewHelper
+import com.zellycookies.pineapple.profile.ViewWhoLikesYouActivity
 
 class UtilityLikesActivity : AppCompatActivity() {
 
@@ -22,6 +26,19 @@ class UtilityLikesActivity : AppCompatActivity() {
         setContentView(R.layout.activity_utility_likes)
         setupTabLayout()
         setupTopNavigationView()
+
+        val btnViewWhoLikesYou = findViewById<View>(R.id.btnVWLY) as ImageButton
+        btnViewWhoLikesYou.setOnClickListener {
+            val intent = Intent(this@UtilityLikesActivity, ViewWhoLikesYouActivity::class.java)
+            startActivity(intent)
+        }
+
+        val btnViewWhoYouLike = findViewById<View>(R.id.btnVWYL) as ImageButton
+        btnViewWhoYouLike.setOnClickListener {
+            Log.d("View Who You Like", "Hello world")
+            val intent1 = Intent(this@UtilityLikesActivity, ViewWhoYouLikeActivity::class.java)
+            startActivity(intent1)
+        }
     }
 
     private fun setupTabLayout() {

@@ -1,4 +1,4 @@
-package com.zellycookies.pineapple.profile
+package com.zellycookies.pineapple.utility
 
 import android.content.Context
 import android.content.Intent
@@ -7,28 +7,29 @@ import android.text.Editable
 import android.text.TextWatcher
 import android.util.Log
 import android.view.View
-import android.widget.*
+import android.widget.AdapterView
+import android.widget.EditText
+import android.widget.ImageButton
+import android.widget.ListView
 import androidx.appcompat.app.AppCompatActivity
-import com.google.android.material.bottomnavigation.BottomNavigationView
-import com.zellycookies.pineapple.conversation.ConversationActivity
+import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.database.*
+import com.google.firebase.firestore.FirebaseFirestore
+import com.zellycookies.pineapple.R
 import com.zellycookies.pineapple.conversation.Object.GroupObject
+import com.zellycookies.pineapple.home.HomeSwipeActivity
 import com.zellycookies.pineapple.login.Login
+import com.zellycookies.pineapple.main.Cards
+import com.zellycookies.pineapple.main.ProfileCheckinMain
+import com.zellycookies.pineapple.matched.ProfileAdapter
+import com.zellycookies.pineapple.utils.CalculateAge
 import com.zellycookies.pineapple.utils.FirebaseMethods
 import com.zellycookies.pineapple.utils.GPS
 import com.zellycookies.pineapple.utils.User
-import com.google.firebase.auth.FirebaseAuth
-import com.google.firebase.auth.FirebaseAuth.AuthStateListener
-import com.google.firebase.database.*
-import com.google.firebase.firestore.FirebaseFirestore
-import com.ittianyu.bottomnavigationviewex.BottomNavigationViewEx
 import java.util.*
-import com.zellycookies.pineapple.utils.TopNavigationViewHelper
-import com.zellycookies.pineapple.R
-import com.zellycookies.pineapple.main.ProfileCheckinMain
-import com.zellycookies.pineapple.matched.ProfileAdapter
 
-class ViewWhoLikesYouActivity : AppCompatActivity() {
-    private val mContext: Context = this@ViewWhoLikesYouActivity
+class ViewWhoYouLikeActivity : AppCompatActivity() {
+    private val mContext: Context = this@ViewWhoYouLikeActivity
     private var userId: String? = null
     private var userSex: String? = null
     private var lookforSex: String? = null
@@ -43,13 +44,13 @@ class ViewWhoLikesYouActivity : AppCompatActivity() {
 
     //firebase
     private var mAuth: FirebaseAuth? = null
-    private var mAuthListener: AuthStateListener? = null
+    private var mAuthListener: FirebaseAuth.AuthStateListener? = null
     private var dbRef: DatabaseReference? = null
     private var firebaseMethods: FirebaseMethods? = null
     private var mFirebaseFirestore: FirebaseFirestore? = null
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_view_who_likes_you)
+        setContentView(R.layout.activity_view_who_you_like)
         firebaseMethods = FirebaseMethods(mContext)
 
         setupFirebaseAuth()
@@ -62,7 +63,7 @@ class ViewWhoLikesYouActivity : AppCompatActivity() {
         dbRef = FirebaseDatabase.getInstance().reference
         mFirebaseFirestore = FirebaseFirestore.getInstance()
         checkUserSex()
-        mAdapter = ProfileAdapter(this@ViewWhoLikesYouActivity, R.layout.vwly_item, likeList)
+        mAdapter = ProfileAdapter(this@ViewWhoYouLikeActivity, R.layout.vwyl_item, likeList)
         val listView = findViewById<View>(R.id.likeList) as ListView
         listView.adapter = mAdapter
         listView.onItemClickListener =
@@ -151,36 +152,24 @@ class ViewWhoLikesYouActivity : AppCompatActivity() {
     private fun findLikeUID() {
         Log.d(TAG, "findLikeUID: start to find liker")
         idGroupList = ArrayList()
-        val groupRef = dbRef!!.child(userSex!!).child(userId!!).child("connections").child("likeme")
-        groupRef.addValueEventListener(object : ValueEventListener {
-            override fun onDataChange(snapshot: DataSnapshot) {
-                for (ds in snapshot.children) {
-                    val uid = ds.key
-                    Log.d(
-                        TAG,
-                        "onDataChange: uid :$uid"
-                    )
-                    dbRef!!.addValueEventListener(object : ValueEventListener {
-                        override fun onDataChange(dataSnapshot: DataSnapshot) {
-                            val user = firebaseMethods!!.getUser(dataSnapshot, lookforSex, uid)
-                            if (!checkDup(user)) {
-                                Log.d(TAG, "Day la idGroup :")
-                                val groupObject = GroupObject(user)
-                                likeList.add(groupObject)
-                                copyList.add(groupObject)
-                                mAdapter?.notifyDataSetChanged()
-                                Log.d(TAG, "onDataChange: like list size is " + likeList.size)
-                            }
-                        }
 
-                        override fun onCancelled(databaseError: DatabaseError) {
-                            Log.d(TAG, "onCancelled: test cancel")
-                        }
-                    })
+        val potentialMatch = FirebaseDatabase.getInstance().reference.child(lookforSex!!)
+        potentialMatch.addChildEventListener(object : ChildEventListener {
+            override fun onChildAdded(dataSnapshot: DataSnapshot, s: String?) {
+                if (dataSnapshot.exists() && dataSnapshot.child("connections").child("likeme").hasChild(userId!!) && dataSnapshot.key != userId) {
+                    val curUser = dataSnapshot.getValue(User::class.java)
+                    val groupObject = GroupObject(curUser!!)
+                    likeList.add(groupObject)
+                    copyList.add(groupObject)
+                    mAdapter?.notifyDataSetChanged()
+                    Log.d(TAG, "onDataChange: like list size is " + likeList.size)
                 }
             }
 
-            override fun onCancelled(error: DatabaseError) {}
+            override fun onChildChanged(dataSnapshot: DataSnapshot, s: String?) {}
+            override fun onChildRemoved(dataSnapshot: DataSnapshot) {}
+            override fun onChildMoved(dataSnapshot: DataSnapshot, s: String?) {}
+            override fun onCancelled(databaseError: DatabaseError) {}
         })
     }
 
@@ -200,7 +189,7 @@ class ViewWhoLikesYouActivity : AppCompatActivity() {
         val user: User = groupObject.userMatch
         //calculate distance
         val distance = gps!!.calculateDistance(latitude, longtitude, user.latitude, user.longtitude)
-        val intent = Intent(this, ProfileCheckinMain::class.java)
+        val intent = Intent(this@ViewWhoYouLikeActivity, ProfileCheckinMain::class.java)
         //        intent.putExtra("classUser", user);
 //        intent.putExtra("distance", distance);
 
@@ -229,7 +218,7 @@ class ViewWhoLikesYouActivity : AppCompatActivity() {
      */
     private fun setupFirebaseAuth() {
         mAuth = FirebaseAuth.getInstance()
-        mAuthListener = AuthStateListener { firebaseAuth ->
+        mAuthListener = FirebaseAuth.AuthStateListener { firebaseAuth ->
             val user = firebaseAuth.currentUser
             if (user != null) {
                 // user is signed in
@@ -238,7 +227,7 @@ class ViewWhoLikesYouActivity : AppCompatActivity() {
                 //user is signed out
                 Log.d(TAG, "onAuthStateChanged: signed_out")
                 Log.d(TAG, "onAuthStateChanged: navigating back to login screen.")
-                val intent = Intent(this@ViewWhoLikesYouActivity, Login::class.java)
+                val intent = Intent(this@ViewWhoYouLikeActivity, Login::class.java)
 
                 //clear the activity stack， in case when sign out, the back button will bring the user back to the previous activity
                 intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
