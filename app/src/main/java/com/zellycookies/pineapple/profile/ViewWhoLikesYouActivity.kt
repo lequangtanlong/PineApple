@@ -52,6 +52,9 @@ class ViewWhoLikesYouActivity : AppCompatActivity() {
         setContentView(R.layout.activity_view_who_likes_you)
         firebaseMethods = FirebaseMethods(mContext)
 
+        val toolbar = findViewById<View>(R.id.toolbartag) as TextView
+        toolbar.text = "View who likes you"
+
         setupFirebaseAuth()
 
         val back = findViewById<View>(R.id.back) as ImageButton
@@ -207,10 +210,10 @@ class ViewWhoLikesYouActivity : AppCompatActivity() {
         val name: String? = user.username
         val dob: String? = user.dateOfBirth
         val bio: String? = user.description
-        val isSE: String = if (user.isSE) "SE\t" else " "
-        val isOOP: String = if (user.isOop) "OOP\t" else " "
-        val isUI: String = if (user.isDesign) "UI/UX\t" else " "
-        val isDB: String = if (user.isDatabase) "DB" else " "
+        val isSE: String = if (user.isSE) "SE\t" else ""
+        val isOOP: String = if (user.isOop) "OOP\t" else ""
+        val isUI: String = if (user.isDesign) "UI/UX\t" else ""
+        val isDB: String = if (user.isDatabase) "DB" else ""
         val interest: String = "$isSE$isOOP$isUI$isDB."
         val profileImageURL : String? = user.profileImageUrl
 
