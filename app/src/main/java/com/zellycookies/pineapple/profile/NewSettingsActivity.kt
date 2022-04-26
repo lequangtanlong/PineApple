@@ -23,6 +23,8 @@ import com.zellycookies.pineapple.matched.ProfileAdapter
 import com.zellycookies.pineapple.utils.FirebaseMethods
 import com.zellycookies.pineapple.utils.GPS
 import com.zellycookies.pineapple.utils.TopNavigationViewHelper
+import im.crisp.client.ChatActivity
+import im.crisp.client.Crisp
 import java.util.ArrayList
 
 class NewSettingsActivity : AppCompatActivity() {
@@ -46,6 +48,7 @@ class NewSettingsActivity : AppCompatActivity() {
         val btnFilter : Button = findViewById(R.id.btn_settings_filter)
         val btnInfo : Button = findViewById(R.id.btn_settings_info)
         val btnNoti : Button = findViewById(R.id.btn_settings_noti)
+        val btnChat : Button = findViewById(R.id.btn_chatSupport)
 
         btnEditProfile.setOnClickListener {
             val intent = Intent(this@NewSettingsActivity, EditProfileActivity::class.java)
@@ -55,6 +58,12 @@ class NewSettingsActivity : AppCompatActivity() {
         btnInfo.setOnClickListener {
             val intent = Intent(this@NewSettingsActivity, AccountActivity::class.java)
             startActivity(intent)
+        }
+
+        btnChat.setOnClickListener {
+            Crisp.configure(getApplicationContext(), "f5f76f00-80bb-41b2-ae66-fa8e0e2e8f4e");
+            val crispIntent = Intent(this, ChatActivity::class.java)
+            startActivity(crispIntent)
         }
     }
 
