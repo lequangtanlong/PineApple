@@ -48,7 +48,7 @@
             android:name=".utility.ViewWhoYouLikeActivity"
             android:exported="false" />
         <activity
-            android:name=".home.HomeSwipeActivity"
+            android:name=".login.Login"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -62,7 +62,7 @@
         <activity android:name=".login.RegisterAge" />
         <activity android:name=".login.RegisterHobby" />
         <activity android:name=".login.ForgotPasswordActivity" />
-        <activity android:name=".login.Login" />
+        <activity android:name=".home.HomeSwipeActivity" />
         <activity android:name=".main.BtnDislikeActivity" />
         <activity android:name=".main.BtnLikeActivity" />
         <activity android:name=".main.ProfileCheckinMain" />
