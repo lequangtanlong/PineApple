@@ -61,7 +61,7 @@ class NewSettingsActivity : AppCompatActivity() {
         }
 
         btnChat.setOnClickListener {
-            Crisp.configure(getApplicationContext(), "f5f76f00-80bb-41b2-ae66-fa8e0e2e8f4e");
+            Crisp.configure(getApplicationContext(), "942b95e5-7079-4736-9381-ae51bea55428");
             val crispIntent = Intent(this, ChatActivity::class.java)
             startActivity(crispIntent)
         }
