@@ -9,5 +9,6 @@ class Cards(
     val bio: String?,
     val interest: String,
     val distance: Int,
-    val showDoB: Boolean
+    val showDoB: Boolean,
+    val showDistance: Boolean
 )

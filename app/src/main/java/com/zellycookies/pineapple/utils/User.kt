@@ -18,6 +18,7 @@ class User : Serializable {
     var isDesign = false
     var isOop = false
     var isShowDoB = true
+    var isShowDistance = true
     var description: String? = null
     var sex: String? = null
     var preferSex: String? = null
@@ -60,6 +61,7 @@ class User : Serializable {
         isDesign = ui
         isOop = oop
         isShowDoB = true
+        isShowDistance = true
         this.description = description
         this.preferSex = preferSex
         this.dateOfBirth = dateOfBirth
@@ -79,6 +81,7 @@ class User : Serializable {
                 ", UI=" + isDesign +
                 ", OOP=" + isOop +
                 ", showDoB=" + isShowDoB +
+                ", showDistance=" + isShowDistance +
                 ", description='" + description + '\'' +
                 ", sex='" + sex + '\'' +  //", preferSex='" + preferSex + '\'' +
                 ", dateOfBirth='" + dateOfBirth + '\'' +
