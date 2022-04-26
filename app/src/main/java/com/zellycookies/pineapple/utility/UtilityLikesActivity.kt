@@ -27,13 +27,13 @@ class UtilityLikesActivity : AppCompatActivity() {
         setupTabLayout()
         setupTopNavigationView()
 
-        val btnViewWhoLikesYou = findViewById<View>(R.id.btnVWLY) as ImageButton
+        val btnViewWhoLikesYou = findViewById<View>(R.id.btnVWLY) as Button
         btnViewWhoLikesYou.setOnClickListener {
             val intent = Intent(this@UtilityLikesActivity, ViewWhoLikesYouActivity::class.java)
             startActivity(intent)
         }
 
-        val btnViewWhoYouLike = findViewById<View>(R.id.btnVWYL) as ImageButton
+        val btnViewWhoYouLike = findViewById<View>(R.id.btnVWYL) as Button
         btnViewWhoYouLike.setOnClickListener {
             Log.d("View Who You Like", "Hello world")
             val intent1 = Intent(this@UtilityLikesActivity, ViewWhoYouLikeActivity::class.java)
