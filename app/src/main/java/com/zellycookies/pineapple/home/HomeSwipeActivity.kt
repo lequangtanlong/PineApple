@@ -19,6 +19,7 @@ import androidx.core.app.NotificationCompat
 import androidx.core.app.NotificationManagerCompat
 import androidx.core.content.ContextCompat
 import com.google.android.material.bottomnavigation.BottomNavigationView
+import com.google.android.material.floatingactionbutton.FloatingActionButton
 import com.google.android.material.snackbar.Snackbar
 import com.google.android.material.tabs.TabLayout
 import com.google.firebase.auth.FirebaseAuth
@@ -67,6 +68,11 @@ class HomeSwipeActivity : Activity() {
     private var mAuthListener: FirebaseAuth.AuthStateListener? = null
     private var usersDb: DatabaseReference? = null
     private var mFirebaseFirestore: FirebaseFirestore? = null
+
+    private lateinit var flingContainer: SwipeFlingAdapterView
+
+    private lateinit var rewindButton: FloatingActionButton
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_home_swipe)
@@ -144,17 +150,25 @@ class HomeSwipeActivity : Activity() {
     }
 
     private fun updateSwipeCard() {
-        val flingContainer = findViewById<View>(R.id.frame) as SwipeFlingAdapterView
+        flingContainer = findViewById<View>(R.id.frame) as SwipeFlingAdapterView
         flingContainer.adapter = arrayAdapter
+
+        rewindButton = findViewById(R.id.rewindbtn)
+        rewindButton.setOnClickListener {
+            if (swipedCards.size != 0) {
+                val swipedCard = swipedCards.removeFirst()
+                rowItems!!.add(1, swipedCard)
+                arrayAdapter?.notifyDataSetChanged()
+            }
+        }
+
         flingContainer.setFlingListener(object : SwipeFlingAdapterView.onFlingListener {
             override fun removeFirstObjectInAdapter() {
                 // this is the simplest way to delete an object from the Adapter (/AdapterView)
                 Log.d("LIST", "removed object!")
 
-                //val removedCard =
-                rowItems!!.removeAt(0)
-                //swipedCards.addLast(removedCard)
-
+                val removedCard = rowItems!!.removeAt(0)
+                swipedCards.addFirst(removedCard)
                 arrayAdapter?.notifyDataSetChanged()
             }
 
@@ -190,6 +204,14 @@ class HomeSwipeActivity : Activity() {
             }
         })
     }
+
+/*    fun RewindBtn(v: View?) {
+        if (swipedCards.size != 0) {
+            val swipedCard = swipedCards.removeFirst()
+            rowItems!!.add(0, swipedCard)
+            arrayAdapter?.notifyDataSetChanged()
+        }
+    }*/
 
     private fun isConnectionMatch(userId: String) {
         val currentUserConnectionsDb = usersDb!!.child(userSex!!).child(currentUID!!).child("connections").child("likeme").child(userId)
@@ -464,7 +486,6 @@ class HomeSwipeActivity : Activity() {
             isConnectionMatch(userId)
 
             rowItems!!.removeAt(0)
-            //swipedCards.addLast(card_item)
 
             arrayAdapter?.notifyDataSetChanged()
             val btnClick = Intent(mContext, BtnLikeActivity::class.java)
@@ -473,14 +494,7 @@ class HomeSwipeActivity : Activity() {
         }
     }
 
-    fun RewindBtn(v: View?) {
-        if (swipedCards.size != 0) {
-            val swipedCard = swipedCards.removeLast()
-            rowItems!!.add(0, swipedCard)
 
-            arrayAdapter?.notifyDataSetChanged()
-        }
-    }
 
     private fun setupTabLayout() {
         tabLayout = findViewById(R.id.tabLayout)

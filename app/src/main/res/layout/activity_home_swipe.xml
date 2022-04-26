@@ -98,7 +98,6 @@
                 android:clickable="true"
                 android:contentDescription="@string/dummy"
                 android:focusable="true"
-                android:onClick="RewindBtn"
                 app:borderWidth="0dp"
                 app:fabSize="mini"
                 app:rippleColor="@null"
