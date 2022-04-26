@@ -44,10 +44,14 @@ class EditProfileActivity : AppCompatActivity() {
     private var databaseCheckBox: CheckBox? = null
     private var designCheckBox: CheckBox? = null
     private var oopCheckBox: CheckBox? = null
+    private var DoBCheckBox: CheckBox? = null
+    private var distanceCheckBox: CheckBox? = null
     private var isSEClicked = false
     private var isDatabaseClicked = false
     private var isOopClicked = false
     private var isDesignClicked = false
+    private var isShowDoB = true
+    private var isShowDistance = true
     private var userSexSelection: RadioGroup? = null
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -65,6 +69,8 @@ class EditProfileActivity : AppCompatActivity() {
         databaseCheckBox = findViewById<View>(R.id.checkbox_database) as CheckBox
         designCheckBox = findViewById<View>(R.id.checkbox_design) as CheckBox
         oopCheckBox = findViewById<View>(R.id.checkbox_oop) as CheckBox
+        DoBCheckBox = findViewById<View>(R.id.settings_showDoB) as CheckBox
+        distanceCheckBox = findViewById<View>(R.id.settings_showDistance) as CheckBox
         userId = FirebaseAuth.getInstance().currentUser!!.uid
         Log.d(TAG, "onCreate: user id is$userId")
         checkUserSex()
@@ -142,6 +148,20 @@ class EditProfileActivity : AppCompatActivity() {
                             isDesignClicked = false
                             designCheckBox!!.isChecked = false
                         }
+                        if (Boolean.valueOf(map["showDoB"].toString()) == true) {
+                            isShowDoB = true
+                            DoBCheckBox!!.isChecked = true
+                        } else {
+                            isShowDoB = false
+                            DoBCheckBox!!.isChecked = false
+                        }
+                        if (Boolean.valueOf(map["showDistance"].toString()) == true) {
+                            isShowDistance = true
+                            distanceCheckBox!!.isChecked = true
+                        } else {
+                            isShowDistance = false
+                            distanceCheckBox!!.isChecked = false
+                        }
                     }
                 }
 
@@ -216,6 +236,8 @@ class EditProfileActivity : AppCompatActivity() {
         userInfo["database"] = isDatabaseClicked
         userInfo["design"] = isDesignClicked
         userInfo["oop"] = isOopClicked
+        userInfo["showDoB"] = isShowDoB
+        userInfo["showDistance"] = isShowDistance
 
 //Updation of sex is not allowed once profile is created.
 //        if (((RadioButton)findViewById(userSexSelection.getCheckedRadioButtonId())).getText().toString().equalsIgnoreCase("male"))
@@ -281,7 +303,7 @@ class EditProfileActivity : AppCompatActivity() {
     fun saveAndBack(view: View?) {
         saveUserPhoto()
         saveUserData()
-        val intent = Intent(mContext, Profile_Activity::class.java)
+        val intent = Intent(mContext, NewSettingsActivity::class.java)
         startActivity(intent)
     }
     //----------------------------------------Firebase----------------------------------------
@@ -328,6 +350,8 @@ class EditProfileActivity : AppCompatActivity() {
             R.id.checkbox_oop -> isOopClicked = checked
             R.id.checkbox_design -> isDesignClicked = checked
             R.id.checkbox_database -> isDatabaseClicked = checked
+            R.id.settings_showDoB -> isShowDoB = checked
+            R.id.settings_showDistance -> isShowDistance = checked
         }
     }
 

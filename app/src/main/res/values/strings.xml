@@ -20,7 +20,7 @@
     <string name="already_have_an_account_login">Already have an account? Login!</string>
     <string name="splash_welcome">splash_welcome</string>
     <string name="welcome_to_pineapple">Welcome to PineApple</string>
-    <string name="confirm_delete_account">You\'re about to delete your account\nEnter your email and password to confirm</string>
+    <string name="confirm_delete_account">You\'re about to delete your account\nEnter your password to confirm</string>
     <string name="a_place_where">A place where you can connect to people\nwho can help with your study, and vice versa</string>
     <string name="welcome_back">Welcome back!</string>
     <string name="email">Email</string>
@@ -101,6 +101,12 @@
     <string name="logout">Logout</string>
     <string name="home">Home</string>
     <string name="account">Account</string>
+    <string name="confirm">Confirm</string>
+    <string name="login_with_google">Login with Google</string>
+    <string name="login_with_facebook">Login with Facebook</string>
+    <string name="web_client_id">365322481758-peo9njteob2bv50ktue6n49nfceb2tfq.apps.googleusercontent.com</string>
+    <string name="show_birthday">Show birthday</string>
+    <string name="show_distance">Show Distance</string>
 
     <!-- introduction pictures-->
     <integer-array name="img_id_arr">

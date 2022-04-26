@@ -22,16 +22,44 @@
 
     </com.google.android.material.tabs.TabLayout>
 
-    <TextView
-        android:layout_width="wrap_content"
+    <LinearLayout
+        android:id="@+id/layout_entry"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:layout_marginTop="16dp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintBottom_toBottomOf="parent"
-        android:text="Likes"/>
+        android:layout_marginStart="32dp"
+        android:layout_marginEnd="32dp"
+        app:layout_constraintTop_toBottomOf="@id/tabLayout">
 
-    <!-- bottom navigation -->
+        <Button
+            android:id="@+id/btnVWYL"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
+            android:background="@drawable/btn_option"
+            android:gravity="center"
+            android:text="View who you like"
+            android:fontFamily="@font/iciel_cadena"
+            android:textColor="@drawable/fnt_col_main"
+            android:textSize="18sp"/>
+
+        <Button
+            android:id="@+id/btnVWLY"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
+            android:layout_marginBottom="16dp"
+            android:background="@drawable/btn_option"
+            android:gravity="center"
+            android:text="View who likes you"
+            android:fontFamily="@font/iciel_cadena"
+            android:textColor="@drawable/fnt_col_main"
+            android:textSize="18sp"/>
+    </LinearLayout>
+
     <LinearLayout
         android:id="@+id/layout_bottomnav"
         android:layout_width="match_parent"

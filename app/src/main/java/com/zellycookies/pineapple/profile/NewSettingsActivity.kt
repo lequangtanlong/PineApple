@@ -90,7 +90,7 @@ class NewSettingsActivity : AppCompatActivity() {
             }
         }
     }
-
+    // onBackPressed
     override fun onBackPressed() {}
     public override fun onStart() {
         super.onStart()
