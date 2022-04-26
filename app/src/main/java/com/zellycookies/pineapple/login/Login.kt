@@ -10,6 +10,10 @@ import android.widget.EditText
 import android.widget.TextView
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
+import com.google.android.gms.auth.api.identity.BeginSignInRequest
+import com.google.android.gms.auth.api.identity.Identity
+import com.google.android.gms.auth.api.identity.SignInClient
+import com.google.android.gms.signin.internal.SignInClientImpl
 import com.google.android.gms.tasks.OnCompleteListener
 import com.google.android.gms.tasks.Task
 import com.google.firebase.FirebaseApp
@@ -32,6 +36,8 @@ class Login : AppCompatActivity() {
     private var mContext: Context? = null
     private var mEmail: EditText? = null
     private var mPassword: EditText? = null
+
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         FirebaseApp.initializeApp(this)
@@ -41,6 +47,7 @@ class Login : AppCompatActivity() {
         mPassword = findViewById<View>(R.id.input_password) as EditText?
         mContext = this@Login
         setupFirebaseAuth()
+
         init()
     }
 
@@ -146,6 +153,7 @@ class Login : AppCompatActivity() {
     }
 
     override fun onBackPressed() {}
+
     override fun onStart() {
         super.onStart()
         // Check if user is signed in (non-null) and update UI accordingly.
