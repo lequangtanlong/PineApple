@@ -31,10 +31,11 @@ class ProfileCheckinMain : AppCompatActivity() {
         val bio: String? = intent.getStringExtra("bio")
         val interest: String? = intent.getStringExtra("interest")
         val distance: Int = intent.getIntExtra("distance", 1)
+        val showDoB: Boolean = intent.getBooleanExtra("showDoB", true)
         val append = if (distance == 1) "mile away" else "miles away"
         profileDistance.setText("$distance $append")
         profileName.setText(name)
-        profileDob.setText(dob)
+        profileDob.setText(if (showDoB) bio else "")
         profileBio.setText(bio)
         profileInterest.setText(interest)
         val profileImageUrl: String? = intent.getStringExtra("photo")

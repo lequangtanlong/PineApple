@@ -8,5 +8,6 @@ class Cards(
     var profileImageUrl: String,
     val bio: String?,
     val interest: String,
-    val distance: Int
+    val distance: Int,
+    val showDoB: Boolean
 )

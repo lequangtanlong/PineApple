@@ -362,6 +362,7 @@ class HomeSwipeActivity : Activity() {
                         val tempOop = curUser.isOop
                         val tempDesign = curUser.isDesign
                         val tempSE = curUser.isSE
+                        val showDoB = curUser.isShowDoB
                         if (tempOop == oop || tempDesign == ui || tempDatabase == db || tempSE == SE) {
                             //calculate age
                             val dob = curUser.dateOfBirth
@@ -417,7 +418,7 @@ class HomeSwipeActivity : Activity() {
                             )
                             val item = Cards(
                                 dataSnapshot.key!!, username, dob, age,
-                                profileImageUrl, bio, interest.toString(), distance
+                                profileImageUrl, bio, interest.toString(), distance, showDoB
                             )
                             rowItems!!.add(item)
                             arrayAdapter?.notifyDataSetChanged()

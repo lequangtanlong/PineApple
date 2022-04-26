@@ -34,6 +34,7 @@ class PhotoAdapter(var mContext: Context, resource: Int, objects: List<Cards>) :
             intent.putExtra("bio", card_item?.bio)
             intent.putExtra("interest", card_item?.interest)
             intent.putExtra("distance", card_item?.distance)
+            intent.putExtra("showDoB", card_item?.showDoB)
             mContext.startActivity(intent)
         })
         name.setText(card_item?.name + ", " + card_item?.age)
