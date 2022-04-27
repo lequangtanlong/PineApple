@@ -27,6 +27,17 @@
             android:scaleType="centerCrop" />
 
         <TextView
+            android:id="@+id/tvUserName"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center_horizontal"
+            android:text="@string/username"
+            android:fontFamily="@font/iciel_cadena"
+            android:textSize="32sp"
+            android:paddingBottom="8dp"
+            android:textColor="@color/colorPrimaryDark"/>
+
+        <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_gravity="center_vertical"

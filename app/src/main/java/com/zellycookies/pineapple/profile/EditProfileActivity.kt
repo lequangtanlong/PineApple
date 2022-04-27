@@ -40,6 +40,7 @@ class EditProfileActivity : AppCompatActivity() {
     private var userSex: String? = null
     private var phoneNumber: EditText? = null
     private var aboutMe: EditText? = null
+    private var username: TextView? = null
     private var SECheckBox: CheckBox? = null
     private var databaseCheckBox: CheckBox? = null
     private var designCheckBox: CheckBox? = null
@@ -64,6 +65,7 @@ class EditProfileActivity : AppCompatActivity() {
         mProfileImage = findViewById<View>(R.id.profileImage) as ImageView
         phoneNumber = findViewById<View>(R.id.edit_phone) as EditText
         aboutMe = findViewById<View>(R.id.edit_aboutme) as EditText
+        username = findViewById<View>(R.id.tvUserName) as TextView
         userSexSelection = findViewById<View>(R.id.radioGroupUserSex) as RadioGroup
         SECheckBox = findViewById<View>(R.id.checkbox_se) as CheckBox
         databaseCheckBox = findViewById<View>(R.id.checkbox_database) as CheckBox
@@ -106,6 +108,9 @@ class EditProfileActivity : AppCompatActivity() {
                                     mProfileImage!!
                                 )
                             }
+                        }
+                        if (map["username"] != null) {
+                            username!!.text = map["username"].toString()
                         }
                         if (map["phone_number"] != null) {
                             phoneNumber!!.setText(map["phone_number"].toString())
