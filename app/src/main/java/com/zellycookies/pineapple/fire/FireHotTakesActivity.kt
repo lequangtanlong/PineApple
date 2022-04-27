@@ -9,7 +9,6 @@ import android.view.View
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import com.google.android.material.tabs.TabLayout
 import com.zellycookies.pineapple.R
-import com.zellycookies.pineapple.utility.UtilityTopPicksActivity
 import com.zellycookies.pineapple.utils.TopNavigationViewHelper
 
 class FireHotTakesActivity : AppCompatActivity() {
@@ -37,7 +36,10 @@ class FireHotTakesActivity : AppCompatActivity() {
         tabLayout!!.addOnTabSelectedListener(object: TabLayout.OnTabSelectedListener {
             override fun onTabSelected(tab: TabLayout.Tab?) {
                 when (tab!!.position) {
-
+                    1 -> {
+                        val intent = Intent(this@FireHotTakesActivity, FireSearchActivity::class.java)
+                        startActivity(intent)
+                    }
                 }
             }
             override fun onTabUnselected(tab: TabLayout.Tab?) {}
