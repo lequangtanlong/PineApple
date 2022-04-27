@@ -39,7 +39,7 @@
             android:name=".utility.UtilityTopPicksActivity"
             android:exported="false" />
         <activity
-            android:name=".utils.DeleteAccountActivity"
+            android:name=".profile.DeleteAccountActivity"
             android:exported="false" />
         <activity
             android:name=".utility.UtilityLikesActivity"

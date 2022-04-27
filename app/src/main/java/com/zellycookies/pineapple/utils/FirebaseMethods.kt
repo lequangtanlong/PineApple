@@ -125,6 +125,28 @@ class FirebaseMethods(context: Context) {
         return user
     }
 
+    fun getUserFromId(dataSnapshot: DataSnapshot, uid: String?): User {
+        val user = User()
+        for (ds in dataSnapshot.children) {
+            val temp: User? = uid?.let { ds.child(it).getValue(User::class.java) }
+            if (temp != null) {
+                user.username = temp.username
+                user.profileImageUrl = temp.profileImageUrl
+                user.dateOfBirth = temp.dateOfBirth
+                user.description = temp.description
+                user.isSE = temp.isSE
+                user.isOop = temp.isOop
+                user.isDatabase = temp.isDatabase
+                user.isDesign = temp.isDesign
+                user.email = temp.email
+                user.phone_number = temp.phone_number
+                user.latitude = temp.latitude
+                user.longtitude = temp.longtitude
+            } else continue
+        }
+        return user
+    }
+
     companion object {
         private const val TAG = "FirebaseMethods"
     }

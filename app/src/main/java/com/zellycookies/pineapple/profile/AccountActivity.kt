@@ -12,7 +12,6 @@ import com.zellycookies.pineapple.login.Login
 import com.zellycookies.pineapple.R
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.FirebaseAuth.AuthStateListener
-import com.zellycookies.pineapple.utils.DeleteAccountActivity
 
 class AccountActivity : AppCompatActivity() {
     //firebase
