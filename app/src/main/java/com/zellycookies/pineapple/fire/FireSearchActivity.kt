@@ -11,15 +11,15 @@ import com.google.android.material.tabs.TabLayout
 import com.zellycookies.pineapple.R
 import com.zellycookies.pineapple.utils.TopNavigationViewHelper
 
-class FireHotTakesActivity : AppCompatActivity() {
+class FireSearchActivity : AppCompatActivity() {
 
     private var tabLayout : TabLayout? = null
 
-    private val mContext: Context = this@FireHotTakesActivity
+    private val mContext: Context = this@FireSearchActivity
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_fire_hot_takes)
+        setContentView(R.layout.activity_fire_search)
         setupTabLayout()
         setupTopNavigationView()
     }
@@ -36,8 +36,8 @@ class FireHotTakesActivity : AppCompatActivity() {
         tabLayout!!.addOnTabSelectedListener(object: TabLayout.OnTabSelectedListener {
             override fun onTabSelected(tab: TabLayout.Tab?) {
                 when (tab!!.position) {
-                    1 -> {
-                        val intent = Intent(this@FireHotTakesActivity, FireSearchActivity::class.java)
+                    0 -> {
+                        val intent = Intent(this@FireSearchActivity, FireHotTakesActivity::class.java)
                         startActivity(intent)
                     }
                 }
@@ -59,7 +59,7 @@ class FireHotTakesActivity : AppCompatActivity() {
 
     companion object {
         private const val TAG = "FireHotTakesActivity"
-        private const val TAB_NUM = 0
+        private const val TAB_NUM = 1
         private const val ACTIVITY_NUM = 1
     }
 }
