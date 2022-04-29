@@ -24,4 +24,14 @@
         android:layout_weight="1"
         android:textColor="@color/text_color_adapter_group"/>
 
+    <ImageButton
+        android:id="@+id/videoCalBtn"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginRight="20dp"
+        android:layout_gravity="center_vertical"
+        android:background="@color/white"
+        android:src="@drawable/ic_baseline_cancel_24"
+        android:focusable="false"/>
+
 </LinearLayout>

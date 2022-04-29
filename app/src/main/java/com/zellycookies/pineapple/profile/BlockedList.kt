@@ -156,32 +156,14 @@ class BlockedList : AppCompatActivity() {
     }
 
     private fun checkClickedItem(position: Int) {
-        val groupObject: GroupObject = blockedList[position]
-        val user: User = groupObject.userMatch
-        //calculate distance
-        val distance = gps!!.calculateDistance(latitude, longtitude, user.latitude, user.longtitude)
-        val intent = Intent(this, ProfileCheckinMain::class.java)
-        //        intent.putExtra("classUser", user);
-//        intent.putExtra("distance", distance);
-
-        val name: String? = user.username
-        val dob: String? = user.dateOfBirth
-        val bio: String? = user.description
-        val isSE: String = if (user.isSE) "SE\t" else " "
-        val isOOP: String = if (user.isOop) "OOP\t" else " "
-        val isUI: String = if (user.isDesign) "UI/UX\t" else " "
-        val isDB: String = if (user.isDatabase) "DB" else " "
-        val interest: String = "$isSE$isOOP$isUI$isDB."
-        val profileImageURL : String? = user.profileImageUrl
-
-        intent.putExtra("name", name)
-        intent.putExtra("dob", dob)
-        intent.putExtra("bio", bio)
-        intent.putExtra("interest", interest)
-        intent.putExtra("distance", distance)
-        intent.putExtra("photo", profileImageURL)
-
-        startActivity(intent)
+        val user: User = blockedList[position].userMatch
+        val userRef = FirebaseDatabase.getInstance().reference.child(userSex!!).child(userId!!)
+        val otherRef = FirebaseDatabase.getInstance().reference.child(user.sex!!).child(user.user_id!!)
+        userRef.child("block")
+            .child("blocked-users").child(user.user_id!!).setValue(null)
+        otherRef.child("block")
+            .child("blocked-by").child(userId!!).setValue(null)
+        Toast.makeText(mContext, "Unblocked ${user.username}", Toast.LENGTH_SHORT).show()
     }
 
     /**
@@ -221,6 +203,6 @@ class BlockedList : AppCompatActivity() {
     }
 
     companion object {
-        private const val TAG = "Matched_Activity"
+        private const val TAG = "BlockedListActivity"
     }
 }

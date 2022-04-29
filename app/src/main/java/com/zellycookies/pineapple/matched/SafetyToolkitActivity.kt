@@ -9,6 +9,7 @@ import android.util.Log
 import android.view.View
 import android.widget.Button
 import android.widget.TextView
+import android.widget.Toast
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.FirebaseUser
 import com.google.firebase.database.*
@@ -61,7 +62,12 @@ class SafetyToolkitActivity : AppCompatActivity() {
             .child("blocked-users").child(otherId!!).setValue(true)
         otherRef!!.child("block")
             .child("blocked-by").child(userId!!).setValue(true)
+        returnToMatched()
+    }
+
+    private fun returnToMatched() {
         val intent = Intent(mContext, Matched_Activity::class.java)
+        Toast.makeText(mContext, "Blocked $otherName", Toast.LENGTH_SHORT).show()
         startActivity(intent)
         finish()
     }
@@ -75,7 +81,7 @@ class SafetyToolkitActivity : AppCompatActivity() {
         val btnUnmatch : Button = findViewById(R.id.btn_unmatch)
 
         btnBlock.setOnClickListener {
-
+            blockUser()
         }
 
         btnUnmatch.setOnClickListener {
