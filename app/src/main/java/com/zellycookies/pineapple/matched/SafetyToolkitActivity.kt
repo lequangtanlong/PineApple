@@ -2,14 +2,17 @@ package com.zellycookies.pineapple.matched
 
 import android.annotation.SuppressLint
 import android.content.Context
+import android.content.DialogInterface
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
+import android.view.LayoutInflater
 import android.view.View
 import android.widget.Button
 import android.widget.TextView
 import android.widget.Toast
+import androidx.appcompat.app.AlertDialog
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.FirebaseUser
 import com.google.firebase.database.*
@@ -40,7 +43,6 @@ class SafetyToolkitActivity : AppCompatActivity() {
         addButtonListener()
     }
 
-    @SuppressLint("SetTextI18n")
     private fun init() {
         // Initialize user's info & database reference
         val intent = intent
@@ -62,12 +64,46 @@ class SafetyToolkitActivity : AppCompatActivity() {
             .child("blocked-users").child(otherId!!).setValue(true)
         otherRef!!.child("block")
             .child("blocked-by").child(userId!!).setValue(true)
-        returnToMatched()
+    }
+
+    private fun unmatchUser() {
+        userRef!!.child("group").child(otherId!!).setValue(null)
+        otherRef!!.child("group").child(userId!!).setValue(null)
+        userRef!!.child("connections").child("match_result").child(otherId!!).setValue(null)
+        otherRef!!.child("connections").child("match_result").child(userId!!).setValue(null)
+        otherRef!!.child("connections").child("likeme").child(userId!!).setValue(null)
+    }
+
+    private fun dialog(isBlock : Boolean) : AlertDialog {
+        val inflater : LayoutInflater = LayoutInflater.from(this)
+        val view : View = inflater.inflate(R.layout.dialog_block, null)
+
+        val tvHeader = view.findViewById(R.id.dialog_header) as TextView
+        val tvContent = view.findViewById(R.id.dialog_content) as TextView
+        val tvUsername = view.findViewById(R.id.dialog_username) as TextView
+        tvHeader.text = getString(R.string.block_user)
+        tvContent.text = getString(
+            if (isBlock) R.string.are_you_sure_you_want_to_block
+            else R.string.are_you_sure_you_want_to_unmatch_with
+        )
+        tvUsername.text = otherName
+        return AlertDialog.Builder(this)
+            .setView(view)
+            .setPositiveButton(R.string.yes
+            ) { dialog, _ ->
+                if (isBlock) blockUser()
+                else unmatchUser()
+                dialog.dismiss()
+                returnToMatched()
+            }
+            .setNegativeButton(R.string.no
+            ) { dialog, _ ->
+                dialog.cancel()
+            }.create()
     }
 
     private fun returnToMatched() {
         val intent = Intent(mContext, Matched_Activity::class.java)
-        Toast.makeText(mContext, "Blocked $otherName", Toast.LENGTH_SHORT).show()
         startActivity(intent)
         finish()
     }
@@ -81,11 +117,11 @@ class SafetyToolkitActivity : AppCompatActivity() {
         val btnUnmatch : Button = findViewById(R.id.btn_unmatch)
 
         btnBlock.setOnClickListener {
-            blockUser()
+            dialog(true).show()
         }
 
         btnUnmatch.setOnClickListener {
-
+            dialog(false).show()
         }
     }
 

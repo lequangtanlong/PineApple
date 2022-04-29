@@ -114,6 +114,11 @@
     <string name="safety_toolkit">Safety Toolkit</string>
     <string name="blocked_users">Blocked Users</string>
     <string name="select_a_user_to_unblock_them">Select a user to unblock them</string>
+    <string name="are_you_sure_you_want_to_block">Are you sure you want to block</string>
+    <string name="are_you_sure_you_want_to_unmatch_with">Are you sure you want to unmatch with</string>
+
+    <string name="yes">Yes</string>
+    <string name="no">No</string>
 
     <!-- introduction pictures-->
     <integer-array name="img_id_arr">
