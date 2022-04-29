@@ -35,20 +35,21 @@ class ProfileAdapter(
             view = convertView
             viewHolder = view.tag as ViewHolder
         }
-        val profileImageUrl: String = groupObject?.userMatch?.profileImageUrl!!
-        when (profileImageUrl) {
-            "defaultFemale" -> viewHolder.personPic?.let {
-                Glide.with(mContext).load(R.drawable.img_ava_female)
-                    .into(it)
+        if (groupObject?.userMatch?.profileImageUrl != null) {
+            when (val profileImageUrl: String = groupObject?.userMatch?.profileImageUrl!!) {
+                "defaultFemale" -> viewHolder.personPic?.let {
+                    Glide.with(mContext).load(R.drawable.img_ava_female)
+                        .into(it)
+                }
+                "defaultMale" -> viewHolder.personPic?.let {
+                    Glide.with(mContext).load(R.drawable.img_ava_male)
+                        .into(it)
+                }
+                else -> Glide.with(mContext).load(profileImageUrl).into(viewHolder.personPic!!)
             }
-            "defaultMale" -> viewHolder.personPic?.let {
-                Glide.with(mContext).load(R.drawable.img_ava_male)
-                    .into(it)
-            }
-            else -> Glide.with(mContext).load(profileImageUrl).into(viewHolder.personPic!!)
+            viewHolder.personName!!.setText(groupObject.userMatch.username!!)
+            viewHolder.imageButton!!.isFocusable = false
         }
-        viewHolder.personName!!.setText(groupObject.userMatch.username!!)
-        viewHolder.imageButton!!.isFocusable = false
         return view
     }
 

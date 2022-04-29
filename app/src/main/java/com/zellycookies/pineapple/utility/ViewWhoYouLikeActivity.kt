@@ -156,7 +156,7 @@ class ViewWhoYouLikeActivity : AppCompatActivity() {
         val potentialMatch = FirebaseDatabase.getInstance().reference.child(lookforSex!!)
         potentialMatch.addChildEventListener(object : ChildEventListener {
             override fun onChildAdded(dataSnapshot: DataSnapshot, s: String?) {
-                if (dataSnapshot.exists() && dataSnapshot.child("connections").child("likeme").hasChild(userId!!) && dataSnapshot.key != userId) {
+                if (dataSnapshot.exists() && dataSnapshot.key != userId && dataSnapshot.child("connections").child("likeme").hasChild(userId!!)) {
                     val curUser = dataSnapshot.getValue(User::class.java)
                     val groupObject = GroupObject(curUser!!)
                     likeList.add(groupObject)
