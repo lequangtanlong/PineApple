@@ -164,6 +164,9 @@ class BlockedList : AppCompatActivity() {
         otherRef.child("block")
             .child("blocked-by").child(userId!!).setValue(null)
         Toast.makeText(mContext, "Unblocked ${user.username}", Toast.LENGTH_SHORT).show()
+        val intent = Intent(this, BlockedList::class.java)
+        startActivity(intent)
+        finish()
     }
 
     /**

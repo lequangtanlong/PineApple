@@ -153,6 +153,7 @@ class Matched_Activity : AppCompatActivity() {
             override fun onDataChange(snapshot: DataSnapshot) {
                 for (ds in snapshot.children) {
                     val uid = ds.key
+                    Log.d(TAG, uid!!)
                     val idGroup = ds.value as String?
                     Log.d(
                         TAG,
@@ -160,8 +161,8 @@ class Matched_Activity : AppCompatActivity() {
                     )
                     dbRef!!.addValueEventListener(object : ValueEventListener {
                         override fun onDataChange(dataSnapshot: DataSnapshot) {
-                            val user = firebaseMethods!!.getUser(dataSnapshot, lookforSex, uid)
-                            if (!checkDup(user)) {
+                            val user = firebaseMethods!!.getUserWithoutBlock(dataSnapshot, lookforSex, uid, userId)
+                            if (!checkDup(user) && user.user_id != null) {
                                 Log.d(TAG, "Day la idGroup :")
                                 val groupObject = GroupObject(idGroup, user)
                                 matchList.add(groupObject)
