@@ -37,8 +37,9 @@ class ProfileCheckinMatched : AppCompatActivity() {
         val btnSafetyToolkit = findViewById<ImageButton>(R.id.btn_safety_toolkit)
         btnSafetyToolkit.setOnClickListener {
             val intentSafety = Intent(mContext, SafetyToolkitActivity::class.java)
-            intentSafety.putExtra("username", user!!.username)
-            intentSafety.putExtra("userId", user!!.user_id)
+            intentSafety.putExtra("otherName", user!!.username)
+            intentSafety.putExtra("otherId", user!!.user_id)
+            intentSafety.putExtra("otherSex", user!!.sex)
             startActivity(intentSafety)
         }
 

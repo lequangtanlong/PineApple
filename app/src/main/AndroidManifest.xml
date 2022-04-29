@@ -27,6 +27,9 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
         <activity
+            android:name=".profile.BlockedList"
+            android:exported="false" />
+        <activity
             android:name=".matched.SafetyToolkitActivity"
             android:exported="false" />
         <activity

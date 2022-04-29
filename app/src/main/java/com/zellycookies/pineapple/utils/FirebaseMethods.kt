@@ -119,6 +119,7 @@ class FirebaseMethods(context: Context) {
                     user.phone_number = temp.phone_number
                     user.latitude = temp.latitude
                     user.longtitude = temp.longtitude
+                    user.sex = sex
                 }
 
             }

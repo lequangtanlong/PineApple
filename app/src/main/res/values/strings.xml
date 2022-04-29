@@ -112,6 +112,8 @@
     <string name="block">Block</string>
     <string name="unmatch">Unmatch</string>
     <string name="safety_toolkit">Safety Toolkit</string>
+    <string name="blocked_users">Blocked Users</string>
+    <string name="select_a_user_to_unblock_them">Select a user to unblock them</string>
 
     <!-- introduction pictures-->
     <integer-array name="img_id_arr">

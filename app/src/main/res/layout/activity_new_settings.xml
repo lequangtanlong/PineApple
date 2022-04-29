@@ -66,6 +66,18 @@
             android:background="@drawable/btn_option"
             android:layout_marginTop="16dp"/>
 
+        <Button
+            android:id="@+id/btn_blocked_users"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textColor="@color/colorPrimaryDark"
+            android:drawableStart="@drawable/ic_baseline_block_24"
+            android:text="@string/blocked_users"
+            android:textSize="20sp"
+            android:fontFamily="@font/iciel_cadena"
+            android:background="@drawable/btn_option"
+            android:layout_marginTop="16dp"/>
+
     </LinearLayout>
 
     <LinearLayout
