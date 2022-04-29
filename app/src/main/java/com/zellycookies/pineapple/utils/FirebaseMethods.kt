@@ -8,9 +8,8 @@ import com.google.android.gms.tasks.Task
 import com.google.firebase.auth.AuthResult
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.FirebaseUser
-import com.google.firebase.database.DataSnapshot
-import com.google.firebase.database.DatabaseReference
-import com.google.firebase.database.FirebaseDatabase
+import com.google.firebase.database.*
+import com.google.firebase.database.ktx.getValue
 import com.zellycookies.pineapple.R
 
 
@@ -103,9 +102,10 @@ class FirebaseMethods(context: Context) {
     fun getUser(dataSnapshot: DataSnapshot, sex: String?, uid: String?): User {
         val user = User()
         for (ds in dataSnapshot.getChildren()) {
-            if (ds.getKey().equals(sex)) {
+            if (ds.key.equals(sex)) {
                 val temp: User? = uid?.let { ds.child(it).getValue(User::class.java) }
                 if (temp != null) {
+                    user.user_id = uid
                     user.username = temp.username
                     user.profileImageUrl = temp.profileImageUrl
                     user.dateOfBirth = temp.dateOfBirth
@@ -118,6 +118,39 @@ class FirebaseMethods(context: Context) {
                     user.phone_number = temp.phone_number
                     user.latitude = temp.latitude
                     user.longtitude = temp.longtitude
+                    user.sex = sex
+                }
+
+            }
+        }
+        return user
+    }
+
+    fun getUserWithoutBlock(dataSnapshot: DataSnapshot, sex: String?, uid: String?, blockerUid: String?): User {
+        val user = User()
+        for (ds in dataSnapshot.children) {
+            if (ds.key.equals(sex)) {
+                val temp: User? = uid?.let { ds.child(it).getValue(User::class.java) }
+                val blockBy: Boolean? = uid?.let {ds.child(it).child("block")
+                    .child("blocked-by").child(blockerUid!!).getValue(Boolean::class.java)}
+                val blockUsers: Boolean? = uid?.let {ds.child(it).child("block")
+                    .child("blocked-users").child(blockerUid!!).getValue(Boolean::class.java)}
+                if (blockBy == true || blockUsers == true) return user
+                if (temp != null) {
+                    user.user_id = uid
+                    user.username = temp.username
+                    user.profileImageUrl = temp.profileImageUrl
+                    user.dateOfBirth = temp.dateOfBirth
+                    user.description = temp.description
+                    user.isSE = temp.isSE
+                    user.isOop = temp.isOop
+                    user.isDatabase = temp.isDatabase
+                    user.isDesign = temp.isDesign
+                    user.email = temp.email
+                    user.phone_number = temp.phone_number
+                    user.latitude = temp.latitude
+                    user.longtitude = temp.longtitude
+                    user.sex = sex
                 }
 
             }

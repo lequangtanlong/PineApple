@@ -1,18 +1,12 @@
-package com.zellycookies.pineapple.matched
+package com.zellycookies.pineapple.profile
 
 import android.content.Context
 import android.content.Intent
 import android.os.Bundle
-import android.text.Editable
-import android.text.TextWatcher
 import android.util.Log
 import android.view.View
-import android.widget.AdapterView
-import android.widget.EditText
-import android.widget.ListView
+import android.widget.*
 import androidx.appcompat.app.AppCompatActivity
-import com.google.android.material.bottomnavigation.BottomNavigationView
-import com.zellycookies.pineapple.conversation.ConversationActivity
 import com.zellycookies.pineapple.conversation.Object.GroupObject
 import com.zellycookies.pineapple.login.Login
 import com.zellycookies.pineapple.utils.FirebaseMethods
@@ -22,22 +16,21 @@ import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.FirebaseAuth.AuthStateListener
 import com.google.firebase.database.*
 import com.google.firebase.firestore.FirebaseFirestore
-import com.ittianyu.bottomnavigationviewex.BottomNavigationViewEx
 import java.util.*
-import com.zellycookies.pineapple.utils.TopNavigationViewHelper
 import com.zellycookies.pineapple.R
+import com.zellycookies.pineapple.main.ProfileCheckinMain
+import com.zellycookies.pineapple.matched.ProfileAdapter
 
-class Matched_Activity : AppCompatActivity() {
-    private val mContext: Context = this@Matched_Activity
+class BlockedList : AppCompatActivity() {
+    private val mContext: Context = this@BlockedList
     private var userId: String? = null
     private var userSex: String? = null
     private var lookforSex: String? = null
     private var latitude = 37.349642
     private var longtitude = -121.938987
-    private var search: EditText? = null
     private var idGroupList: ArrayList<String>? = null
     var mAdapter: ProfileAdapter? = null
-    var matchList: MutableList<GroupObject> = ArrayList<GroupObject>()
+    var blockedList: MutableList<GroupObject> = ArrayList<GroupObject>()
     var copyList: MutableList<GroupObject> = ArrayList<GroupObject>()
     var gps: GPS? = null
 
@@ -49,61 +42,31 @@ class Matched_Activity : AppCompatActivity() {
     private var mFirebaseFirestore: FirebaseFirestore? = null
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_matched)
+        setContentView(R.layout.activity_blocked_list)
         firebaseMethods = FirebaseMethods(mContext)
+
         setupFirebaseAuth()
-        setupTopNavigationView()
-        searchFunc()
+
+        val back = findViewById<View>(R.id.back) as ImageButton
+        back.setOnClickListener { onBackPressed() }
+        val toolbar = findViewById<View>(R.id.toolbartag) as TextView
+        toolbar.text = getString(R.string.blocked_users)
         userId = FirebaseAuth.getInstance().currentUser!!.uid
         gps = GPS(this)
         dbRef = FirebaseDatabase.getInstance().reference
         mFirebaseFirestore = FirebaseFirestore.getInstance()
         checkUserSex()
-        mAdapter = ProfileAdapter(this@Matched_Activity, R.layout.matched_item, matchList)
-        val listView = findViewById<View>(R.id.matchList) as ListView
+        mAdapter = ProfileAdapter(mContext, R.layout.blocked_item, blockedList)
+        val listView = findViewById<View>(R.id.blockedList) as ListView
         listView.adapter = mAdapter
         listView.onItemClickListener =
-            AdapterView.OnItemClickListener { parent, view, position, id ->
+            AdapterView.OnItemClickListener { _, _, position, _ ->
                 Log.d(TAG, "onItemClick: The list has been clicked")
                 checkClickedItem(position)
             }
     }
 
-    private fun searchFunc() {
-        search = findViewById<View>(R.id.searchBar) as EditText
-        search!!.addTextChangedListener(object : TextWatcher {
-            override fun beforeTextChanged(s: CharSequence, start: Int, count: Int, after: Int) {}
-            override fun onTextChanged(s: CharSequence, start: Int, before: Int, count: Int) {
-                searchText()
-            }
-
-            override fun afterTextChanged(s: Editable) {
-                searchText()
-            }
-        })
-    }
-
-    private fun searchText() {
-        val text = search!!.text.toString().toLowerCase(Locale.getDefault())
-        if (text.length != 0) {
-            if (matchList.size != 0) {
-                matchList.clear()
-                for (groupObject in copyList) {
-                    if (groupObject.userMatch.username!!.toLowerCase(Locale.getDefault())
-                            .contains(text)
-                    ) {
-                        matchList.add(groupObject)
-                    }
-                }
-            }
-        } else {
-            matchList.clear()
-            matchList.addAll(copyList)
-        }
-        mAdapter?.notifyDataSetChanged()
-    }
-
-    fun checkUserSex() {
+    private fun checkUserSex() {
         val maleDb = dbRef!!.child("male")
         maleDb.addChildEventListener(object : ChildEventListener {
             override fun onChildAdded(dataSnapshot: DataSnapshot, s: String?) {
@@ -114,7 +77,7 @@ class Matched_Activity : AppCompatActivity() {
                     latitude = dataSnapshot.getValue(User::class.java)!!.latitude
                     longtitude = dataSnapshot.getValue(User::class.java)!!.longtitude
                     lookforSex = dataSnapshot.getValue(User::class.java)!!.preferSex
-                    findMatchUID()
+                    findBlockedUID()
                 }
             }
 
@@ -134,7 +97,7 @@ class Matched_Activity : AppCompatActivity() {
                     latitude = dataSnapshot.getValue(User::class.java)!!.latitude
                     longtitude = dataSnapshot.getValue(User::class.java)!!.longtitude
                     lookforSex = dataSnapshot.getValue(User::class.java)!!.preferSex
-                    findMatchUID()
+                    findBlockedUID()
                 }
             }
 
@@ -145,30 +108,28 @@ class Matched_Activity : AppCompatActivity() {
         })
     }
 
-    private fun findMatchUID() {
-        Log.d(TAG, "findMatchUID: start to find match")
+    private fun findBlockedUID() {
+        Log.d(TAG, "findLikeUID: start to find liker")
         idGroupList = ArrayList()
-        val groupRef = dbRef!!.child(userSex!!).child(userId!!).child("group")
+        val groupRef = dbRef!!.child(userSex!!).child(userId!!).child("block").child("blocked-users")
         groupRef.addValueEventListener(object : ValueEventListener {
             override fun onDataChange(snapshot: DataSnapshot) {
                 for (ds in snapshot.children) {
                     val uid = ds.key
-                    Log.d(TAG, uid!!)
-                    val idGroup = ds.value as String?
                     Log.d(
                         TAG,
-                        "onDataChange: uid :$uid - idGroup :$idGroup"
+                        "onDataChange: uid :$uid"
                     )
                     dbRef!!.addValueEventListener(object : ValueEventListener {
                         override fun onDataChange(dataSnapshot: DataSnapshot) {
-                            val user = firebaseMethods!!.getUserWithoutBlock(dataSnapshot, lookforSex, uid, userId)
-                            if (!checkDup(user) && user.user_id != null) {
+                            val user = firebaseMethods!!.getUser(dataSnapshot, lookforSex, uid)
+                            if (!checkDup(user)) {
                                 Log.d(TAG, "Day la idGroup :")
-                                val groupObject = GroupObject(idGroup, user)
-                                matchList.add(groupObject)
+                                val groupObject = GroupObject(user)
+                                blockedList.add(groupObject)
                                 copyList.add(groupObject)
                                 mAdapter?.notifyDataSetChanged()
-                                Log.d(TAG, "onDataChange: match list size is " + matchList.size)
+                                Log.d(TAG, "onDataChange: like list size is " + blockedList.size)
                             }
                         }
 
@@ -184,8 +145,8 @@ class Matched_Activity : AppCompatActivity() {
     }
 
     private fun checkDup(user: User): Boolean {
-        if (matchList.size != 0) {
-            for (groupObject in matchList) {
+        if (blockedList.size != 0) {
+            for (groupObject in blockedList) {
                 if (groupObject.userMatch.username === user.username) {
                     return true
                 }
@@ -195,25 +156,17 @@ class Matched_Activity : AppCompatActivity() {
     }
 
     private fun checkClickedItem(position: Int) {
-        val groupObject: GroupObject = matchList[position]
-        val user: User = groupObject.userMatch
-        //calculate distance
-        val distance = gps!!.calculateDistance(latitude, longtitude, user.latitude, user.longtitude)
-        val intent = Intent(this, ConversationActivity::class.java)
-        //        intent.putExtra("classUser", user);
-//        intent.putExtra("distance", distance);
-        intent.putExtra("groupObject", groupObject)
+        val user: User = blockedList[position].userMatch
+        val userRef = FirebaseDatabase.getInstance().reference.child(userSex!!).child(userId!!)
+        val otherRef = FirebaseDatabase.getInstance().reference.child(user.sex!!).child(user.user_id!!)
+        userRef.child("block")
+            .child("blocked-users").child(user.user_id!!).setValue(null)
+        otherRef.child("block")
+            .child("blocked-by").child(userId!!).setValue(null)
+        Toast.makeText(mContext, "Unblocked ${user.username}", Toast.LENGTH_SHORT).show()
+        val intent = Intent(this, BlockedList::class.java)
         startActivity(intent)
-    }
-
-    private fun setupTopNavigationView() {
-        Log.d(TAG, "setupTopNavigationView: setting up TopNavigationView")
-        val tvEx = findViewById<View>(R.id.topNavViewBar) as BottomNavigationView
-        TopNavigationViewHelper.setupTopNavigationView(tvEx)
-        TopNavigationViewHelper.enableNavigation(mContext, tvEx)
-        val menu = tvEx.menu
-        val menuItem = menu.getItem(ACTIVITY_NUM)
-        menuItem.isChecked = true
+        finish()
     }
 
     /**
@@ -230,7 +183,7 @@ class Matched_Activity : AppCompatActivity() {
                 //user is signed out
                 Log.d(TAG, "onAuthStateChanged: signed_out")
                 Log.d(TAG, "onAuthStateChanged: navigating back to login screen.")
-                val intent = Intent(this@Matched_Activity, Login::class.java)
+                val intent = Intent(mContext, Login::class.java)
 
                 //clear the activity stack， in case when sign out, the back button will bring the user back to the previous activity
                 intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
@@ -239,7 +192,6 @@ class Matched_Activity : AppCompatActivity() {
         }
     }
 
-    override fun onBackPressed() {}
     public override fun onStart() {
         super.onStart()
         // Check if user is signed in (non-null) and update UI accordingly.
@@ -254,7 +206,6 @@ class Matched_Activity : AppCompatActivity() {
     }
 
     companion object {
-        private const val TAG = "Matched_Activity"
-        private const val ACTIVITY_NUM = 2
+        private const val TAG = "BlockedListActivity"
     }
 }

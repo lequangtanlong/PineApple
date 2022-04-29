@@ -75,6 +75,8 @@
         <entry key="..\:/Work/Temp/MAD/New-PineApple/PineApple/app/src/main/res/drawable/ic_baseline_filter_alt_48.xml" value="0.187" />
         <entry key="..\:/Work/Temp/MAD/New-PineApple/PineApple/app/src/main/res/drawable/ic_baseline_settings_24.xml" value="0.187" />
         <entry key="..\:/Work/Temp/MAD/New-PineApple/PineApple/app/src/main/res/drawable/ic_menu_profile.xml" value="0.187" />
+        <entry key="..\:/Work/Temp/MAD/New-PineApple/PineApple/app/src/main/res/drawable/ic_new_info.xml" value="0.187" />
+        <entry key="..\:/Work/Temp/MAD/New-PineApple/PineApple/app/src/main/res/layout/activity_blocked_list.xml" value="0.22604166666666667" />
         <entry key="..\:/Work/Temp/MAD/New-PineApple/PineApple/app/src/main/res/layout/activity_btn_dislike.xml" value="0.22604166666666667" />
         <entry key="..\:/Work/Temp/MAD/New-PineApple/PineApple/app/src/main/res/layout/activity_change_password.xml" value="0.22604166666666667" />
         <entry key="..\:/Work/Temp/MAD/New-PineApple/PineApple/app/src/main/res/layout/activity_delete_account.xml" value="0.22604166666666667" />
@@ -87,8 +89,11 @@
         <entry key="..\:/Work/Temp/MAD/New-PineApple/PineApple/app/src/main/res/layout/activity_matched.xml" value="0.22604166666666667" />
         <entry key="..\:/Work/Temp/MAD/New-PineApple/PineApple/app/src/main/res/layout/activity_new_settings.xml" value="0.264" />
         <entry key="..\:/Work/Temp/MAD/New-PineApple/PineApple/app/src/main/res/layout/activity_profile.xml" value="0.22604166666666667" />
+        <entry key="..\:/Work/Temp/MAD/New-PineApple/PineApple/app/src/main/res/layout/activity_profile_checkin_main.xml" value="0.22604166666666667" />
+        <entry key="..\:/Work/Temp/MAD/New-PineApple/PineApple/app/src/main/res/layout/activity_profile_checkin_matched.xml" value="0.22604166666666667" />
         <entry key="..\:/Work/Temp/MAD/New-PineApple/PineApple/app/src/main/res/layout/activity_register_gender.xml" value="0.20989583333333334" />
         <entry key="..\:/Work/Temp/MAD/New-PineApple/PineApple/app/src/main/res/layout/activity_registerbasic_info.xml" value="0.22604166666666667" />
+        <entry key="..\:/Work/Temp/MAD/New-PineApple/PineApple/app/src/main/res/layout/activity_safety_toolkit.xml" value="0.22604166666666667" />
         <entry key="..\:/Work/Temp/MAD/New-PineApple/PineApple/app/src/main/res/layout/activity_settings.xml" value="0.22604166666666667" />
         <entry key="..\:/Work/Temp/MAD/New-PineApple/PineApple/app/src/main/res/layout/activity_settings_account.xml" value="0.22604166666666667" />
         <entry key="..\:/Work/Temp/MAD/New-PineApple/PineApple/app/src/main/res/layout/activity_tab_home.xml" value="0.22604166666666667" />
@@ -97,14 +102,17 @@
         <entry key="..\:/Work/Temp/MAD/New-PineApple/PineApple/app/src/main/res/layout/activity_utility_top_picks.xml" value="0.22604166666666667" />
         <entry key="..\:/Work/Temp/MAD/New-PineApple/PineApple/app/src/main/res/layout/activity_utiliy.xml" value="0.22604166666666667" />
         <entry key="..\:/Work/Temp/MAD/New-PineApple/PineApple/app/src/main/res/layout/activity_view_who_likes_you.xml" value="0.22604166666666667" />
+        <entry key="..\:/Work/Temp/MAD/New-PineApple/PineApple/app/src/main/res/layout/blocked_item.xml" value="0.22604166666666667" />
         <entry key="..\:/Work/Temp/MAD/New-PineApple/PineApple/app/src/main/res/layout/btn_option_full.xml" value="0.22604166666666667" />
         <entry key="..\:/Work/Temp/MAD/New-PineApple/PineApple/app/src/main/res/layout/conversation_activity.xml" value="0.22604166666666667" />
         <entry key="..\:/Work/Temp/MAD/New-PineApple/PineApple/app/src/main/res/layout/conversation_input_panel.xml" value="0.22604166666666667" />
         <entry key="..\:/Work/Temp/MAD/New-PineApple/PineApple/app/src/main/res/layout/layout_top_navigation_back.xml" value="0.22604166666666667" />
         <entry key="..\:/Work/Temp/MAD/New-PineApple/PineApple/app/src/main/res/layout/layout_top_navigation_chat.xml" value="0.22604166666666667" />
+        <entry key="..\:/Work/Temp/MAD/New-PineApple/PineApple/app/src/main/res/layout/layout_top_navigation_matched.xml" value="0.22604166666666667" />
         <entry key="..\:/Work/Temp/MAD/New-PineApple/PineApple/app/src/main/res/layout/layout_top_navigation_view.xml" value="0.22604166666666667" />
         <entry key="..\:/Work/Temp/MAD/New-PineApple/PineApple/app/src/main/res/layout/matched_item.xml" value="0.22604166666666667" />
         <entry key="..\:/Work/Temp/MAD/New-PineApple/PineApple/app/src/main/res/layout/vwly_item.xml" value="0.22604166666666667" />
+        <entry key="..\:/Work/Temp/MAD/New-PineApple/PineApple/app/src/main/res/layout/vwyl_item.xml" value="0.22604166666666667" />
         <entry key="..\:/Work/Temp/MAD/New-PineApple/PineApple/app/src/main/res/menu/top_navigation_toolbar.xml" value="0.22604166666666667" />
         <entry key="..\:/Work/Temp/MAD/PineApple-draft/app/src/main/res/drawable/ic_baseline_thumb_up_24.xml" value="0.1865" />
         <entry key="..\:/Work/Temp/MAD/PineApple-draft/app/src/main/res/drawable/ic_menu_chat.xml" value="0.1865" />

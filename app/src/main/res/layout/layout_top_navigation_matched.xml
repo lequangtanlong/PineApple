@@ -1,0 +1,47 @@
+<merge xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="60dp"
+        android:background="@drawable/orange_dark_border_bottom">
+
+        <ImageButton
+            android:id="@+id/back"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_vertical"
+            android:layout_marginLeft="20dp"
+            android:background="@color/colorPrimary"
+            android:contentDescription="@string/dummy"
+            android:minWidth="48dp"
+            android:minHeight="48dp"
+            android:src="@drawable/ic_new_backarrow"
+            app:tint="@color/colorPrimaryDark" />
+
+        <TextView
+            android:id="@+id/toolbartag"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="10dp"
+            android:text="@string/back"
+            android:layout_weight="1"
+            android:fontFamily="@font/iciel_cadena"
+            android:textColor="@color/colorPrimaryDark"
+            android:layout_gravity="center_vertical"
+            android:textSize="20sp"/>
+
+        <ImageButton
+            android:id="@+id/btn_safety_toolkit"
+            android:layout_gravity="center_vertical"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/ic_baseline_security_24"
+            app:tint="@color/colorPrimaryDark"
+            android:background="@color/colorPrimary"
+            android:layout_marginEnd="20dp"
+            android:contentDescription="@string/dummy" />
+
+    </LinearLayout>
+
+</merge>

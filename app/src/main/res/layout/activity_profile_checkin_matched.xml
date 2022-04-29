@@ -14,7 +14,7 @@
         android:orientation="vertical">
 
         <!-- contain back activity -->
-        <include layout="@layout/layout_top_navigation_back"/>
+        <include layout="@layout/layout_top_navigation_matched"/>
 
         <com.zellycookies.pineapple.utils.SquareImageView
             android:id="@+id/image_matched"
@@ -166,6 +166,7 @@
                 android:textSize="16sp"
                 android:hint="Email is not updated!!!"
                 android:layout_weight="1"/>
+<!--
 
             <Button
                 android:id="@+id/send_email"
@@ -179,6 +180,7 @@
                 android:onClick="sendEmail"
                 android:textAllCaps="false"
                 android:textColor="@color/white"/>
+-->
 
         </LinearLayout>
 

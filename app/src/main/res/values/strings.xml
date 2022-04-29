@@ -107,6 +107,13 @@
     <string name="web_client_id">365322481758-peo9njteob2bv50ktue6n49nfceb2tfq.apps.googleusercontent.com</string>
     <string name="show_birthday">Show birthday</string>
     <string name="show_distance">Show Distance</string>
+    <string name="back">Back</string>
+    <string name="block_user">Block user</string>
+    <string name="block">Block</string>
+    <string name="unmatch">Unmatch</string>
+    <string name="safety_toolkit">Safety Toolkit</string>
+    <string name="blocked_users">Blocked Users</string>
+    <string name="select_a_user_to_unblock_them">Select a user to unblock them</string>
 
     <!-- introduction pictures-->
     <integer-array name="img_id_arr">

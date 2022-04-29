@@ -46,14 +46,20 @@ class NewSettingsActivity : AppCompatActivity() {
         val btnFilter : Button = findViewById(R.id.btn_settings_filter)
         val btnInfo : Button = findViewById(R.id.btn_settings_info)
         val btnNoti : Button = findViewById(R.id.btn_settings_noti)
+        val btnBlock : Button = findViewById(R.id.btn_blocked_users)
 
         btnEditProfile.setOnClickListener {
-            val intent = Intent(this@NewSettingsActivity, EditProfileActivity::class.java)
+            val intent = Intent(mContext, EditProfileActivity::class.java)
             startActivity(intent)
         }
 
         btnInfo.setOnClickListener {
-            val intent = Intent(this@NewSettingsActivity, AccountActivity::class.java)
+            val intent = Intent(mContext, AccountActivity::class.java)
+            startActivity(intent)
+        }
+
+        btnBlock.setOnClickListener {
+            val intent = Intent(mContext, BlockedList::class.java)
             startActivity(intent)
         }
     }
