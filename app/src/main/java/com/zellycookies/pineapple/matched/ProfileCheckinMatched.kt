@@ -30,12 +30,20 @@ class ProfileCheckinMatched : AppCompatActivity() {
         val intent = intent
         user = intent.getSerializableExtra("classUser") as User?
         distance = intent.getIntExtra("distance", 1)
-        Log.d(TAG, "onCreate: user name is" + user!!.username)
+        Log.d(TAG, "onCreate: user name is " + user!!.username)
+        Log.d(TAG, "onCreate: user id is " + user!!.user_id)
         val toolbar = findViewById<View>(R.id.toolbartag) as TextView
         toolbar.text = "Matched"
+        val btnSafetyToolkit = findViewById<ImageButton>(R.id.btn_safety_toolkit)
+        btnSafetyToolkit.setOnClickListener {
+            val intentSafety = Intent(mContext, SafetyToolkitActivity::class.java)
+            intentSafety.putExtra("username", user!!.username)
+            intentSafety.putExtra("userId", user!!.user_id)
+            startActivity(intentSafety)
+        }
 
         //sendSMSButton = (Button) findViewById(R.id.send_sms);
-        sendEmailButton = findViewById<View>(R.id.send_email) as Button
+        //sendEmailButton = findViewById<View>(R.id.send_email) as Button
 
         //setup display content
         val profile_name = findViewById<View>(R.id.profile_name) as TextView
@@ -96,12 +104,12 @@ class ProfileCheckinMatched : AppCompatActivity() {
                 sendSMS(user.getPhone_number().toString(),user.getUsername().toString());
             }
         });
-        */sendEmailButton!!.setOnClickListener {
+        *//*sendEmailButton!!.setOnClickListener {
             sendEmail(
                 user!!.email.toString(),
                 user!!.username.toString()
             )
-        }
+        }*/
     }
 
     // This method will be called when send sms button in matched profile will be clicked. This open the default sms app.

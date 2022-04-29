@@ -103,9 +103,10 @@ class FirebaseMethods(context: Context) {
     fun getUser(dataSnapshot: DataSnapshot, sex: String?, uid: String?): User {
         val user = User()
         for (ds in dataSnapshot.getChildren()) {
-            if (ds.getKey().equals(sex)) {
+            if (ds.key.equals(sex)) {
                 val temp: User? = uid?.let { ds.child(it).getValue(User::class.java) }
                 if (temp != null) {
+                    user.user_id = uid
                     user.username = temp.username
                     user.profileImageUrl = temp.profileImageUrl
                     user.dateOfBirth = temp.dateOfBirth
