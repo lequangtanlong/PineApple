@@ -27,6 +27,9 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
         <activity
+            android:name=".utility.UtilityHistoryActivity"
+            android:exported="false" />
+        <activity
             android:name=".profile.BlockedList"
             android:exported="false" />
         <activity

@@ -42,6 +42,10 @@ class UtilityTopPicksActivity : AppCompatActivity() {
                         val intent = Intent(this@UtilityTopPicksActivity, UtilityLikesActivity::class.java)
                         startActivity(intent)
                     }
+                    2 -> {
+                        val intent = Intent(mContext, UtilityHistoryActivity::class.java)
+                        startActivity(intent)
+                    }
                 }
             }
             override fun onTabUnselected(tab: TabLayout.Tab?) {}
