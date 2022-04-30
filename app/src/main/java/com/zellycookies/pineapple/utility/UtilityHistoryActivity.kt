@@ -2,6 +2,7 @@ package com.zellycookies.pineapple.utility
 
 import android.content.Context
 import android.content.Intent
+import android.os.Build
 import android.os.Bundle
 import android.util.Log
 import android.view.View
@@ -20,6 +21,9 @@ import com.zellycookies.pineapple.R
 import com.zellycookies.pineapple.utility.adapter.ActivityAdapter
 import com.zellycookies.pineapple.utility.adapter.ActivityObject
 import com.zellycookies.pineapple.utils.TopNavigationViewHelper
+import java.text.SimpleDateFormat
+import java.time.LocalDateTime
+import java.time.format.DateTimeFormatter
 
 class UtilityHistoryActivity : AppCompatActivity() {
     private val mContext: Context = this@UtilityHistoryActivity
@@ -49,7 +53,7 @@ class UtilityHistoryActivity : AppCompatActivity() {
         mFirebaseFirestore = FirebaseFirestore.getInstance()
         checkUserSex()
         mAdapter = ActivityAdapter(mContext, R.layout.history_item, activityList)
-        val listView = findViewById<View>(R.id.blockedList) as ListView
+        val listView = findViewById<View>(R.id.activityList) as ListView
         listView.adapter = mAdapter
     }
 
@@ -100,8 +104,10 @@ class UtilityHistoryActivity : AppCompatActivity() {
                     )
                     val activityObject = ActivityObject(time, content as String?)
                     activityList.add(activityObject)
+                    mAdapter?.notifyDataSetChanged()
                     Log.d(TAG, "onDataChange: Activity List size: ${activityList.size}")
                 }
+                activityList.reverse()
             }
             override fun onCancelled(error: DatabaseError) {}
         })
@@ -183,5 +189,18 @@ class UtilityHistoryActivity : AppCompatActivity() {
         private const val TAG = "HistoryActivity"
         private const val TAB_NUM = 2
         private const val ACTIVITY_NUM = 3
+
+        // Upload to database
+        private fun curTime() : String {
+            val sdf = SimpleDateFormat("yyyy-MM-dd | HH:mm:ss:SSS")
+            return sdf.format(Date())
+        }
+
+        fun uploadActivity(userSex : String, userId: String, content : String) {
+            val dbRef = FirebaseDatabase.getInstance().reference
+            val activityRef = dbRef.child(userSex).child(userId).child("activity")
+            activityRef.child(curTime()).setValue(content)
+            Log.d(TAG, "Uploading activity with {$userSex | $userId | $content}")
+        }
     }
 }

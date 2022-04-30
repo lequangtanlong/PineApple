@@ -30,7 +30,7 @@ class ActivityAdapter(
             view = convertView
             viewHolder = view.tag as ViewHolder
         }
-        viewHolder.actTime!!.text = activityObject!!.time
+        viewHolder.actTime!!.text = activityObject!!.time!!.substring(0, 21)
         viewHolder.actContent!!.text = activityObject.content
         return view
     }
