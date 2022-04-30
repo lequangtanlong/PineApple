@@ -20,6 +20,7 @@ import java.util.*
 import com.zellycookies.pineapple.R
 import com.zellycookies.pineapple.main.ProfileCheckinMain
 import com.zellycookies.pineapple.matched.ProfileAdapter
+import com.zellycookies.pineapple.utility.UtilityHistoryActivity
 
 class BlockedList : AppCompatActivity() {
     private val mContext: Context = this@BlockedList
@@ -163,6 +164,7 @@ class BlockedList : AppCompatActivity() {
             .child("blocked-users").child(user.user_id!!).setValue(null)
         otherRef.child("block")
             .child("blocked-by").child(userId!!).setValue(null)
+        UtilityHistoryActivity.uploadActivity(userSex!!, userId!!, "You unblocked ${user.username}")
         Toast.makeText(mContext, "Unblocked ${user.username}", Toast.LENGTH_SHORT).show()
         val intent = Intent(this, BlockedList::class.java)
         startActivity(intent)

@@ -119,6 +119,8 @@
 
     <string name="yes">Yes</string>
     <string name="no">No</string>
+    <string name="time">Time</string>
+    <string name="activity">Activity</string>
 
     <!-- introduction pictures-->
     <integer-array name="img_id_arr">

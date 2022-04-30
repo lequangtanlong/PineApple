@@ -1,8 +1,6 @@
 package com.zellycookies.pineapple.matched
 
-import android.annotation.SuppressLint
 import android.content.Context
-import android.content.DialogInterface
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
@@ -11,13 +9,13 @@ import android.view.LayoutInflater
 import android.view.View
 import android.widget.Button
 import android.widget.TextView
-import android.widget.Toast
 import androidx.appcompat.app.AlertDialog
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.FirebaseUser
 import com.google.firebase.database.*
 import com.zellycookies.pineapple.R
 import com.zellycookies.pineapple.login.Login
+import com.zellycookies.pineapple.utility.UtilityHistoryActivity
 
 class SafetyToolkitActivity : AppCompatActivity() {
     private val mContext: Context = this@SafetyToolkitActivity
@@ -52,6 +50,7 @@ class SafetyToolkitActivity : AppCompatActivity() {
         Log.d(TAG, "Other: $otherName | $otherId | $otherSex")
         user = FirebaseAuth.getInstance().currentUser
         userId = user!!.uid
+
         checkUserSex()
         otherRef = FirebaseDatabase.getInstance().reference.child(otherSex!!).child(otherId!!)
 
@@ -64,6 +63,7 @@ class SafetyToolkitActivity : AppCompatActivity() {
             .child("blocked-users").child(otherId!!).setValue(true)
         otherRef!!.child("block")
             .child("blocked-by").child(userId!!).setValue(true)
+        UtilityHistoryActivity.uploadActivity(userSex!!, userId!!, "You blocked $otherName")
     }
 
     private fun unmatchUser() {
@@ -72,6 +72,7 @@ class SafetyToolkitActivity : AppCompatActivity() {
         userRef!!.child("connections").child("match_result").child(otherId!!).setValue(null)
         otherRef!!.child("connections").child("match_result").child(userId!!).setValue(null)
         otherRef!!.child("connections").child("likeme").child(userId!!).setValue(null)
+        UtilityHistoryActivity.uploadActivity(userSex!!, userId!!, "You unmatched with $otherName")
     }
 
     private fun dialog(isBlock : Boolean) : AlertDialog {

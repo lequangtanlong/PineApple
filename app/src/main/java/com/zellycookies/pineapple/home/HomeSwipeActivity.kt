@@ -31,6 +31,7 @@ import com.lorentzos.flingswipe.SwipeFlingAdapterView
 import com.zellycookies.pineapple.R
 import com.zellycookies.pineapple.introduction.IntroductionMain
 import com.zellycookies.pineapple.main.*
+import com.zellycookies.pineapple.utility.UtilityHistoryActivity
 import com.zellycookies.pineapple.utils.CalculateAge
 import com.zellycookies.pineapple.utils.GPS
 import com.zellycookies.pineapple.utils.TopNavigationViewHelper
@@ -59,6 +60,7 @@ class HomeSwipeActivity : Activity() {
     var rowItems: MutableList<Cards>? = null
     var swipedCards = ArrayDeque<Cards>(listOf())
     var gps: GPS? = null
+    private var thisUserId : String? = null
 
     private var tabLayout : TabLayout? = null
 
@@ -77,6 +79,7 @@ class HomeSwipeActivity : Activity() {
         setupFirebaseAuth()
         setupTabLayout()
         setupTopNavigationView()
+        thisUserId = mAuth!!.currentUser!!.uid
         checkUserSex()
         rowItems = ArrayList()
         arrayAdapter = PhotoAdapter(this, R.layout.item, rowItems as ArrayList<Cards>)
@@ -165,6 +168,7 @@ class HomeSwipeActivity : Activity() {
                     .child(
                         currentUID!!
                     ).setValue(true)
+                UtilityHistoryActivity.uploadActivity(userSex!!, thisUserId!!, "You disliked ${obj.name}")
             }
 
             override fun onRightCardExit(dataObject: Any) {
@@ -174,9 +178,10 @@ class HomeSwipeActivity : Activity() {
                     .child(
                         currentUID!!
                     ).setValue(true)
+                UtilityHistoryActivity.uploadActivity(userSex!!, thisUserId!!, "You liked ${obj.name}")
 
                 //check matches
-                isConnectionMatch(userId)
+                isConnectionMatch(userId, obj.name!!)
             }
 
             override fun onAdapterAboutToEmpty(itemsInAdapter: Int) {
@@ -191,7 +196,7 @@ class HomeSwipeActivity : Activity() {
         })
     }
 
-    private fun isConnectionMatch(userId: String) {
+    private fun isConnectionMatch(userId: String, username: String) {
         val currentUserConnectionsDb = usersDb!!.child(userSex!!).child(currentUID!!).child("connections").child("likeme").child(userId)
         currentUserConnectionsDb.addListenerForSingleValueEvent(object : ValueEventListener {
             override fun onDataChange(dataSnapshot: DataSnapshot) {
@@ -208,6 +213,7 @@ class HomeSwipeActivity : Activity() {
                         .child("match_result").child(
                             dataSnapshot.key!!
                         ).setValue(true)
+                    UtilityHistoryActivity.uploadActivity(userSex!!, thisUserId!!, "You have matched with ${username}!")
 
                     // Create group in Realtime DB and Cloud DB
                     val key = mFirebaseFirestore!!.collection("group").document().id
@@ -444,6 +450,7 @@ class HomeSwipeActivity : Activity() {
                     currentUID!!
                 ).setValue(true)
             rowItems!!.removeAt(0)
+            UtilityHistoryActivity.uploadActivity(userSex!!, thisUserId!!, "You disliked ${card_item.name}")
             arrayAdapter?.notifyDataSetChanged()
             val btnClick = Intent(mContext, BtnDislikeActivity::class.java)
             btnClick.putExtra("url", card_item.profileImageUrl)
@@ -459,9 +466,10 @@ class HomeSwipeActivity : Activity() {
             usersDb!!.child(lookforSex!!).child(userId).child("connections").child("likeme").child(
                 currentUID!!
             ).setValue(true)
+            UtilityHistoryActivity.uploadActivity(userSex!!, thisUserId!!, "You liked ${card_item.name}")
 
             //check matches
-            isConnectionMatch(userId)
+            isConnectionMatch(userId, card_item.name!!)
 
             rowItems!!.removeAt(0)
             //swipedCards.addLast(card_item)
