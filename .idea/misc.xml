@@ -3,6 +3,10 @@
   <component name="DesignSurface">
     <option name="filePathToZoomLevelMap">
       <map>
+        <entry key="..\:/Project/PineApple/app/src/main/res/layout/conversation_activity.xml" value="0.15534420289855072" />
+        <entry key="..\:/Project/PineApple/app/src/main/res/layout/conversation_input_panel.xml" value="0.15534420289855072" />
+        <entry key="..\:/Project/PineApple/app/src/main/res/layout/conversation_message_left.xml" value="0.15534420289855072" />
+        <entry key="..\:/Project/PineApple/app/src/main/res/layout/conversation_message_right.xml" value="0.15534420289855072" />
         <entry key="..\:/Users/Minh Duc/Desktop/PineApple/app/src/main/res/layout/activity_main.xml" value="0.136" />
         <entry key="..\:/Users/lequa/OneDrive/Documents/GitHub/PineApple/app/src/main/res/drawable/custom_switch.xml" value="0.121" />
         <entry key="..\:/Users/lequa/OneDrive/Documents/GitHub/PineApple/app/src/main/res/drawable/ic_check_no.xml" value="0.2265" />

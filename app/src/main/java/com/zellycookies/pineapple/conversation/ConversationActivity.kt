@@ -56,11 +56,15 @@ class ConversationActivity : AppCompatActivity() {
         gps = GPS(this)
         setupFirebaseAuth()
         mFirestore = FirebaseFirestore.getInstance()
+
+
         //load user data
         mGroupObject = intent.getSerializableExtra("groupObject") as GroupObject?
         userMatched = mGroupObject!!.userMatch
         userId = mAuth!!.currentUser!!.uid
         mGroupMessageDb = mFirestore!!.collection("message").document(mGroupObject!!.chatId!!)
+
+
         //setup display info
         btnInfo = findViewById(R.id.checkInfoUserMatched)
         btnBack = findViewById(R.id.back_matched_activity)
