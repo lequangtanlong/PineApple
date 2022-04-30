@@ -26,7 +26,7 @@ import com.google.firebase.auth.FirebaseAuth.AuthStateListener
 import com.google.firebase.firestore.*
 import java.util.*
 import com.zellycookies.pineapple.R
-
+//
 class ConversationActivity : AppCompatActivity() {
     var action = "INIT"
     private var mGroupObject: GroupObject? = null
