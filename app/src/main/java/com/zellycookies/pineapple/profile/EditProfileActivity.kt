@@ -25,6 +25,7 @@ import kotlin.String
 import kotlin.Unit
 import kotlin.toString
 import com.zellycookies.pineapple.R
+import com.zellycookies.pineapple.utility.UtilityHistoryActivity
 
 class EditProfileActivity : AppCompatActivity() {
     private val mContext: Context = this@EditProfileActivity
@@ -308,6 +309,7 @@ class EditProfileActivity : AppCompatActivity() {
     fun saveAndBack(view: View?) {
         saveUserPhoto()
         saveUserData()
+        UtilityHistoryActivity.uploadActivity(userSex!!, userId!!, "You edited your profile")
         val intent = Intent(mContext, NewSettingsActivity::class.java)
         startActivity(intent)
     }

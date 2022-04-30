@@ -11,23 +11,27 @@ import com.google.firebase.auth.AuthCredential
 import com.google.firebase.auth.EmailAuthProvider
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.FirebaseUser
+import com.google.firebase.database.ChildEventListener
+import com.google.firebase.database.DataSnapshot
+import com.google.firebase.database.DatabaseError
+import com.google.firebase.database.FirebaseDatabase
 import com.zellycookies.pineapple.R
 import com.zellycookies.pineapple.introduction.IntroductionMain
+import com.zellycookies.pineapple.utility.UtilityHistoryActivity
 
 class ChangePasswordActivity : AppCompatActivity() {
     //firebase
     private var mAuth: FirebaseAuth? = null
     private var mAuthListener: FirebaseAuth.AuthStateListener? = null
     private var user : FirebaseUser? = null
+    private var userSex : String? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_change_password)
-
         setupFirebaseAuth()
-        findViewById<Button>(R.id.btn_confirm).setOnClickListener {
-            changePassword()
-        }
+        checkUserSex()
+
     }
 
     // Change password
@@ -54,6 +58,7 @@ class ChangePasswordActivity : AppCompatActivity() {
                                     Toast.LENGTH_SHORT
                                 ).show()
                                 Log.d(TAG, "Changed password successfully")
+                                UtilityHistoryActivity.uploadActivity(userSex!!, user!!.uid, "You changed your password")
                             } else {
                                 Toast.makeText(
                                     this@ChangePasswordActivity,
@@ -107,6 +112,45 @@ class ChangePasswordActivity : AppCompatActivity() {
             }
         }
         user = FirebaseAuth.getInstance().currentUser
+    }
+
+    private fun checkUserSex() {
+        if (user != null) {
+            val maleDb = FirebaseDatabase.getInstance().reference.child("male")
+            maleDb.addChildEventListener(object : ChildEventListener {
+                override fun onChildAdded(dataSnapshot: DataSnapshot, s: String?) {
+                    if (dataSnapshot.key == user!!.uid) {
+                        userSex = "male"
+                        Log.d(TAG,"onChildAdded: the sex is $userSex")
+                        findViewById<Button>(R.id.btn_confirm).setOnClickListener {
+                            changePassword()
+                        }
+                    }
+                }
+
+                override fun onChildChanged(dataSnapshot: DataSnapshot, s: String?) {}
+                override fun onChildRemoved(dataSnapshot: DataSnapshot) {}
+                override fun onChildMoved(dataSnapshot: DataSnapshot, s: String?) {}
+                override fun onCancelled(databaseError: DatabaseError) {}
+            })
+            val femaleDb = FirebaseDatabase.getInstance().reference.child("female")
+            femaleDb.addChildEventListener(object : ChildEventListener {
+                override fun onChildAdded(dataSnapshot: DataSnapshot, s: String?) {
+                    if (dataSnapshot.key == user!!.uid) {
+                        userSex = "female"
+                        Log.d(TAG, "onChildAdded: the sex is $userSex")
+                        findViewById<Button>(R.id.btn_confirm).setOnClickListener {
+                            changePassword()
+                        }
+                    }
+                }
+
+                override fun onChildChanged(dataSnapshot: DataSnapshot, s: String?) {}
+                override fun onChildRemoved(dataSnapshot: DataSnapshot) {}
+                override fun onChildMoved(dataSnapshot: DataSnapshot, s: String?) {}
+                override fun onCancelled(databaseError: DatabaseError) {}
+            })
+        }
     }
 
     companion object {
