@@ -127,7 +127,10 @@ class ConversationActivity : AppCompatActivity() {
                                 if (i.getString("sendAt") != null) {
                                     datetime = i.getString("sendAt")
                                 }
-                                val mMessage = MessageObject(i.id, sendBy, messageText, datetime)
+                                var type: String? = MessageType.TEXT
+                                if (i.getString("type") == MessageType.IMAGE)
+                                    type = MessageType.IMAGE
+                                val mMessage = MessageObject(i.id, sendBy, messageText, datetime, type)
                                 messageList!!.add(mMessage)
                                 mChatLayoutManager!!.scrollToPosition(messageList!!.size - 1)
                                 mChatAdapter!!.notifyDataSetChanged()
@@ -180,6 +183,7 @@ class ConversationActivity : AppCompatActivity() {
         userId?.let { newMessageMap.put("sendBy", it) }
         newMessageMap.put("sendAt", dateTime)
         newMessageMap.put("timestamp", FieldValue.serverTimestamp())
+        newMessageMap.put("type", MessageType.TEXT)
 
         if (!mMessage!!.text.toString().isEmpty()) {
             newMessageMap["messageText"] = mMessage!!.text.toString()
@@ -262,6 +266,8 @@ class ConversationActivity : AppCompatActivity() {
                     updateDatabaseWithNewMessage(mMessageDb, newMessageMap)
                 }
             }
+
+            action = SEND_MESSAGE
         }
     }
 
