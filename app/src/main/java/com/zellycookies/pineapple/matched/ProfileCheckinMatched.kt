@@ -75,16 +75,16 @@ class ProfileCheckinMatched : AppCompatActivity() {
 
         //append interests
         val interest = StringBuilder()
-        if (user!!.isMovies) {
+        if (user!!.isHobby_movies) {
             interest.append("Movies   ")
         }
-        if (user!!.isMusic) {
+        if (user!!.isHobby_music) {
             interest.append("Music   ")
         }
-        if (user!!.isArt) {
+        if (user!!.isHobby_art) {
             interest.append("Art   ")
         }
-        if (user!!.isFood) {
+        if (user!!.isHobby_food) {
             interest.append("Food   ")
         }
         profile_interest.text = interest.toString()

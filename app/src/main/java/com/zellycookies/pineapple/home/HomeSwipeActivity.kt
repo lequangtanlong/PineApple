@@ -19,6 +19,7 @@ import androidx.core.app.NotificationCompat
 import androidx.core.app.NotificationManagerCompat
 import androidx.core.content.ContextCompat
 import com.google.android.material.bottomnavigation.BottomNavigationView
+import com.google.android.material.floatingactionbutton.FloatingActionButton
 import com.google.android.material.snackbar.Snackbar
 import com.google.android.material.tabs.TabLayout
 import com.google.firebase.auth.FirebaseAuth
@@ -58,9 +59,10 @@ class HomeSwipeActivity : Activity() {
     private var arrayAdapter: PhotoAdapter? = null
     var listView: ListView? = null
     var rowItems: MutableList<Cards>? = null
-    var swipedCards = ArrayDeque<Cards>(listOf())
+    var cardCache: MutableList<Cards>? = null
     var gps: GPS? = null
     private var thisUserId : String? = null
+    private var flingContainer : SwipeFlingAdapterView? = null
 
     private var tabLayout : TabLayout? = null
 
@@ -81,8 +83,50 @@ class HomeSwipeActivity : Activity() {
         setupTopNavigationView()
         checkUserSex()
         rowItems = ArrayList()
+        cardCache = ArrayList()
+        checkCardCache()
         arrayAdapter = PhotoAdapter(this, R.layout.item, rowItems as ArrayList<Cards>)
         updateSwipeCard()
+        initButton()
+    }
+
+    private fun checkCardCache() {
+        val intent = intent
+        val isRewindActivity = intent.getBooleanExtra("isRewindActivity", false)
+        if (!isRewindActivity) {
+            Log.d(TAG, "checkCardCache: False")
+            return
+        }
+
+        Log.d(TAG, "checkCardCache: True")
+
+        val listUserId = intent.getStringArrayListExtra("listUserId")
+        val listName = intent.getStringArrayListExtra("listName")
+        val listDoB = intent.getStringArrayListExtra("listDoB")
+        val listAge = intent.getIntegerArrayListExtra("listAge")
+        val listUrl = intent.getStringArrayListExtra("listUrl")
+        val listBio = intent.getStringArrayListExtra("listBio")
+        val listInterest = intent.getStringArrayListExtra("listInterest")
+        val listDistance = intent.getIntegerArrayListExtra("listDistance")
+        val listShowDoB = intent.getStringArrayListExtra("listShowDoB")
+        val listShowDistance = intent.getStringArrayListExtra("listShowDistance")
+        for (i in 0 until listUserId!!.size) {
+            val item = Cards(listUserId[i], listName!![i], listDoB!![i],
+                        listAge!![i], listUrl!![i], listBio!![i],
+                        listInterest!![i], listDistance!![i],
+                        listShowDoB!![i].toBoolean(), listShowDistance!![i].toBoolean())
+            cardCache!!.add(cardCache!!.size, item)
+        }
+    }
+
+    private fun initButton() {
+        val btnSwipeLeft = findViewById<FloatingActionButton>(R.id.dislikebtn)
+        val btnSwipeRight = findViewById<FloatingActionButton>(R.id.likebtn)
+        val btnRewind = findViewById<FloatingActionButton>(R.id.rewindbtn)
+
+        btnSwipeLeft.setOnClickListener { dislikeBtn() }
+        btnSwipeRight.setOnClickListener { likeBtn() }
+        btnRewind.setOnClickListener { rewindBtn() }
     }
 
     private fun updateLocation() {
@@ -146,16 +190,14 @@ class HomeSwipeActivity : Activity() {
     }
 
     private fun updateSwipeCard() {
-        val flingContainer = findViewById<View>(R.id.frame) as SwipeFlingAdapterView
-        flingContainer.adapter = arrayAdapter
-        flingContainer.setFlingListener(object : SwipeFlingAdapterView.onFlingListener {
+        flingContainer = findViewById<View>(R.id.frame) as SwipeFlingAdapterView
+        flingContainer!!.adapter = arrayAdapter
+        flingContainer!!.setFlingListener(object : SwipeFlingAdapterView.onFlingListener {
             override fun removeFirstObjectInAdapter() {
                 // this is the simplest way to delete an object from the Adapter (/AdapterView)
                 Log.d("LIST", "removed object!")
 
-                //val removedCard =
                 rowItems!!.removeAt(0)
-                //swipedCards.addLast(removedCard)
 
                 arrayAdapter?.notifyDataSetChanged()
             }
@@ -167,12 +209,18 @@ class HomeSwipeActivity : Activity() {
                     .child(
                         currentUID!!
                     ).setValue(true)
+                cardCache!!.add(0, obj)
+                Log.d(TAG, "Added ${obj.name} to cache")
                 UtilityHistoryActivity.uploadActivity(userSex!!, thisUserId!!, "You disliked ${obj.name}")
             }
 
             override fun onRightCardExit(dataObject: Any) {
                 val obj = dataObject as Cards
                 val userId = obj.userId
+                usersDb!!.child(lookforSex!!).child(userId).child("connections").child("dislikeme")
+                    .child(
+                        currentUID!!
+                    ).setValue(null)
                 usersDb!!.child(lookforSex!!).child(userId).child("connections").child("likeme")
                     .child(
                         currentUID!!
@@ -188,7 +236,7 @@ class HomeSwipeActivity : Activity() {
             }
 
             override fun onScroll(scrollProgressPercent: Float) {
-                val view = flingContainer.selectedView
+                val view = flingContainer!!.selectedView
                 view.findViewById<View>(R.id.item_swipe_right_indicator).alpha = (if (scrollProgressPercent < 0) (-scrollProgressPercent) else 0.0F)
                 view.findViewById<View>(R.id.item_swipe_left_indicator).alpha = (if (scrollProgressPercent > 0) scrollProgressPercent else 0.0F)
             }
@@ -334,19 +382,12 @@ class HomeSwipeActivity : Activity() {
     }
 
     private fun findInterest(dataSnapshot: DataSnapshot) {
-        movies = dataSnapshot.getValue(User::class.java)!!.isMovies
-        music = dataSnapshot.getValue(User::class.java)!!.isMusic
-        food = dataSnapshot.getValue(User::class.java)!!.isFood
-        art = dataSnapshot.getValue(User::class.java)!!.isArt
-    }//calculate age
+        movies = dataSnapshot.getValue(User::class.java)!!.isHobby_movies
+        music = dataSnapshot.getValue(User::class.java)!!.isHobby_music
+        food = dataSnapshot.getValue(User::class.java)!!.isHobby_food
+        art = dataSnapshot.getValue(User::class.java)!!.isHobby_art
+    }
 
-    //initialize card view
-    //check profile image first
-
-    //calculate distance
-    /**
-     * show the lookforsex profile photos
-     */
     val potentialMatch: Unit
         get() {
             val potentialMatch = FirebaseDatabase.getInstance().reference.child(
@@ -363,10 +404,10 @@ class HomeSwipeActivity : Activity() {
                         val curUser = dataSnapshot.getValue(
                             User::class.java
                         )
-                        val tempDatabase = curUser!!.isFood
-                        val tempMusic = curUser.isMusic
-                        val tempArt = curUser.isArt
-                        val tempMovies = curUser.isMovies
+                        val tempDatabase = curUser!!.isHobby_food
+                        val tempMusic = curUser.isHobby_music
+                        val tempArt = curUser.isHobby_art
+                        val tempMovies = curUser.isHobby_movies
                         val showDoB = curUser.isShowDoB
                         val showDistance = curUser.isShowDistance
                         if (tempMusic == music || tempArt == art || tempDatabase == food || tempMovies == movies) {
@@ -440,7 +481,7 @@ class HomeSwipeActivity : Activity() {
         }
 
     //Dislike Button = Swipe left
-    fun DislikeBtn(v: View?) {
+    private fun dislikeBtn() {
         if (rowItems!!.size != 0) {
             val card_item = rowItems!![0]
             val userId = card_item.userId
@@ -448,7 +489,11 @@ class HomeSwipeActivity : Activity() {
                 .child(
                     currentUID!!
                 ).setValue(true)
-            rowItems!!.removeAt(0)
+
+            val removedCard = rowItems!!.removeAt(0)
+            cardCache!!.add(0, removedCard)
+            Log.d(TAG, "Added ${removedCard.name} to cache")
+
             UtilityHistoryActivity.uploadActivity(userSex!!, thisUserId!!, "You disliked ${card_item.name}")
             arrayAdapter?.notifyDataSetChanged()
             val btnClick = Intent(mContext, BtnDislikeActivity::class.java)
@@ -458,7 +503,7 @@ class HomeSwipeActivity : Activity() {
     }
 
     //Like Button = Swipe right
-    fun LikeBtn(v: View?) {
+    private fun likeBtn() {
         if (rowItems!!.size != 0) {
             val card_item = rowItems!![0]
             val userId = card_item.userId
@@ -471,7 +516,6 @@ class HomeSwipeActivity : Activity() {
             isConnectionMatch(userId, card_item.name!!)
 
             rowItems!!.removeAt(0)
-            //swipedCards.addLast(card_item)
 
             arrayAdapter?.notifyDataSetChanged()
             val btnClick = Intent(mContext, BtnLikeActivity::class.java)
@@ -480,13 +524,62 @@ class HomeSwipeActivity : Activity() {
         }
     }
 
-    fun RewindBtn(v: View?) {
-        if (swipedCards.size != 0) {
-            val swipedCard = swipedCards.removeLast()
-            rowItems!!.add(0, swipedCard)
-
-            arrayAdapter?.notifyDataSetChanged()
+    private fun rewindBtn() {
+        if (cardCache!!.size == 0) {
+            Log.d(TAG, "Card Cache is empty")
+            return
         }
+        val card = cardCache!!.removeAt(0)
+        usersDb!!.child(lookforSex!!).child(card.userId).child("connections").child("dislikeme")
+            .child(
+                currentUID!!
+            ).setValue(null)
+        Log.d(TAG, "Rewind ${card.name}")
+        transferCache()
+    }
+
+    private fun transferCache() {
+        Log.d(TAG, "Transferring cache...")
+        if (cardCache!!.size == 0) {
+            val intent = Intent(this, HomeSwipeActivity::class.java)
+            intent.putExtra("isRewindActivity", false)
+            startActivity(intent)
+        }
+        val listUserId : MutableList<String> = ArrayList()
+        val listName : MutableList<String> = ArrayList()
+        val listDoB : MutableList<String> = ArrayList()
+        val listAge : MutableList<Int> = ArrayList()
+        val listUrl : MutableList<String> = ArrayList()
+        val listBio : MutableList<String> = ArrayList()
+        val listInterest : MutableList<String> = ArrayList()
+        val listDistance : MutableList<Int> = ArrayList()
+        val listShowDoB : MutableList<String> = ArrayList()
+        val listShowDistance : MutableList<String> = ArrayList()
+        for (card in cardCache!!) {
+            listUserId.add(card.userId)
+            listName.add(card.name!!)
+            listDoB.add(card.dob!!)
+            listAge.add(card.age)
+            listUrl.add(card.profileImageUrl)
+            listBio.add(card.bio!!)
+            listInterest.add(card.interest)
+            listDistance.add(card.distance)
+            listShowDoB.add(card.showDoB.toString())
+            listShowDistance.add(card.showDistance.toString())
+        }
+        val intent = Intent(this, HomeSwipeActivity::class.java)
+        intent.putExtra("isRewindActivity", true)
+        intent.putStringArrayListExtra("listUserId", ArrayList(listUserId))
+        intent.putStringArrayListExtra("listName", ArrayList(listName))
+        intent.putStringArrayListExtra("listDoB", ArrayList(listDoB))
+        intent.putIntegerArrayListExtra("listAge", ArrayList(listAge))
+        intent.putStringArrayListExtra("listUrl", ArrayList(listUrl))
+        intent.putStringArrayListExtra("listBio", ArrayList(listBio))
+        intent.putStringArrayListExtra("listInterest", ArrayList(listInterest))
+        intent.putIntegerArrayListExtra("listDistance", ArrayList(listDistance))
+        intent.putStringArrayListExtra("listShowDoB", ArrayList(listShowDoB))
+        intent.putStringArrayListExtra("listShowDistance", ArrayList(listShowDistance))
+        startActivity(intent)
     }
 
     private fun setupTabLayout() {

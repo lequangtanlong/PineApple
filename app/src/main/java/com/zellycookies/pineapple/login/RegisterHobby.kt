@@ -70,11 +70,11 @@ class RegisterHobby : AppCompatActivity() {
         if (moviesSelectionButton!!.alpha == 1.0f) {
             moviesSelectionButton!!.alpha = .5f
             moviesSelectionButton!!.setBackgroundResource(R.drawable.btn_alt)
-            userInfo?.isMovies=(false)
+            userInfo?.isHobby_movies=(false)
         } else {
             moviesSelectionButton!!.alpha = 1.0f
             moviesSelectionButton!!.setBackgroundResource(R.drawable.btn_main)
-            userInfo?.isMovies=(true)
+            userInfo?.isHobby_movies=(true)
         }
     }
 
@@ -83,11 +83,11 @@ class RegisterHobby : AppCompatActivity() {
         if (foodSelectionButton!!.alpha == 1.0f) {
             foodSelectionButton!!.alpha = .5f
             foodSelectionButton!!.setBackgroundResource(R.drawable.btn_alt)
-            userInfo?.isFood=(false)
+            userInfo?.isHobby_food=(false)
         } else {
             foodSelectionButton!!.alpha = 1.0f
             foodSelectionButton!!.setBackgroundResource(R.drawable.btn_main)
-            userInfo?.isFood=(true)
+            userInfo?.isHobby_food=(true)
         }
     }
 
@@ -96,11 +96,11 @@ class RegisterHobby : AppCompatActivity() {
         if (artSelectionButton!!.alpha == 1.0f) {
             artSelectionButton!!.alpha = .5f
             artSelectionButton!!.setBackgroundResource(R.drawable.btn_alt)
-            userInfo?.isArt=(false)
+            userInfo?.isHobby_art=(false)
         } else {
             artSelectionButton!!.alpha = 1.0f
             artSelectionButton!!.setBackgroundResource(R.drawable.btn_main)
-            userInfo?.isArt=(true)
+            userInfo?.isHobby_art=(true)
         }
     }
 
@@ -109,11 +109,11 @@ class RegisterHobby : AppCompatActivity() {
         if (musicSelectionButton!!.alpha == 1.0f) {
             musicSelectionButton!!.alpha = .5f
             musicSelectionButton!!.setBackgroundResource(R.drawable.btn_alt)
-            userInfo?.isMusic=(false)
+            userInfo?.isHobby_music=(false)
         } else {
             musicSelectionButton!!.alpha = 1.0f
             musicSelectionButton!!.setBackgroundResource(R.drawable.btn_main)
-            userInfo?.isMusic=(true)
+            userInfo?.isHobby_music=(true)
         }
     }
 

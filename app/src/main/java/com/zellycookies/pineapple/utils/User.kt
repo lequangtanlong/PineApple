@@ -13,10 +13,10 @@ class User : Serializable {
     var phone_number: String? = null
     var email: String? = null
     var username: String? = null
-    var isMovies = false
-    var isFood = false
-    var isArt = false
-    var isMusic = false
+    var isHobby_movies = false
+    var isHobby_food = false
+    var isHobby_art = false
+    var isHobby_music = false
     var isShowDoB = true
     var isShowDistance = true
     var description: String? = null
@@ -41,10 +41,10 @@ class User : Serializable {
         phone_number: String?,
         email: String?,
         username: String?,
-        movies: Boolean,
-        food: Boolean,
-        art: Boolean,
-        music: Boolean,
+        hobby_movies: Boolean,
+        hobby_food: Boolean,
+        hobby_art: Boolean,
+        hobby_music: Boolean,
         description: String?,
         dateOfBirth: String?,
         profileImageUrl: String?,
@@ -56,10 +56,10 @@ class User : Serializable {
         this.phone_number = phone_number
         this.email = email
         this.username = username
-        isMovies = movies
-        isFood = food
-        isArt = art
-        isMusic = music
+        isHobby_movies = hobby_movies
+        isHobby_food = hobby_food
+        isHobby_art = hobby_art
+        isHobby_music = hobby_music
         isShowDoB = true
         isShowDistance = true
         this.description = description
@@ -76,10 +76,10 @@ class User : Serializable {
                 ", phone_number='" + phone_number + '\'' +
                 ", email='" + email + '\'' +
                 ", username='" + username + '\'' +
-                ", Movies=" + isMovies +
-                ", Food=" + isFood +
-                ", Art=" + isArt +
-                ", Music=" + isMusic +
+                ", Movies=" + isHobby_movies +
+                ", Food=" + isHobby_food +
+                ", Art=" + isHobby_art +
+                ", Music=" + isHobby_music +
                 ", showDoB=" + isShowDoB +
                 ", showDistance=" + isShowDistance +
                 ", description='" + description + '\'' +

@@ -48,10 +48,11 @@ class EditProfileActivity : AppCompatActivity() {
     private var musicCheckBox: CheckBox? = null
     private var DoBCheckBox: CheckBox? = null
     private var distanceCheckBox: CheckBox? = null
-    private var isMoviesClicked = false
-    private var isFoodClicked = false
-    private var isMusicClicked = false
-    private var isArtClicked = false
+    private var isHobby_moviesClicked = false
+    private var isHobby_foodClicked = false
+    private var isHobby_musicClicked = false
+    private var isHobby_artClicked = false
+    private var isClicked = false
     private var isShowDoB = true
     private var isShowDistance = true
     private var userSexSelection: RadioGroup? = null
@@ -126,32 +127,32 @@ class EditProfileActivity : AppCompatActivity() {
                                 userSexSelection!!.check(R.id.femaleSelection)
                             }
                         }
-                        if (Boolean.valueOf(map["movies"].toString()) == true) {
-                            isMoviesClicked = true
+                        if (Boolean.valueOf(map["hobby_movies"].toString()) == true) {
+                            isHobby_moviesClicked = true
                             moviesCheckBox!!.isChecked = true
                         } else {
-                            isMoviesClicked = false
+                            isHobby_moviesClicked = false
                             moviesCheckBox!!.isChecked = false
                         }
-                        if (Boolean.valueOf(map["food"].toString()) == true) {
-                            isFoodClicked = true
+                        if (Boolean.valueOf(map["hobby_food"].toString()) == true) {
+                            isHobby_foodClicked = true
                             foodCheckBox!!.isChecked = true
                         } else {
-                            isFoodClicked = false
+                            isHobby_foodClicked = false
                             foodCheckBox!!.isChecked = false
                         }
-                        if (Boolean.valueOf(map["music"].toString()) == true) {
-                            isMusicClicked = true
+                        if (Boolean.valueOf(map["hobby_music"].toString()) == true) {
+                            isHobby_musicClicked = true
                             musicCheckBox!!.isChecked = true
                         } else {
-                            isMusicClicked = false
+                            isHobby_musicClicked = false
                             musicCheckBox!!.isChecked = false
                         }
-                        if (Boolean.valueOf(map["art"].toString()) == true) {
-                            isArtClicked = true
+                        if (Boolean.valueOf(map["hobby_art"].toString()) == true) {
+                            isHobby_artClicked = true
                             artCheckBox!!.isChecked = true
                         } else {
-                            isArtClicked = false
+                            isHobby_artClicked = false
                             artCheckBox!!.isChecked = false
                         }
                         if (Boolean.valueOf(map["showDoB"].toString()) == true) {
@@ -238,10 +239,10 @@ class EditProfileActivity : AppCompatActivity() {
 
         userInfo["phone_number"] = phoneNumber!!.text.toString()
         userInfo["description"] = aboutMe!!.text.toString()
-        userInfo["movies"] = isMoviesClicked
-        userInfo["food"] = isFoodClicked
-        userInfo["art"] = isArtClicked
-        userInfo["music"] = isMusicClicked
+        userInfo["hobby_movies"] = isHobby_moviesClicked
+        userInfo["hobby_food"] = isHobby_foodClicked
+        userInfo["hobby_art"] = isHobby_artClicked
+        userInfo["hobby_music"] = isHobby_musicClicked
         userInfo["showDoB"] = isShowDoB
         userInfo["showDistance"] = isShowDistance
 
@@ -353,10 +354,10 @@ class EditProfileActivity : AppCompatActivity() {
     fun onHobbyCheckBoxClicked(view: View) {
         val checked = (view as CheckBox).isChecked
         when (view.getId()) {
-            R.id.checkbox_food -> isFoodClicked = checked
-            R.id.checkbox_art -> isArtClicked = checked
-            R.id.checkbox_movies -> isMoviesClicked = checked
-            R.id.checkbox_music -> isMusicClicked = checked
+            R.id.checkbox_food -> isHobby_foodClicked = checked
+            R.id.checkbox_art -> isHobby_artClicked = checked
+            R.id.checkbox_movies -> isHobby_moviesClicked = checked
+            R.id.checkbox_music -> isHobby_musicClicked = checked
             R.id.settings_showDoB -> isShowDoB = checked
             R.id.settings_showDistance -> isShowDistance = checked
         }
