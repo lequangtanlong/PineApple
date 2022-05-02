@@ -42,16 +42,16 @@ class EditProfileActivity : AppCompatActivity() {
     private var phoneNumber: EditText? = null
     private var aboutMe: EditText? = null
     private var username: TextView? = null
-    private var SECheckBox: CheckBox? = null
-    private var databaseCheckBox: CheckBox? = null
-    private var designCheckBox: CheckBox? = null
-    private var oopCheckBox: CheckBox? = null
+    private var moviesCheckBox: CheckBox? = null
+    private var foodCheckBox: CheckBox? = null
+    private var artCheckBox: CheckBox? = null
+    private var musicCheckBox: CheckBox? = null
     private var DoBCheckBox: CheckBox? = null
     private var distanceCheckBox: CheckBox? = null
-    private var isSEClicked = false
-    private var isDatabaseClicked = false
-    private var isOopClicked = false
-    private var isDesignClicked = false
+    private var isMoviesClicked = false
+    private var isFoodClicked = false
+    private var isMusicClicked = false
+    private var isArtClicked = false
     private var isShowDoB = true
     private var isShowDistance = true
     private var userSexSelection: RadioGroup? = null
@@ -68,10 +68,10 @@ class EditProfileActivity : AppCompatActivity() {
         aboutMe = findViewById<View>(R.id.edit_aboutme) as EditText
         username = findViewById<View>(R.id.tvUserName) as TextView
         userSexSelection = findViewById<View>(R.id.radioGroupUserSex) as RadioGroup
-        SECheckBox = findViewById<View>(R.id.checkbox_se) as CheckBox
-        databaseCheckBox = findViewById<View>(R.id.checkbox_database) as CheckBox
-        designCheckBox = findViewById<View>(R.id.checkbox_design) as CheckBox
-        oopCheckBox = findViewById<View>(R.id.checkbox_oop) as CheckBox
+        moviesCheckBox = findViewById<View>(R.id.checkbox_movies) as CheckBox
+        foodCheckBox = findViewById<View>(R.id.checkbox_food) as CheckBox
+        artCheckBox = findViewById<View>(R.id.checkbox_art) as CheckBox
+        musicCheckBox = findViewById<View>(R.id.checkbox_music) as CheckBox
         DoBCheckBox = findViewById<View>(R.id.settings_showDoB) as CheckBox
         distanceCheckBox = findViewById<View>(R.id.settings_showDistance) as CheckBox
         userId = FirebaseAuth.getInstance().currentUser!!.uid
@@ -126,33 +126,33 @@ class EditProfileActivity : AppCompatActivity() {
                                 userSexSelection!!.check(R.id.femaleSelection)
                             }
                         }
-                        if (Boolean.valueOf(map["se"].toString()) == true) {
-                            isSEClicked = true
-                            SECheckBox!!.isChecked = true
+                        if (Boolean.valueOf(map["movies"].toString()) == true) {
+                            isMoviesClicked = true
+                            moviesCheckBox!!.isChecked = true
                         } else {
-                            isSEClicked = false
-                            SECheckBox!!.isChecked = false
+                            isMoviesClicked = false
+                            moviesCheckBox!!.isChecked = false
                         }
-                        if (Boolean.valueOf(map["database"].toString()) == true) {
-                            isDatabaseClicked = true
-                            databaseCheckBox!!.isChecked = true
+                        if (Boolean.valueOf(map["food"].toString()) == true) {
+                            isFoodClicked = true
+                            foodCheckBox!!.isChecked = true
                         } else {
-                            isDatabaseClicked = false
-                            databaseCheckBox!!.isChecked = false
+                            isFoodClicked = false
+                            foodCheckBox!!.isChecked = false
                         }
-                        if (Boolean.valueOf(map["oop"].toString()) == true) {
-                            isOopClicked = true
-                            oopCheckBox!!.isChecked = true
+                        if (Boolean.valueOf(map["music"].toString()) == true) {
+                            isMusicClicked = true
+                            musicCheckBox!!.isChecked = true
                         } else {
-                            isOopClicked = false
-                            oopCheckBox!!.isChecked = false
+                            isMusicClicked = false
+                            musicCheckBox!!.isChecked = false
                         }
-                        if (Boolean.valueOf(map["design"].toString()) == true) {
-                            isDesignClicked = true
-                            designCheckBox!!.isChecked = true
+                        if (Boolean.valueOf(map["art"].toString()) == true) {
+                            isArtClicked = true
+                            artCheckBox!!.isChecked = true
                         } else {
-                            isDesignClicked = false
-                            designCheckBox!!.isChecked = false
+                            isArtClicked = false
+                            artCheckBox!!.isChecked = false
                         }
                         if (Boolean.valueOf(map["showDoB"].toString()) == true) {
                             isShowDoB = true
@@ -238,10 +238,10 @@ class EditProfileActivity : AppCompatActivity() {
 
         userInfo["phone_number"] = phoneNumber!!.text.toString()
         userInfo["description"] = aboutMe!!.text.toString()
-        userInfo["se"] = isSEClicked
-        userInfo["database"] = isDatabaseClicked
-        userInfo["design"] = isDesignClicked
-        userInfo["oop"] = isOopClicked
+        userInfo["movies"] = isMoviesClicked
+        userInfo["food"] = isFoodClicked
+        userInfo["art"] = isArtClicked
+        userInfo["music"] = isMusicClicked
         userInfo["showDoB"] = isShowDoB
         userInfo["showDistance"] = isShowDistance
 
@@ -353,10 +353,10 @@ class EditProfileActivity : AppCompatActivity() {
     fun onHobbyCheckBoxClicked(view: View) {
         val checked = (view as CheckBox).isChecked
         when (view.getId()) {
-            R.id.checkbox_se -> isSEClicked = checked
-            R.id.checkbox_oop -> isOopClicked = checked
-            R.id.checkbox_design -> isDesignClicked = checked
-            R.id.checkbox_database -> isDatabaseClicked = checked
+            R.id.checkbox_food -> isFoodClicked = checked
+            R.id.checkbox_art -> isArtClicked = checked
+            R.id.checkbox_movies -> isMoviesClicked = checked
+            R.id.checkbox_music -> isMusicClicked = checked
             R.id.settings_showDoB -> isShowDoB = checked
             R.id.settings_showDistance -> isShowDistance = checked
         }

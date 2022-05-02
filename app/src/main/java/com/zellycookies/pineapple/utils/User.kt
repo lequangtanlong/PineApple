@@ -13,10 +13,10 @@ class User : Serializable {
     var phone_number: String? = null
     var email: String? = null
     var username: String? = null
-    var isSE = false
-    var isDatabase = false
-    var isDesign = false
-    var isOop = false
+    var isMovies = false
+    var isFood = false
+    var isArt = false
+    var isMusic = false
     var isShowDoB = true
     var isShowDistance = true
     var description: String? = null
@@ -41,10 +41,10 @@ class User : Serializable {
         phone_number: String?,
         email: String?,
         username: String?,
-        SE: Boolean,
-        db: Boolean,
-        ui: Boolean,
-        oop: Boolean,
+        movies: Boolean,
+        food: Boolean,
+        art: Boolean,
+        music: Boolean,
         description: String?,
         dateOfBirth: String?,
         profileImageUrl: String?,
@@ -56,10 +56,10 @@ class User : Serializable {
         this.phone_number = phone_number
         this.email = email
         this.username = username
-        isSE = SE
-        isDatabase = db
-        isDesign = ui
-        isOop = oop
+        isMovies = movies
+        isFood = food
+        isArt = art
+        isMusic = music
         isShowDoB = true
         isShowDistance = true
         this.description = description
@@ -76,10 +76,10 @@ class User : Serializable {
                 ", phone_number='" + phone_number + '\'' +
                 ", email='" + email + '\'' +
                 ", username='" + username + '\'' +
-                ", SE=" + isSE +
-                ", Database=" + isDatabase +
-                ", UI=" + isDesign +
-                ", OOP=" + isOop +
+                ", Movies=" + isMovies +
+                ", Food=" + isFood +
+                ", Art=" + isArt +
+                ", Music=" + isMusic +
                 ", showDoB=" + isShowDoB +
                 ", showDistance=" + isShowDistance +
                 ", description='" + description + '\'' +

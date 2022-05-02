@@ -60,13 +60,13 @@
         app:layout_constraintTop_toBottomOf="@id/txt_description">
 
         <Button
-            android:id="@+id/seSelectionButton"
+            android:id="@+id/moviesSelectionButton"
             android:layout_width="320dp"
             android:layout_height="wrap_content"
             android:layout_marginTop="20dp"
             android:background="@drawable/btn_alt"
             android:fontFamily="@font/iciel_cadena"
-            android:text="@string/software_engineering"
+            android:text="@string/cb_movies"
             android:textAllCaps="false"
             android:textAlignment="center"
             android:textColor="@drawable/fnt_col_main"
@@ -75,13 +75,13 @@
             android:textStyle="bold" />
 
         <Button
-            android:id="@+id/dbSelectionButton"
+            android:id="@+id/foodSelectionButton"
             android:layout_width="320dp"
             android:layout_height="wrap_content"
             android:layout_marginTop="20dp"
             android:background="@drawable/btn_alt"
             android:fontFamily="@font/iciel_cadena"
-            android:text="@string/database"
+            android:text="@string/cb_food"
             android:textAllCaps="false"
             android:textAlignment="center"
             android:textColor="@drawable/fnt_col_main"
@@ -90,13 +90,13 @@
             android:textStyle="bold" />
 
         <Button
-            android:id="@+id/uiSelectionButton"
+            android:id="@+id/artSelectionButton"
             android:layout_width="320dp"
             android:layout_height="wrap_content"
             android:layout_marginTop="20dp"
             android:background="@drawable/btn_alt"
             android:fontFamily="@font/iciel_cadena"
-            android:text="@string/ui_design"
+            android:text="@string/cb_art"
             android:textAllCaps="false"
             android:textAlignment="center"
             android:textColor="@drawable/fnt_col_main"
@@ -105,13 +105,13 @@
             android:textStyle="bold" />
 
         <Button
-            android:id="@+id/opSelectionButton"
+            android:id="@+id/musicSelectionButton"
             android:layout_width="320dp"
             android:layout_height="wrap_content"
             android:layout_marginTop="20dp"
             android:background="@drawable/btn_alt"
             android:fontFamily="@font/iciel_cadena"
-            android:text="@string/object_oriented_programming"
+            android:text="@string/cb_music"
             android:textAllCaps="false"
             android:textAlignment="center"
             android:textColor="@drawable/fnt_col_main"

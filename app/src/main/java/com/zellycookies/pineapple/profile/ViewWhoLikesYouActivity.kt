@@ -207,11 +207,11 @@ class ViewWhoLikesYouActivity : AppCompatActivity() {
         val name: String? = user.username
         val dob: String? = user.dateOfBirth
         val bio: String? = user.description
-        val isSE: String = if (user.isSE) "SE\t" else " "
-        val isOOP: String = if (user.isOop) "OOP\t" else " "
-        val isUI: String = if (user.isDesign) "UI/UX\t" else " "
-        val isDB: String = if (user.isDatabase) "DB" else " "
-        val interest: String = "$isSE$isOOP$isUI$isDB."
+        val isMovies: String = if (user.isMovies) "Movies\t" else " "
+        val isMusic: String = if (user.isMusic) "Music\t" else " "
+        val isArt: String = if (user.isArt) "Art\t" else " "
+        val isFood: String = if (user.isFood) "Food" else " "
+        val interest = "$isMovies$isMusic$isArt$isFood."
         val profileImageURL : String? = user.profileImageUrl
 
         intent.putExtra("name", name)

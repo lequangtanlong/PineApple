@@ -73,7 +73,7 @@
     <string name="dummy">dummy</string>
     <string name="rose_j">Rose J</string>
     <string name="august_5th_2001_male">August 5th, 2001 | Male</string>
-    <string name="oop">OOP</string>
+    <string name="oop">Movies</string>
     <string name="gender">Gender</string>
     <string name="interests">Interests</string>
     <string name="about_me">About me</string>
@@ -116,6 +116,11 @@
     <string name="select_a_user_to_unblock_them">Select a user to unblock them</string>
     <string name="are_you_sure_you_want_to_block">Are you sure you want to block</string>
     <string name="are_you_sure_you_want_to_unmatch_with">Are you sure you want to unmatch with</string>
+
+    <string name="cb_movies">Movies</string>
+    <string name="cb_music">Music</string>
+    <string name="cb_art">Art</string>
+    <string name="cb_food">Food</string>
 
     <string name="yes">Yes</string>
     <string name="no">No</string>

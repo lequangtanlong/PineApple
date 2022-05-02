@@ -21,10 +21,10 @@ class RegisterHobby : AppCompatActivity() {
     var password: String? = null
     private var mContext: Context? = null
     private var hobbiesContinueButton: Button? = null
-    private var seSelectionButton: Button? = null
-    private var dbSelectionButton: Button? = null
-    private var uiSelectionButton: Button? = null
-    private var opSelectionButton: Button? = null
+    private var moviesSelectionButton: Button? = null
+    private var foodSelectionButton: Button? = null
+    private var artSelectionButton: Button? = null
+    private var musicSelectionButton: Button? = null
 
     //firebase
     private var mAuth: FirebaseAuth? = null
@@ -48,72 +48,72 @@ class RegisterHobby : AppCompatActivity() {
     }
 
     private fun initWidgets() {
-        seSelectionButton = findViewById<View>(R.id.seSelectionButton) as Button?
-        dbSelectionButton = findViewById<View>(R.id.dbSelectionButton) as Button?
-        uiSelectionButton = findViewById<View>(R.id.uiSelectionButton) as Button?
-        opSelectionButton = findViewById<View>(R.id.opSelectionButton) as Button?
+        moviesSelectionButton = findViewById<View>(R.id.moviesSelectionButton) as Button?
+        foodSelectionButton = findViewById<View>(R.id.foodSelectionButton) as Button?
+        artSelectionButton = findViewById<View>(R.id.artSelectionButton) as Button?
+        musicSelectionButton = findViewById<View>(R.id.musicSelectionButton) as Button?
         hobbiesContinueButton = findViewById<View>(R.id.hobbiesContinueButton) as Button?
 
         // Initially all the buttons needs to be grayed out so this code is added, on selection we will enable it later
-        seSelectionButton!!.alpha = .5f
-        dbSelectionButton!!.alpha = .5f
-        uiSelectionButton!!.alpha = .5f
-        opSelectionButton!!.alpha = .5f
-        seSelectionButton!!.setOnClickListener { seButtonClicked() }
-        dbSelectionButton!!.setOnClickListener { dbButtonClicked() }
-        uiSelectionButton!!.setOnClickListener { uiButtonClicked() }
-        opSelectionButton!!.setOnClickListener { opButtonClicked() }
+        moviesSelectionButton!!.alpha = .5f
+        foodSelectionButton!!.alpha = .5f
+        artSelectionButton!!.alpha = .5f
+        musicSelectionButton!!.alpha = .5f
+        moviesSelectionButton!!.setOnClickListener { moviesButtonClicked() }
+        foodSelectionButton!!.setOnClickListener { foodButtonClicked() }
+        artSelectionButton!!.setOnClickListener { artButtonClicked() }
+        musicSelectionButton!!.setOnClickListener { musicButtonClicked() }
     }
 
-    fun seButtonClicked() {
+    fun moviesButtonClicked() {
         // this is to toggle between selection and non selection of button
-        if (seSelectionButton!!.alpha == 1.0f) {
-            seSelectionButton!!.alpha = .5f
-            seSelectionButton!!.setBackgroundResource(R.drawable.btn_alt)
-            userInfo?.isSE=(false)
+        if (moviesSelectionButton!!.alpha == 1.0f) {
+            moviesSelectionButton!!.alpha = .5f
+            moviesSelectionButton!!.setBackgroundResource(R.drawable.btn_alt)
+            userInfo?.isMovies=(false)
         } else {
-            seSelectionButton!!.alpha = 1.0f
-            seSelectionButton!!.setBackgroundResource(R.drawable.btn_main)
-            userInfo?.isSE=(true)
+            moviesSelectionButton!!.alpha = 1.0f
+            moviesSelectionButton!!.setBackgroundResource(R.drawable.btn_main)
+            userInfo?.isMovies=(true)
         }
     }
 
-    fun dbButtonClicked() {
+    fun foodButtonClicked() {
         // this is to toggle between selection and non selection of button
-        if (dbSelectionButton!!.alpha == 1.0f) {
-            dbSelectionButton!!.alpha = .5f
-            dbSelectionButton!!.setBackgroundResource(R.drawable.btn_alt)
-            userInfo?.isDatabase=(false)
+        if (foodSelectionButton!!.alpha == 1.0f) {
+            foodSelectionButton!!.alpha = .5f
+            foodSelectionButton!!.setBackgroundResource(R.drawable.btn_alt)
+            userInfo?.isFood=(false)
         } else {
-            dbSelectionButton!!.alpha = 1.0f
-            dbSelectionButton!!.setBackgroundResource(R.drawable.btn_main)
-            userInfo?.isDatabase=(true)
+            foodSelectionButton!!.alpha = 1.0f
+            foodSelectionButton!!.setBackgroundResource(R.drawable.btn_main)
+            userInfo?.isFood=(true)
         }
     }
 
-    fun uiButtonClicked() {
+    fun artButtonClicked() {
         // this is to toggle between selection and non selection of button
-        if (uiSelectionButton!!.alpha == 1.0f) {
-            uiSelectionButton!!.alpha = .5f
-            uiSelectionButton!!.setBackgroundResource(R.drawable.btn_alt)
-            userInfo?.isDesign=(false)
+        if (artSelectionButton!!.alpha == 1.0f) {
+            artSelectionButton!!.alpha = .5f
+            artSelectionButton!!.setBackgroundResource(R.drawable.btn_alt)
+            userInfo?.isArt=(false)
         } else {
-            uiSelectionButton!!.alpha = 1.0f
-            uiSelectionButton!!.setBackgroundResource(R.drawable.btn_main)
-            userInfo?.isDesign=(true)
+            artSelectionButton!!.alpha = 1.0f
+            artSelectionButton!!.setBackgroundResource(R.drawable.btn_main)
+            userInfo?.isArt=(true)
         }
     }
 
-    fun opButtonClicked() {
+    fun musicButtonClicked() {
         // this is to toggle between selection and non selection of button
-        if (opSelectionButton!!.alpha == 1.0f) {
-            opSelectionButton!!.alpha = .5f
-            opSelectionButton!!.setBackgroundResource(R.drawable.btn_alt)
-            userInfo?.isOop=(false)
+        if (musicSelectionButton!!.alpha == 1.0f) {
+            musicSelectionButton!!.alpha = .5f
+            musicSelectionButton!!.setBackgroundResource(R.drawable.btn_alt)
+            userInfo?.isMusic=(false)
         } else {
-            opSelectionButton!!.alpha = 1.0f
-            opSelectionButton!!.setBackgroundResource(R.drawable.btn_main)
-            userInfo?.isOop=(true)
+            musicSelectionButton!!.alpha = 1.0f
+            musicSelectionButton!!.setBackgroundResource(R.drawable.btn_main)
+            userInfo?.isMusic=(true)
         }
     }
 

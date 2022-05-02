@@ -46,10 +46,10 @@ class HomeSwipeActivity : Activity() {
     private var latitude = 37.349642
     private var longtitude = -121.938987
     private var currentUID: String? = null
-    private var SE = false
-    private var oop = false
-    private var ui = false
-    private var db = false
+    private var movies = false
+    private var music = false
+    private var art = false
+    private var food = false
     private val name: String? = null
     private val bio: String? = null
     private val interest: String? = null
@@ -334,10 +334,10 @@ class HomeSwipeActivity : Activity() {
     }
 
     private fun findInterest(dataSnapshot: DataSnapshot) {
-        SE = dataSnapshot.getValue(User::class.java)!!.isSE
-        oop = dataSnapshot.getValue(User::class.java)!!.isOop
-        db = dataSnapshot.getValue(User::class.java)!!.isDatabase
-        ui = dataSnapshot.getValue(User::class.java)!!.isDesign
+        movies = dataSnapshot.getValue(User::class.java)!!.isMovies
+        music = dataSnapshot.getValue(User::class.java)!!.isMusic
+        food = dataSnapshot.getValue(User::class.java)!!.isFood
+        art = dataSnapshot.getValue(User::class.java)!!.isArt
     }//calculate age
 
     //initialize card view
@@ -363,13 +363,13 @@ class HomeSwipeActivity : Activity() {
                         val curUser = dataSnapshot.getValue(
                             User::class.java
                         )
-                        val tempDatabase = curUser!!.isDatabase
-                        val tempOop = curUser.isOop
-                        val tempDesign = curUser.isDesign
-                        val tempSE = curUser.isSE
+                        val tempDatabase = curUser!!.isFood
+                        val tempMusic = curUser.isMusic
+                        val tempArt = curUser.isArt
+                        val tempMovies = curUser.isMovies
                         val showDoB = curUser.isShowDoB
                         val showDistance = curUser.isShowDistance
-                        if (tempOop == oop || tempDesign == ui || tempDatabase == db || tempSE == SE) {
+                        if (tempMusic == music || tempArt == art || tempDatabase == food || tempMovies == movies) {
                             //calculate age
                             val dob = curUser.dateOfBirth
                             val cal = CalculateAge(dob!!)
@@ -386,14 +386,14 @@ class HomeSwipeActivity : Activity() {
                             val username = curUser.username
                             val bio = curUser.description
                             val interest = StringBuilder()
-                            if (tempSE) {
-                                interest.append("SE   ")
+                            if (tempMovies) {
+                                interest.append("Movies   ")
                             }
-                            if (tempOop) {
-                                interest.append("OOP   ")
+                            if (tempMusic) {
+                                interest.append("Music   ")
                             }
-                            if (tempDesign) {
-                                interest.append("UI Design   ")
+                            if (tempArt) {
+                                interest.append("Art   ")
                             }
                             if (tempDatabase) {
                                 interest.append("Database   ")

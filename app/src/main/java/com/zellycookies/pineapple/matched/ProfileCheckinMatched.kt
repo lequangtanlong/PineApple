@@ -75,17 +75,17 @@ class ProfileCheckinMatched : AppCompatActivity() {
 
         //append interests
         val interest = StringBuilder()
-        if (user!!.isSE) {
-            interest.append("SE   ")
+        if (user!!.isMovies) {
+            interest.append("Movies   ")
         }
-        if (user!!.isOop) {
-            interest.append("OOP   ")
+        if (user!!.isMusic) {
+            interest.append("Music   ")
         }
-        if (user!!.isDesign) {
-            interest.append("UI Design   ")
+        if (user!!.isArt) {
+            interest.append("Art   ")
         }
-        if (user!!.isDatabase) {
-            interest.append("Database   ")
+        if (user!!.isFood) {
+            interest.append("Food   ")
         }
         profile_interest.text = interest.toString()
         val profileImageUrl = user!!.profileImageUrl
