@@ -12,6 +12,7 @@ import com.zellycookies.pineapple.R
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.FirebaseUser
 
+
 class ConversationAdapter(messageList: ArrayList<MessageObject>) :
     RecyclerView.Adapter<ConversationAdapter.MessageViewHolder>() {
     var messageList: ArrayList<MessageObject> = messageList

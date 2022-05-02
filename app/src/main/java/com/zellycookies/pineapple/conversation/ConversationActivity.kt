@@ -1,7 +1,10 @@
 package com.zellycookies.pineapple.conversation
 
+import android.app.Activity
 import android.content.Intent
+import android.graphics.Bitmap
 import android.os.Bundle
+import android.provider.MediaStore
 import android.text.format.DateFormat
 import android.util.Log
 import android.view.View
@@ -26,6 +29,9 @@ import com.google.firebase.auth.FirebaseAuth.AuthStateListener
 import com.google.firebase.firestore.*
 import java.util.*
 import com.zellycookies.pineapple.R
+import com.zellycookies.pineapple.fire.FireStoreImage
+import java.io.ByteArrayOutputStream
+
 //
 class ConversationActivity : AppCompatActivity() {
     var action = "INIT"
@@ -46,10 +52,12 @@ class ConversationActivity : AppCompatActivity() {
     private var tvNamePerson: TextView? = null
     private var mMessage: EditText? = null
     private var btnSend: ImageButton? = null
+    private var btnAddImage: ImageButton? = null
     private var btnBack: ImageButton? = null
     private var btnInfo: ImageButton? = null
     private val latitude = 37.349642
     private val longtitude = -121.938987
+    private val RC_SELECT_IMAGE = 2
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.conversation_activity)
@@ -71,8 +79,10 @@ class ConversationActivity : AppCompatActivity() {
         imagePerson = findViewById(R.id.image_user_group)
         tvNamePerson = findViewById(R.id.name_user_group)
         btnSend = findViewById(R.id.send)
+        btnAddImage = findViewById(R.id.insertImage)
         mMessage = findViewById(R.id.messageInput)
         btnSend?.setOnClickListener(View.OnClickListener { sendMessage() })
+        btnAddImage?.setOnClickListener(View.OnClickListener { sendImage() })
         btnBack?.setOnClickListener(View.OnClickListener { onBackPressed() })
         btnInfo?.setOnClickListener(View.OnClickListener {
             val distance = gps!!.calculateDistance(
@@ -122,6 +132,8 @@ class ConversationActivity : AppCompatActivity() {
                                 mChatLayoutManager!!.scrollToPosition(messageList!!.size - 1)
                                 mChatAdapter!!.notifyDataSetChanged()
                                 action = UPDATED_MESSAGE
+
+                                val abc = MessageObject(i.id, sendBy, messageText, datetime)
                             }
                             messageIdList!!.clear()
                         }
@@ -175,6 +187,56 @@ class ConversationActivity : AppCompatActivity() {
             action = SEND_MESSAGE
             messageList!!.clear()
             Log.d(TAG, " sendMessage over")
+        }
+    }
+
+    private fun sendImage() {
+
+        val intent = Intent().apply {
+            type = "image/*"
+            action = Intent.ACTION_GET_CONTENT
+            putExtra(Intent.EXTRA_MIME_TYPES, arrayOf("image/jpeg", "image/png"))
+        }
+        startActivityForResult(Intent.createChooser(intent, "Select Image"), RC_SELECT_IMAGE)
+
+        val messageId = mGroupMessageDb!!.collection("messages").document().id
+        val mMessageDb = mGroupMessageDb!!.collection("messages").document(messageId)
+        val cal = Calendar.getInstance(Locale.ENGLISH)
+        val dateTime = DateFormat.format("dd/MM/yyyy hh:mm aa", cal).toString()
+        var newMessageMap: MutableMap<Any, Any> = mutableMapOf()
+        userId?.let { newMessageMap.put("sendBy", it) }
+        newMessageMap.put("sendAt", dateTime)
+        newMessageMap.put("timestamp", FieldValue.serverTimestamp())
+
+        if (!mMessage!!.text.toString().isEmpty()) {
+            newMessageMap["messageText"] = mMessage!!.text.toString()
+            updateDatabaseWithNewMessage(mMessageDb, newMessageMap)
+            action = SEND_MESSAGE
+            messageList!!.clear()
+            Log.d(TAG, " sendMessage over")
+        }
+    }
+
+    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+        super.onActivityResult(requestCode, resultCode, data)
+        if (requestCode == RC_SELECT_IMAGE && resultCode == Activity.RESULT_OK &&
+            data != null && data.data != null) {
+            val selectedImagePath = data.data
+
+            val selectedImageBmp = MediaStore.Images.Media.getBitmap(contentResolver, selectedImagePath)
+
+            val outputStream = ByteArrayOutputStream()
+
+            selectedImageBmp.compress(Bitmap.CompressFormat.JPEG, 90, outputStream)
+            val selectedImageBytes = outputStream.toByteArray()
+
+//            FireStoreImage.uploadMessageImage(selectedImageBytes) { imagePath ->
+//                val messageToSend =
+//                    MessageObject(imagePath, Calendar.getInstance().time,
+//                        FirebaseAuth.getInstance().currentUser!!.uid,
+//                        otherUserId, currentUser.name)
+//                FirestoreUtil.sendMessage(messageToSend, currentChannelId)
+//            }
         }
     }
 
