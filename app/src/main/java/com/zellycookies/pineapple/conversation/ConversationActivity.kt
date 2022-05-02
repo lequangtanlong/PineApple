@@ -8,10 +8,8 @@ import android.provider.MediaStore
 import android.text.format.DateFormat
 import android.util.Log
 import android.view.View
-import android.widget.EditText
-import android.widget.ImageButton
-import android.widget.ImageView
-import android.widget.TextView
+import android.widget.*
+import androidx.activity.result.contract.ActivityResultContracts
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
@@ -27,8 +25,10 @@ import com.bumptech.glide.util.Util
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.FirebaseAuth.AuthStateListener
 import com.google.firebase.firestore.*
+import com.google.firebase.storage.FirebaseStorage
 import java.util.*
 import com.zellycookies.pineapple.R
+import com.zellycookies.pineapple.conversation.Object.MessageType
 import com.zellycookies.pineapple.fire.FireStoreImage
 import java.io.ByteArrayOutputStream
 
@@ -197,23 +197,79 @@ class ConversationActivity : AppCompatActivity() {
             action = Intent.ACTION_GET_CONTENT
             putExtra(Intent.EXTRA_MIME_TYPES, arrayOf("image/jpeg", "image/png"))
         }
-        startActivityForResult(Intent.createChooser(intent, "Select Image"), RC_SELECT_IMAGE)
+      //  startActivityForResult(Intent.createChooser(intent, "Select Image"), RC_SELECT_IMAGE)
+     //   val intent = Intent(this, SomeActivity::class.java)
+        resultLauncher.launch(Intent.createChooser(intent, "Select Image"))
+//        val messageId = mGroupMessageDb!!.collection("messages").document().id
+//        val mMessageDb = mGroupMessageDb!!.collection("messages").document(messageId)
+//        val cal = Calendar.getInstance(Locale.ENGLISH)
+//        val dateTime = DateFormat.format("dd/MM/yyyy hh:mm aa", cal).toString()
+//        var newMessageMap: MutableMap<Any, Any> = mutableMapOf()
+//        userId?.let { newMessageMap.put("sendBy", it) }
+//        newMessageMap.put("sendAt", dateTime)
+//        newMessageMap.put("timestamp", FieldValue.serverTimestamp())
+//
+//        if (!mMessage!!.text.toString().isEmpty()) {
+//            newMessageMap["messageText"] = mMessage!!.text.toString()
+//            updateDatabaseWithNewMessage(mMessageDb, newMessageMap)
+//            action = SEND_MESSAGE
+//            messageList!!.clear()
+//            Log.d(TAG, " sendMessage over")
+//        }
+    }
 
-        val messageId = mGroupMessageDb!!.collection("messages").document().id
-        val mMessageDb = mGroupMessageDb!!.collection("messages").document(messageId)
-        val cal = Calendar.getInstance(Locale.ENGLISH)
-        val dateTime = DateFormat.format("dd/MM/yyyy hh:mm aa", cal).toString()
-        var newMessageMap: MutableMap<Any, Any> = mutableMapOf()
-        userId?.let { newMessageMap.put("sendBy", it) }
-        newMessageMap.put("sendAt", dateTime)
-        newMessageMap.put("timestamp", FieldValue.serverTimestamp())
+    var resultLauncher = registerForActivityResult(ActivityResultContracts.StartActivityForResult()) { result ->
+        if (result.resultCode == Activity.RESULT_OK) {
+            // There are no request codes
+            val data: Intent? = result.data
 
-        if (!mMessage!!.text.toString().isEmpty()) {
-            newMessageMap["messageText"] = mMessage!!.text.toString()
-            updateDatabaseWithNewMessage(mMessageDb, newMessageMap)
-            action = SEND_MESSAGE
-            messageList!!.clear()
-            Log.d(TAG, " sendMessage over")
+            val selectedImagePath = data?.data
+
+            val selectedImageBmp = MediaStore.Images.Media.getBitmap(contentResolver, selectedImagePath)
+
+            val outputStream = ByteArrayOutputStream()
+
+            selectedImageBmp.compress(Bitmap.CompressFormat.JPEG, 90, outputStream)
+            val selectedImageBytes = outputStream.toByteArray()
+
+
+            val messageId = mGroupMessageDb!!.collection("messages").document().id
+            val cal = Calendar.getInstance(Locale.ENGLISH)
+            val dateTime = DateFormat.format("dd/MM/yyyy hh:mm aa", cal).toString()
+
+            val messageToSend =
+                MessageObject(messageId, userId,
+                    "",
+                    dateTime, MessageType.IMAGE)
+            // FirestoreUtil.sendMessage(messageToSend, currentChannelId)
+
+            val filepath = FirebaseStorage.getInstance().reference.child("messageImages").child(
+                userId!!
+            )
+
+//                filepath.putBytes(selectedImageBytes)
+//                    .addOnSuccessListener {
+//                        // onSuccess(ref.path)
+//                        Toast.makeText(this, "OK", Toast.LENGTH_SHORT)
+//                    }
+
+            val uploadTask = filepath.putBytes(selectedImageBytes)
+
+            uploadTask.continueWithTask { task ->
+                if (!task.isSuccessful) {
+                    throw task.exception!!
+                }
+                filepath.downloadUrl
+            }.addOnCompleteListener { task ->
+                if (task.isSuccessful) {
+                    val downloadUri = task.result
+                    //                        FriendlyMessage friendlyMessage = new FriendlyMessage(null, mUsername, downloadUri.toString());
+                    //                        mMessagesDatabaseReference.push().setValue(friendlyMessage);
+                    //             var userInfo = mutableMapOf<String, Any>()
+//                        userInfo.put("profileImageUrl", downloadUri.toString())
+//                        mPhotoDB!!.updateChildren(userInfo)
+                }
+            }
         }
     }
 
@@ -230,13 +286,29 @@ class ConversationActivity : AppCompatActivity() {
             selectedImageBmp.compress(Bitmap.CompressFormat.JPEG, 90, outputStream)
             val selectedImageBytes = outputStream.toByteArray()
 
-//            FireStoreImage.uploadMessageImage(selectedImageBytes) { imagePath ->
-//                val messageToSend =
-//                    MessageObject(imagePath, Calendar.getInstance().time,
-//                        FirebaseAuth.getInstance().currentUser!!.uid,
-//                        otherUserId, currentUser.name)
-//                FirestoreUtil.sendMessage(messageToSend, currentChannelId)
-//            }
+
+            val messageId = mGroupMessageDb!!.collection("messages").document().id
+            val cal = Calendar.getInstance(Locale.ENGLISH)
+            val dateTime = DateFormat.format("dd/MM/yyyy hh:mm aa", cal).toString()
+
+            FireStoreImage.uploadMessageImage(selectedImageBytes) { imagePath ->
+                val messageToSend =
+                    MessageObject(messageId, userId,
+                        imagePath,
+                        dateTime, MessageType.IMAGE)
+               // FirestoreUtil.sendMessage(messageToSend, currentChannelId)
+
+                val filepath = FirebaseStorage.getInstance().reference.child("messageImages").child(
+                    userId!!
+                )
+
+                filepath.putBytes(selectedImageBytes)
+                    .addOnSuccessListener {
+                       // onSuccess(ref.path)
+                        Toast.makeText(this, "OK", Toast.LENGTH_SHORT)
+                    }
+
+            }
         }
     }
 
