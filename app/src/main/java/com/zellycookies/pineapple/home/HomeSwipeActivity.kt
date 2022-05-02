@@ -544,6 +544,8 @@ class HomeSwipeActivity : Activity() {
             val intent = Intent(this, HomeSwipeActivity::class.java)
             intent.putExtra("isRewindActivity", false)
             startActivity(intent)
+            finish()
+            return
         }
         val listUserId : MutableList<String> = ArrayList()
         val listName : MutableList<String> = ArrayList()
