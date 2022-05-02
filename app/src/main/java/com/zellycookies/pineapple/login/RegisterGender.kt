@@ -52,7 +52,7 @@ class RegisterGender : AppCompatActivity() {
         val ownSex = if (male) "male" else "female"
         user?.sex = ownSex
         //set default prefer sex
-        user?.preferSex = ownSex
+        user?.preferSex = if (male) "female" else "male"
         //set default photo
         val defaultPhoto = if (male) "defaultMale" else "defaultFemale"
         user?.profileImageUrl = defaultPhoto
