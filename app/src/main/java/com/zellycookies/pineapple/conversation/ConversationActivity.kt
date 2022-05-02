@@ -222,36 +222,25 @@ class ConversationActivity : AppCompatActivity() {
         if (result.resultCode == Activity.RESULT_OK) {
             // There are no request codes
             val data: Intent? = result.data
-
             val selectedImagePath = data?.data
-
             val selectedImageBmp = MediaStore.Images.Media.getBitmap(contentResolver, selectedImagePath)
-
             val outputStream = ByteArrayOutputStream()
-
             selectedImageBmp.compress(Bitmap.CompressFormat.JPEG, 90, outputStream)
             val selectedImageBytes = outputStream.toByteArray()
 
 
             val messageId = mGroupMessageDb!!.collection("messages").document().id
+            val mMessageDb = mGroupMessageDb!!.collection("messages").document(messageId)
             val cal = Calendar.getInstance(Locale.ENGLISH)
             val dateTime = DateFormat.format("dd/MM/yyyy hh:mm aa", cal).toString()
-
-            val messageToSend =
-                MessageObject(messageId, userId,
-                    "",
-                    dateTime, MessageType.IMAGE)
-            // FirestoreUtil.sendMessage(messageToSend, currentChannelId)
+            var newMessageMap: MutableMap<Any, Any> = mutableMapOf()
+            userId?.let { newMessageMap.put("sendBy", it) }
+            newMessageMap.put("sendAt", dateTime)
+            newMessageMap.put("timestamp", FieldValue.serverTimestamp())
 
             val filepath = FirebaseStorage.getInstance().reference.child("messageImages").child(
-                userId!!
+                messageId
             )
-
-//                filepath.putBytes(selectedImageBytes)
-//                    .addOnSuccessListener {
-//                        // onSuccess(ref.path)
-//                        Toast.makeText(this, "OK", Toast.LENGTH_SHORT)
-//                    }
 
             val uploadTask = filepath.putBytes(selectedImageBytes)
 
@@ -268,6 +257,9 @@ class ConversationActivity : AppCompatActivity() {
                     //             var userInfo = mutableMapOf<String, Any>()
 //                        userInfo.put("profileImageUrl", downloadUri.toString())
 //                        mPhotoDB!!.updateChildren(userInfo)
+                    newMessageMap["messageText"] = downloadUri.toString()
+                    newMessageMap["type"] = MessageType.IMAGE
+                    updateDatabaseWithNewMessage(mMessageDb, newMessageMap)
                 }
             }
         }
