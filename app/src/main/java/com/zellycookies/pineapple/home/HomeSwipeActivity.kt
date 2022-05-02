@@ -79,7 +79,6 @@ class HomeSwipeActivity : Activity() {
         setupFirebaseAuth()
         setupTabLayout()
         setupTopNavigationView()
-        thisUserId = mAuth!!.currentUser!!.uid
         checkUserSex()
         rowItems = ArrayList()
         arrayAdapter = PhotoAdapter(this, R.layout.item, rowItems as ArrayList<Cards>)
@@ -548,6 +547,7 @@ class HomeSwipeActivity : Activity() {
             if (user != null) {
                 // user is signed in
                 Log.d(TAG, "onAuthStateChanged: signed_in:" + user.uid)
+                thisUserId = user.uid
             } else {
                 //user is signed out
                 Log.d(TAG, "onAuthStateChanged: signed_out")

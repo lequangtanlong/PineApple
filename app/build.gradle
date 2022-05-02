@@ -68,9 +68,10 @@ dependencies {
 
     implementation 'com.github.ittianyu:BottomNavigationViewEx:2.0.4'
     implementation 'com.google.android.material:material:1.6.0-beta01'
-    implementation platform('com.google.firebase:firebase-bom:29.2.1')
+    implementation platform('com.google.firebase:firebase-bom:29.3.1')
     implementation 'com.google.firebase:firebase-analytics-ktx'
     implementation 'com.google.android.gms:play-services-auth:20.1.0'
+    implementation 'com.firebaseui:firebase-ui-auth:4.3.1'
 
     def retrofit_version = "2.9.0"
     implementation "com.squareup.retrofit2:retrofit:$retrofit_version"

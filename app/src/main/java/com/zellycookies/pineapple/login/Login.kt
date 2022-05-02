@@ -13,6 +13,11 @@ import androidx.appcompat.app.AppCompatActivity
 import com.google.android.gms.auth.api.identity.BeginSignInRequest
 import com.google.android.gms.auth.api.identity.Identity
 import com.google.android.gms.auth.api.identity.SignInClient
+import com.google.android.gms.auth.api.signin.GoogleSignIn
+import com.google.android.gms.auth.api.signin.GoogleSignInAccount
+import com.google.android.gms.auth.api.signin.GoogleSignInClient
+import com.google.android.gms.auth.api.signin.GoogleSignInOptions
+import com.google.android.gms.common.api.ApiException
 import com.google.android.gms.signin.internal.SignInClientImpl
 import com.google.android.gms.tasks.OnCompleteListener
 import com.google.android.gms.tasks.Task
@@ -20,7 +25,9 @@ import com.google.firebase.FirebaseApp
 import com.google.firebase.auth.AuthResult
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.FirebaseUser
+import com.google.firebase.auth.GoogleAuthProvider
 import com.zellycookies.pineapple.R
+import com.zellycookies.pineapple.databinding.ActivityLoginBinding
 import com.zellycookies.pineapple.home.HomeSwipeActivity
 
 import com.zellycookies.pineapple.profile.Profile_Activity
@@ -37,11 +44,9 @@ class Login : AppCompatActivity() {
     private var mEmail: EditText? = null
     private var mPassword: EditText? = null
 
-
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         FirebaseApp.initializeApp(this)
-
         setContentView(R.layout.activity_login)
         mEmail = findViewById<View>(R.id.input_email) as EditText?
         mPassword = findViewById<View>(R.id.input_password) as EditText?
@@ -160,7 +165,7 @@ class Login : AppCompatActivity() {
         mAuthListener?.let { mAuth?.addAuthStateListener(it) }
     }
 
-    protected override fun onStop() {
+    override fun onStop() {
         super.onStop()
         if (mAuthListener != null) {
             mAuth?.removeAuthStateListener(mAuthListener!!)
