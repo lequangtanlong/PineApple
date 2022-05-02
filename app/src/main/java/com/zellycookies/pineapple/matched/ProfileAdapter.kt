@@ -30,6 +30,7 @@ class ProfileAdapter(
             viewHolder.personPic = view.findViewById<View>(R.id.person_image) as ImageView
             viewHolder.personName = view.findViewById<View>(R.id.person_name) as TextView
             viewHolder.imageButton = view.findViewById<View>(R.id.videoCalBtn) as ImageButton
+            viewHolder.onlineCircle = view.findViewById(R.id.online_circle)
             view.tag = viewHolder
         } else {
             view = convertView
@@ -49,6 +50,7 @@ class ProfileAdapter(
             }
             viewHolder.personName!!.setText(groupObject.userMatch.username!!)
             viewHolder.imageButton!!.isFocusable = false
+            viewHolder.onlineCircle!!.visibility = View.GONE
         }
         return view
     }
@@ -57,5 +59,6 @@ class ProfileAdapter(
         var personPic: ImageView? = null
         var personName: TextView? = null
         var imageButton: ImageButton? = null
+        var onlineCircle: View? = null
     }
 }
