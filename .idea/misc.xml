@@ -4,6 +4,8 @@
     <option name="filePathToZoomLevelMap">
       <map>
         <entry key="..\:/Project/PineApple/app/src/main/res/layout/conversation_activity.xml" value="0.15534420289855072" />
+        <entry key="..\:/Project/PineApple/app/src/main/res/layout/conversation_image_left.xml" value="0.146875" />
+        <entry key="..\:/Project/PineApple/app/src/main/res/layout/conversation_image_right.xml" value="0.146875" />
         <entry key="..\:/Project/PineApple/app/src/main/res/layout/conversation_input_panel.xml" value="0.6" />
         <entry key="..\:/Project/PineApple/app/src/main/res/layout/conversation_message_left.xml" value="0.15534420289855072" />
         <entry key="..\:/Project/PineApple/app/src/main/res/layout/conversation_message_right.xml" value="0.15534420289855072" />
