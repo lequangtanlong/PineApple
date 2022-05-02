@@ -7,6 +7,7 @@
     tools:context=".profile.DeleteAccountActivity"
     android:background="@color/white">
 
+
     <!--<include layout="@layout/layout_top_navigation_back"/>-->
     <include layout="@layout/layout_top_navigation_back" />
 
