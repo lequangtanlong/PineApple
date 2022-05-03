@@ -10,6 +10,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.TextView
+import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.FirebaseUser
@@ -51,13 +52,18 @@ class ConversationAdapter(messageList: ArrayList<MessageObject>) :
 
     override fun getItemViewType(position: Int): Int {
         mFirebaseUser = FirebaseAuth.getInstance().currentUser
-        return if (messageList[position].senderId.equals(mFirebaseUser!!.uid)) {
+        return if (messageList[position].senderId.equals(mFirebaseUser!!.uid) && (messageList[position].imagePath == null || messageList[position].imagePath == "") ) {
             Log.d(TAG, "getItemViewType: sender")
             MSG_TYPE_RIGHT
-        } else {
+        } else if(messageList[position].imagePath == null || messageList[position].imagePath == "") {
             Log.d(TAG, "getItemViewType: recieved")
             MSG_TYPE_LEFT
         }
+        else if(messageList[position].senderId.equals(mFirebaseUser!!.uid) && (messageList[position].imagePath != null && messageList[position].imagePath != "")){
+            MSG_IMG_RIGHT
+        }
+        else
+            MSG_IMG_LEFT
     }
 
     override fun onBindViewHolder(holder: MessageViewHolder, position: Int) {
@@ -65,7 +71,7 @@ class ConversationAdapter(messageList: ArrayList<MessageObject>) :
 
         if(messageList[position].message == null || messageList[position].message == ""){
             val newurl = URL(messageList[position].imagePath)
-            holder.mImage?.setImageBitmap(BitmapFactory.decodeStream(newurl.openConnection().getInputStream()))
+        //    holder.mImage?.setImageBitmap(BitmapFactory.decodeStream(newurl.openConnection().getInputStream()))
             holder.mMessage?.visibility = View.INVISIBLE
 
             val policy = StrictMode.ThreadPolicy.Builder().permitAll().build()
@@ -122,6 +128,8 @@ class ConversationAdapter(messageList: ArrayList<MessageObject>) :
         }
 
     }
+
+
 
     companion object {
         private const val TAG = "MessageAdapter"

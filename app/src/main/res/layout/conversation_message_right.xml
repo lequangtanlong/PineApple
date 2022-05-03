@@ -20,11 +20,6 @@
                 android:id="@+id/time_send"
                 android:visibility="gone"/>
 
-        <ImageView
-            android:id="@+id/imageMessage"
-            android:layout_width="150dp"
-            android:layout_height="150dp"
-            android:layout_marginLeft="10dp" />
 
         <TextView
                 android:layout_width="wrap_content"
