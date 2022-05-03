@@ -79,8 +79,6 @@ class FilterActivity : AppCompatActivity() {
             intent.putExtra("maxAge", maxDistance)
 
             startActivity(intent)
-
-            onBackPressed()
         }
 
         back.setOnClickListener { onBackPressed() }

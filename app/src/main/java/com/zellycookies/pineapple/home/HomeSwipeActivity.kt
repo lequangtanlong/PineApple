@@ -97,19 +97,15 @@ class HomeSwipeActivity : Activity() {
         initButton()
 
         val intent: Intent = getIntent()
-        if (intent.getStringExtra("genderPreference") != null)
-            genderPreference = intent.getStringExtra("genderPreference").toString().lowercase()
-        /*if (intent.getStringExtra("distance") != null)
-            distancePreference = intent.getStringExtra("distance")!!.toInt()
-        if (intent.getStringExtra("minAge") != null)
-            minAge = intent.getStringExtra("minAge")!!.toInt()
-        if (intent.getStringExtra("maxAge") != null)
-            maxAge = intent.getStringExtra("maxAge")!!.toInt()*/
+        genderPreference = intent.getStringExtra("genderPreference").toString().lowercase()
+        distancePreference = intent.getIntExtra("distance", 50)
+        minAge = intent.getIntExtra("minAge", 16)
+        maxAge = intent.getIntExtra("maxAge", 100)
 
         Log.d("Home Filter Activity", genderPreference)
         Log.d("Home Filter Activity", distancePreference.toString())
-        Log.d("Home Filter Activity", distancePreference.toString())
-        Log.d("Home Filter Activity", distancePreference.toString())
+        Log.d("Home Filter Activity", minAge.toString())
+        Log.d("Home Filter Activity", maxAge.toString())
         //usersDb!!.child(lookforSex!!).child(thisUserId!!).child("preferSex").setValue(genderPreference)
 
     }
