@@ -19,6 +19,10 @@ import androidx.core.app.ActivityCompat
 import androidx.core.app.NotificationCompat
 import androidx.core.app.NotificationManagerCompat
 import androidx.core.content.ContextCompat
+import com.android.volley.RequestQueue
+import com.android.volley.Response
+import com.android.volley.toolbox.JsonObjectRequest
+import com.android.volley.toolbox.Volley
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import com.google.android.material.floatingactionbutton.FloatingActionButton
 import com.google.android.material.snackbar.Snackbar
@@ -39,7 +43,9 @@ import com.zellycookies.pineapple.utils.CalculateAge
 import com.zellycookies.pineapple.utils.GPS
 import com.zellycookies.pineapple.utils.TopNavigationViewHelper
 import com.zellycookies.pineapple.utils.User
-
+import org.json.JSONException
+import org.json.JSONObject
+import com.google.firebase.ktx.Firebase
 
 class HomeSwipeActivity : Activity() {
     private val MY_PERMISSIONS_REQUEST_LOCATION = 123
@@ -79,6 +85,11 @@ class HomeSwipeActivity : Activity() {
     private var minAge: Int = 16
     private var distancePreference: Int = 50
     private var genderPreference: String? = "male"
+
+    //notification
+    private val FCM_API = "https://fcm.googleapis.com/fcm/send"
+    private val serverKey = "key=" + "AAAAMGvAgKs:APA91bGuK2dVm9cIUrNA5Wr5cMT0bemGxjx8hewU8WnJOqWHpeAPLsNSFK5oGxO6xeohtf_i0kLoLBmtHX0re225pgyBhKjPXRV04JcCGCz4rkb6TnmC7Mwl1MpXNC5XnxgzflVKYQ8W"
+    private val contentType = "application/json"
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -267,6 +278,23 @@ class HomeSwipeActivity : Activity() {
         currentUserConnectionsDb.addListenerForSingleValueEvent(object : ValueEventListener {
             override fun onDataChange(dataSnapshot: DataSnapshot) {
                 if (dataSnapshot.exists()) {
+                    val topic = "/topics/Enter_your_topic_name"
+
+                    val notification = JSONObject()
+                    val notifcationBody = JSONObject()
+
+                    try {
+                        notifcationBody.put("title", "PineApple")
+                        notifcationBody.put("message", "You've got a new match!")   //Enter your notification message
+                        notification.put("to", topic)
+                        notification.put("data", notifcationBody)
+                        Log.e("TAG", "try")
+                    } catch (e: JSONException) {
+                        Log.e("TAG", "onCreate: " + e.message)
+                    }
+
+                    sendNotification(notification)
+
 
                     //prompt user that match
                     //later change to notification
@@ -323,6 +351,31 @@ class HomeSwipeActivity : Activity() {
         with(NotificationManagerCompat.from(this)) {
             notify(0, builder.build())
         }
+    }
+
+    private val requestQueue: RequestQueue by lazy {
+        Volley.newRequestQueue(this.applicationContext)
+    }
+
+    private fun sendNotification(notification: JSONObject) {
+        Log.e("TAG", "sendNotification")
+        val jsonObjectRequest = object : JsonObjectRequest(FCM_API, notification,
+            Response.Listener<JSONObject> { response ->
+                Log.i("TAG", "onResponse: $response")
+            },
+            Response.ErrorListener {
+                Toast.makeText(this@HomeSwipeActivity, "Request error", Toast.LENGTH_LONG).show()
+                Log.i("TAG", "onErrorResponse: Didn't work")
+            }) {
+
+            override fun getHeaders(): Map<String, String> {
+                val params = HashMap<String, String>()
+                params["Authorization"] = serverKey
+                params["Content-Type"] = contentType
+                return params
+            }
+        }
+        requestQueue.add(jsonObjectRequest)
     }
 
     private fun createNotificationChannel() {
