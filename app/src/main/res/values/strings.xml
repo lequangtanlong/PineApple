@@ -134,4 +134,10 @@
         <item>@drawable/img3</item>
         <item>@drawable/img4</item>
     </integer-array>
+
+    <string-array name="gender_preferences">
+        <item>Male</item>
+        <item>Female</item>
+        <item>Everyone</item>
+    </string-array>
 </resources>

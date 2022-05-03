@@ -51,7 +51,7 @@
                         android:gravity="end"
                         android:paddingEnd="10dp"
                         android:paddingRight="10dp"
-                        android:text="Women"
+                        android:text="Male"
                         android:textColor="@color/black"
                         android:textSize="16dp" />
 
@@ -165,6 +165,25 @@
                         rsb:absoluteMinValue="100" />
                 </LinearLayout>
             </androidx.cardview.widget.CardView>
+
+            <Button
+                android:id="@+id/submitButton"
+                android:layout_width="320dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="16dp"
+                android:background="@drawable/btn_main"
+                android:fontFamily="@font/iciel_cadena"
+                android:text="Submit"
+                android:textColor="@drawable/fnt_col_main"
+                android:textSize="20sp"
+                android:textStyle="bold"
+                app:backgroundTint="#FFFFFF"
+                app:backgroundTintMode="multiply"
+                app:layout_constraintTop_toBottomOf="@id/link_forgotPassword"
+                android:gravity="center"
+                android:layout_gravity="center"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"/>
         </LinearLayout>
     </ScrollView>
 
