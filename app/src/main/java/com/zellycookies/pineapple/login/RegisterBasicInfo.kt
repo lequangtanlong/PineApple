@@ -79,7 +79,11 @@ class RegisterBasicInfo : AppCompatActivity() {
                     "",
                     "",
                     latitude,
-                    longtitude
+                    longtitude,
+                    "",
+                    "",
+                    "",
+                    "",
                 )
                 intent.putExtra("password", password)
                 intent.putExtra("classUser", user)

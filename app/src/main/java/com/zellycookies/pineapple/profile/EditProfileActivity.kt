@@ -1,5 +1,6 @@
 package com.zellycookies.pineapple.profile
 
+import android.app.ProgressDialog
 import android.content.Context
 import android.content.Intent
 import android.graphics.Bitmap
@@ -34,10 +35,21 @@ class EditProfileActivity : AppCompatActivity() {
     private var mAuth: FirebaseAuth? = null
     private var mAuthListener: AuthStateListener? = null
     private var mPhotoDB: DatabaseReference? = null
-    private var mProfileImage: ImageView? = null
     private var userId: String? = null
+    private var mProfileImage: ImageView? = null
+    private var mImage1: ImageView? = null
+    private var mImage2: ImageView? = null
+    private var mImage3: ImageView? = null
+    private var mImage4: ImageView? = null
     private var profileImageUri: String? = null
+    private var image1Uri: String? = null
+    private var image2Uri: String? = null
+    private var image3Uri: String? = null
+    private var image4Uri: String? = null
+    private var imageList: ArrayList<Uri> = ArrayList()
+    private var imageUri : Uri? = null
     private var resultUri: Uri? = null
+    private var progressDialog : ProgressDialog? = null
     private var userSex: String? = null
     private var phoneNumber: EditText? = null
     private var aboutMe: EditText? = null
@@ -65,6 +77,10 @@ class EditProfileActivity : AppCompatActivity() {
         val back = findViewById<View>(R.id.back) as ImageButton
         back.setOnClickListener { onBackPressed() }
         mProfileImage = findViewById<View>(R.id.profileImage) as ImageView
+        mImage1 = findViewById<View>(R.id.image_1) as ImageView
+        mImage2 = findViewById<View>(R.id.image_2) as ImageView
+        mImage3 = findViewById<View>(R.id.image_3) as ImageView
+        mImage4 = findViewById<View>(R.id.image_4) as ImageView
         phoneNumber = findViewById<View>(R.id.edit_phone) as EditText
         aboutMe = findViewById<View>(R.id.edit_aboutme) as EditText
         username = findViewById<View>(R.id.tvUserName) as TextView
@@ -83,6 +99,15 @@ class EditProfileActivity : AppCompatActivity() {
             intent.type = "image/*"
             startActivityForResult(intent, 1)
         }
+        val btnUploadImages = findViewById<Button>(R.id.btn_upload_images)
+        btnUploadImages.setOnClickListener {
+            val intent = Intent(Intent.ACTION_GET_CONTENT)
+            intent.type = "image/*"
+            intent.putExtra(Intent.EXTRA_ALLOW_MULTIPLE, true)
+            startActivityForResult(intent, 2)
+        }
+        progressDialog = ProgressDialog(this)
+        progressDialog!!.setMessage("Uploading images...")
     }
 
     private val userData: Unit
@@ -95,7 +120,7 @@ class EditProfileActivity : AppCompatActivity() {
                             profileImageUri = map["profileImageUrl"].toString()
                             Log.d(
                                 TAG,
-                                "onDataChange: the profileImageUri is$profileImageUri"
+                                "onDataChange: the profileImageUri is $profileImageUri"
                             )
                             when (profileImageUri) {
                                 "defaultFemale" -> mProfileImage?.let {
@@ -110,6 +135,38 @@ class EditProfileActivity : AppCompatActivity() {
                                     mProfileImage!!
                                 )
                             }
+                        }
+                        if (map["imageUrl_1"] != null) {
+                            image1Uri = map["imageUrl_1"].toString()
+                            Log.d(
+                                TAG,
+                                "onDataChange: the imageUrl_1 is $image1Uri"
+                            )
+                            Glide.with(application).load(image1Uri).into(mImage1!!)
+                        }
+                        if (map["imageUrl_2"] != null) {
+                            image2Uri = map["imageUrl_2"].toString()
+                            Log.d(
+                                TAG,
+                                "onDataChange: the imageUrl_2 is $image2Uri"
+                            )
+                            Glide.with(application).load(image2Uri).into(mImage2!!)
+                        }
+                        if (map["imageUrl_3"] != null) {
+                            image3Uri = map["imageUrl_3"].toString()
+                            Log.d(
+                                TAG,
+                                "onDataChange: the imageUrl_3 is $image3Uri"
+                            )
+                            Glide.with(application).load(image3Uri).into(mImage3!!)
+                        }
+                        if (map["imageUrl_4"] != null) {
+                            image4Uri = map["imageUrl_4"].toString()
+                            Log.d(
+                                TAG,
+                                "onDataChange: the imageUrl_4 is $image4Uri"
+                            )
+                            Glide.with(application).load(image4Uri).into(mImage4!!)
                         }
                         if (map["username"] != null) {
                             username!!.text = map["username"].toString()
@@ -258,13 +315,60 @@ class EditProfileActivity : AppCompatActivity() {
         mPhotoDB!!.updateChildren(userInfo)
     }
 
+    fun saveAndBack(view: View?) {
+        saveUserPhoto()
+        saveUserData()
+        uploadImage()
+        UtilityHistoryActivity.uploadActivity(userSex!!, userId!!, "You edited your profile")
+        val intent = Intent(mContext, NewSettingsActivity::class.java)
+        startActivity(intent)
+    }
+
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         super.onActivityResult(requestCode, resultCode, data)
         if (requestCode == 1 && resultCode == RESULT_OK) {
             val imageUri = data!!.data
             resultUri = imageUri
             mProfileImage!!.setImageURI(resultUri)
+        } else if (requestCode == 2 && resultCode == RESULT_OK) {
+            if (data!!.clipData != null) {
+                val count = data.clipData!!.itemCount
+                var current = 0
+                while (current < count) {
+                    imageUri = data.clipData!!.getItemAt(current).uri
+                    imageList.add(imageUri!!)
+                    current += 1
+                }
+                Toast.makeText(this, "Selected ${imageList.size} images.", Toast.LENGTH_SHORT).show()
+            }
         }
+    }
+
+    private fun uploadImage() {
+        if (imageList.size == 0) return
+        progressDialog!!.show()
+        val imageFolder = FirebaseStorage.getInstance().reference.child("additionalImages")
+        for (i in 0..3) {
+            if (i >= imageList.size) {
+                storeLink(null, i + 1)
+                continue
+            }
+            val image = imageList[i]
+            val imageName = imageFolder.child("img-" + image.lastPathSegment)
+            imageName.putFile(image).addOnSuccessListener {
+                imageName.downloadUrl.addOnSuccessListener {
+                    val url = it.toString()
+                    storeLink(url, i + 1)
+                }
+            }
+        }
+    }
+
+    private fun storeLink(url: String?, id: Int) {
+        val userId = mAuth!!.currentUser!!.uid
+        val dbRef = FirebaseDatabase.getInstance().reference.child(userSex!!).child(userId)
+        dbRef.child("imageUrl_$id").setValue(url)
+        progressDialog!!.dismiss()
     }
 
     fun checkUserSex() {
@@ -307,13 +411,6 @@ class EditProfileActivity : AppCompatActivity() {
         })
     }
 
-    fun saveAndBack(view: View?) {
-        saveUserPhoto()
-        saveUserData()
-        UtilityHistoryActivity.uploadActivity(userSex!!, userId!!, "You edited your profile")
-        val intent = Intent(mContext, NewSettingsActivity::class.java)
-        startActivity(intent)
-    }
     //----------------------------------------Firebase----------------------------------------
     /**
      * Setup the firebase auth object

@@ -26,6 +26,10 @@ class User : Serializable {
     // Added new attribute date of birth.
     var dateOfBirth: String? = null
     var profileImageUrl: String? = null
+    var imageUrl_1 : String? = null
+    var imageUrl_2 : String? = null
+    var imageUrl_3 : String? = null
+    var imageUrl_4 : String? = null
 
     //define behaviors
     var latitude = 0.0
@@ -49,7 +53,11 @@ class User : Serializable {
         dateOfBirth: String?,
         profileImageUrl: String?,
         latitude: Double,
-        longtitude: Double
+        longtitude: Double,
+        imageUrl_1: String?,
+        imageUrl_2: String?,
+        imageUrl_3: String?,
+        imageUrl_4: String?
     ) {
         this.sex = sex
         this.user_id = user_id
@@ -68,6 +76,10 @@ class User : Serializable {
         this.profileImageUrl = profileImageUrl
         this.latitude = latitude
         this.longtitude = longtitude
+        this.imageUrl_1 = imageUrl_1
+        this.imageUrl_2 = imageUrl_2
+        this.imageUrl_3 = imageUrl_3
+        this.imageUrl_4 = imageUrl_4
     }
 
     override fun toString(): String {
