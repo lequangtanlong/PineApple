@@ -156,6 +156,7 @@ class RegisterHobby : AppCompatActivity() {
                                     "onDataChange: username already exists. Appending random string to name: $append"
                                 )
                             }
+                            userInfo?.user_id = user.uid
                             userInfo?.username = userInfo?.username.toString() + append
 
                             //add new user to the database

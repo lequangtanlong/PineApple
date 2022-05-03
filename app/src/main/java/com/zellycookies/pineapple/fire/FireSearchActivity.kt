@@ -142,6 +142,8 @@ class FireSearchActivity : AppCompatActivity() {
         intent.putExtra("interest", interest)
         intent.putExtra("distance", distance)
         intent.putExtra("photo", profileImageURL)
+        intent.putExtra("userId", user.user_id)
+        intent.putExtra("userSex", user.sex)
 
         startActivity(intent)
     }

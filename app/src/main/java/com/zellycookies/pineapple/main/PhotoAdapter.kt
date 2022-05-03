@@ -22,6 +22,7 @@ class PhotoAdapter(var mContext: Context, resource: Int, objects: List<Cards>) :
         if (convertView == null) {
             convertView = LayoutInflater.from(getContext()).inflate(R.layout.item, parent, false)
         }
+        var userSex = "male"
         val name: TextView = convertView?.findViewById<View>(R.id.name) as TextView
         val image = convertView?.findViewById<View>(R.id.image) as ImageView
         val btnInfo: ImageButton =
@@ -36,12 +37,17 @@ class PhotoAdapter(var mContext: Context, resource: Int, objects: List<Cards>) :
             intent.putExtra("distance", card_item?.distance)
             intent.putExtra("showDoB", card_item?.showDoB)
             intent.putExtra("showDistance", card_item?.showDistance)
+            intent.putExtra("userId", card_item?.userId)
             mContext.startActivity(intent)
         })
         name.setText(card_item?.name + ", " + card_item?.age)
         when (card_item?.profileImageUrl) {
-            "defaultFemale" -> Glide.with(getContext()).load(R.drawable.img_ava_female).into(image)
-            "defaultMale" -> Glide.with(getContext()).load(R.drawable.img_ava_male).into(image)
+            "defaultFemale" -> {
+                Glide.with(getContext()).load(R.drawable.img_ava_female).into(image)
+                }
+            "defaultMale" -> {
+                Glide.with(getContext()).load(R.drawable.img_ava_male).into(image)
+                }
             else -> Glide.with(getContext()).load(card_item?.profileImageUrl).into(image)
         }
         return convertView

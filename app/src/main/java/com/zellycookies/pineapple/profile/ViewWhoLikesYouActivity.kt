@@ -220,6 +220,7 @@ class ViewWhoLikesYouActivity : AppCompatActivity() {
         intent.putExtra("interest", interest)
         intent.putExtra("distance", distance)
         intent.putExtra("photo", profileImageURL)
+        intent.putExtra("userId", user.user_id)
 
         startActivity(intent)
     }
