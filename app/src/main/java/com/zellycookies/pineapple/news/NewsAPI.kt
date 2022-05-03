@@ -35,7 +35,7 @@ public interface NewsAPI {
     fun fetch(): Call<Response>
 }
 
-fun main () {
+fun fetchNews(): ArrayList<News> {
     var BASE_API = "https://api.newscatcherapi.com/v2/"
     var headers = mapOf(
         "x-api-key" to "f_bhMwTqP8XH_b8pGDNGyVfDxt7O9asGvD3wrWwr3E4"
@@ -52,11 +52,17 @@ fun main () {
     //        val call: Call<Response> = newsAPI . fetch ("covid", "25/4/2022", headers)
     val call: Call<Response> = newsAPI.fetch()
     val response: Response? =  call.execute().body()
-    val articles = response?.articles
-    if (articles != null) {
-        for (a in articles)
-            println(a.title)
-    }
+    var articles = ArrayList<News>()
+    if (response?.articles != null)
+        articles = response.articles
+
+    for (a in articles)
+        println(a.media)
+    return articles
 }
 
 
+
+//fun main() {
+//    fetchNews()
+//}
