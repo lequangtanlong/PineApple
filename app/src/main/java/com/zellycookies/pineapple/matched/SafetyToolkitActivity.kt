@@ -97,11 +97,11 @@ class SafetyToolkitActivity : AppCompatActivity() {
             else -> null
         }
 
-        if (content == null) {
-            Toast.makeText(this, "Please specify the issue before submitting the report", Toast.LENGTH_LONG).show()
-            return
+        when (content) {
+            null -> Toast.makeText(this, "Specify the issue before submitting the report", Toast.LENGTH_LONG).show()
+            rbOther.text -> dialogReportOther().show()
+            else -> uploadReport(content.toString())
         }
-        Log.d(TAG, content.toString())
     }
 
     private fun dialog(type : Int) : AlertDialog {
@@ -150,6 +150,34 @@ class SafetyToolkitActivity : AppCompatActivity() {
             ) { dialog, _ ->
                 dialog.cancel()
             }.create()
+    }
+
+    private fun dialogReportOther() : AlertDialog {
+        val inflater : LayoutInflater = LayoutInflater.from(this)
+        val view : View = inflater.inflate(R.layout.dialog_report_other, null)
+        val tvUsername = view.findViewById(R.id.dialog_username) as TextView
+        tvUsername.text = otherName
+        val tfOther = view.findViewById<EditText>(R.id.tf_other)
+
+        return AlertDialog.Builder(this)
+            .setView(view)
+            .setPositiveButton(R.string.submit
+            ) { dialog, _ ->
+                val content = tfOther.text.toString()
+                if (content == "")
+                    Toast.makeText(this, "Specify the issue before submitting the report", Toast.LENGTH_LONG).show()
+                else uploadReport(content)
+                dialog.dismiss()
+            }
+            .setNegativeButton(R.string.cancel
+            ) { dialog, _ ->
+                dialog.cancel()
+            }.create()
+    }
+
+    private fun uploadReport(content : String) {
+        Log.d(TAG, content)
+        Toast.makeText(this, "Report sent", Toast.LENGTH_SHORT).show()
     }
 
     private fun returnToMatched() {
