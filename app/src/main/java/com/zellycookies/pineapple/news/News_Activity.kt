@@ -17,6 +17,7 @@ import android.widget.ListView
 import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.RecyclerView
+import com.bumptech.glide.Glide
 import com.zellycookies.pineapple.R
 
 
@@ -53,7 +54,6 @@ class NewsListAdapter (
     private val context: Activity,
     private val articles: ArrayList<News>
 ): ArrayAdapter<News>(context, R.layout.news_item, articles) {
-
     override fun getView(position: Int, convertView: View?, parent: ViewGroup): View {
         val inflater = context.layoutInflater
         val rowView: View = inflater.inflate(R.layout.news_item, null, false)
@@ -64,8 +64,8 @@ class NewsListAdapter (
         titleTxtView.setText(articles[position].title)
         dateTxtView.setText(articles[position].published_date)
 //        imgView.setImageURI(Uri.parse(articles[position].media))
-
-        DownloadImageFromInternet(imgView).execute(articles[position].media)
+        Glide.with(context).load(articles[position].media).into(imgView)
+//        DownloadImageFromInternet(imgView).execute(articles[position].media)
         return rowView
     }
 
