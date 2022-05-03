@@ -93,9 +93,9 @@ class ConversationAdapter(messageList: ArrayList<MessageObject>) :
                 }
                 holder.mImage?.visibility = View.VISIBLE
 
-                var bitmap: Bitmap? = null
-                bitmap = bitmap?.let { Bitmap.createScaledBitmap(it, 120, 120, false) };
-                holder.mImage?.setImageBitmap(bitmap)
+//                var bitmap: Bitmap? = null
+//                bitmap = bitmap?.let { Bitmap.createScaledBitmap(it, 120, 120, false) };
+//                holder.mImage?.setImageBitmap(bitmap)
             } catch (e: IOException) {
                 e.printStackTrace()
             }
