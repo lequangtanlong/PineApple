@@ -7,8 +7,7 @@ import android.os.Bundle
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
-import android.widget.Button
-import android.widget.TextView
+import android.widget.*
 import androidx.appcompat.app.AlertDialog
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.FirebaseUser
@@ -16,6 +15,8 @@ import com.google.firebase.database.*
 import com.zellycookies.pineapple.R
 import com.zellycookies.pineapple.login.Login
 import com.zellycookies.pineapple.utility.UtilityHistoryActivity
+import com.zellycookies.pineapple.utility.ViewWhoYouLikeActivity
+import com.zellycookies.pineapple.utils.User
 
 class SafetyToolkitActivity : AppCompatActivity() {
     private val mContext: Context = this@SafetyToolkitActivity
@@ -75,32 +76,131 @@ class SafetyToolkitActivity : AppCompatActivity() {
         UtilityHistoryActivity.uploadActivity(userSex!!, userId!!, "You unmatched with $otherName")
     }
 
-    private fun dialog(isBlock : Boolean) : AlertDialog {
+    private fun reportUser(view : View) {
+        val rbHarass = view.findViewById<RadioButton>(R.id.rb_harass)
+        val rbPretend = view.findViewById<RadioButton>(R.id.rb_pretend)
+        val rbSwear = view.findViewById<RadioButton>(R.id.rb_swearing)
+        val rbHate = view.findViewById<RadioButton>(R.id.rb_hate_speech)
+        val rbOther = view.findViewById<RadioButton>(R.id.rb_other)
+        var check = -1
+
+        if (rbHarass.isChecked) check = 0
+        if (rbPretend.isChecked) check = 1
+        if (rbSwear.isChecked) check = 2
+        if (rbHate.isChecked) check = 3
+        if (rbOther.isChecked) check = 4
+
+        val content = when (check) {
+            0 -> rbHarass.text
+            1 -> rbPretend.text
+            2 -> rbSwear.text
+            3 -> rbHate.text
+            4 -> rbOther.text
+            else -> null
+        }
+
+        when (content) {
+            null -> Toast.makeText(this, "Specify the issue before submitting the report", Toast.LENGTH_LONG).show()
+            rbOther.text -> dialogReportOther().show()
+            else -> uploadReport(content.toString())
+        }
+    }
+
+    private fun dialog(type : Int) : AlertDialog {
+        // type: 0 = Block; 1 = Unmatch; 2 = Report
         val inflater : LayoutInflater = LayoutInflater.from(this)
-        val view : View = inflater.inflate(R.layout.dialog_block, null)
+        val view : View = inflater.inflate(
+            if (type != 2) R.layout.dialog_block else R.layout.dialog_report,
+            null)
 
         val tvHeader = view.findViewById(R.id.dialog_header) as TextView
         val tvContent = view.findViewById(R.id.dialog_content) as TextView
         val tvUsername = view.findViewById(R.id.dialog_username) as TextView
-        tvHeader.text = getString(R.string.block_user)
+        tvHeader.text = getString(
+            when (type) {
+                0 -> R.string.block_user
+                1 -> R.string.unmatch_user
+                else -> R.string.report_user
+            }
+        )
         tvContent.text = getString(
-            if (isBlock) R.string.are_you_sure_you_want_to_block
-            else R.string.are_you_sure_you_want_to_unmatch_with
+            when (type) {
+                0 -> R.string.are_you_sure_you_want_to_block
+                1 -> R.string.are_you_sure_you_want_to_unmatch_with
+                else -> R.string.report_an_issue_your_have_with_this_user
+            }
         )
         tvUsername.text = otherName
+
         return AlertDialog.Builder(this)
             .setView(view)
-            .setPositiveButton(R.string.yes
+            .setPositiveButton(if (type != 2) R.string.yes else R.string.submit
             ) { dialog, _ ->
-                if (isBlock) blockUser()
-                else unmatchUser()
+                when (type) {
+                    0 -> blockUser()
+                    1 -> unmatchUser()
+                    else -> {
+                        reportUser(view)
+                    }
+                }
                 dialog.dismiss()
-                returnToMatched()
+                if (type != 2) {
+                    returnToMatched()
+                }
             }
-            .setNegativeButton(R.string.no
+            .setNegativeButton(if (type != 2) R.string.no else R.string.cancel
             ) { dialog, _ ->
                 dialog.cancel()
             }.create()
+    }
+
+    private fun dialogReportOther() : AlertDialog {
+        val inflater : LayoutInflater = LayoutInflater.from(this)
+        val view : View = inflater.inflate(R.layout.dialog_report_other, null)
+        val tvUsername = view.findViewById(R.id.dialog_username) as TextView
+        tvUsername.text = otherName
+        val tfOther = view.findViewById<EditText>(R.id.tf_other)
+
+        return AlertDialog.Builder(this)
+            .setView(view)
+            .setPositiveButton(R.string.submit
+            ) { dialog, _ ->
+                val content = tfOther.text.toString()
+                if (content == "")
+                    Toast.makeText(this, "Specify the issue before submitting the report", Toast.LENGTH_LONG).show()
+                else uploadReport(content)
+                dialog.dismiss()
+            }
+            .setNegativeButton(R.string.cancel
+            ) { dialog, _ ->
+                dialog.cancel()
+            }.create()
+    }
+
+    private fun uploadReport(content : String) {
+        otherRef!!.child("reports").child(userId!!).setValue(content)
+        checkOtherDeactivate()
+        Log.d(TAG, content)
+        Toast.makeText(this, "Report sent", Toast.LENGTH_SHORT).show()
+    }
+
+    // >= 3 reports --> deactivate
+    private fun checkOtherDeactivate() {
+        val reportList : MutableList<String> = ArrayList()
+        otherRef!!.child("reports").addChildEventListener(object : ChildEventListener {
+            override fun onChildAdded(snapshot: DataSnapshot, previousChildName: String?) {
+                reportList.add(snapshot.key.toString())
+                if (reportList.size >= 3) {
+                    Log.d(TAG, "$otherId has received ${reportList.size} reports")
+                    otherRef!!.child("deactivated").setValue(true)
+                }
+            }
+
+            override fun onChildChanged(snapshot: DataSnapshot, previousChildName: String?) {}
+            override fun onChildMoved(snapshot: DataSnapshot, previousChildName: String?) {}
+            override fun onChildRemoved(snapshot: DataSnapshot) {}
+            override fun onCancelled(error: DatabaseError) {}
+        })
     }
 
     private fun returnToMatched() {
@@ -116,13 +216,18 @@ class SafetyToolkitActivity : AppCompatActivity() {
     private fun addButtonListener() {
         val btnBlock : Button = findViewById(R.id.btn_block)
         val btnUnmatch : Button = findViewById(R.id.btn_unmatch)
+        val btnReport : Button = findViewById(R.id.btn_report)
 
         btnBlock.setOnClickListener {
-            dialog(true).show()
+            dialog(0).show()
         }
 
         btnUnmatch.setOnClickListener {
-            dialog(false).show()
+            dialog(1).show()
+        }
+
+        btnReport.setOnClickListener {
+            dialog(2).show()
         }
     }
 
@@ -197,4 +302,5 @@ class SafetyToolkitActivity : AppCompatActivity() {
     companion object {
         private const val TAG = "SafetyToolkitActivity"
     }
+
 }
