@@ -35,7 +35,7 @@ public interface NewsAPI {
     fun fetch(): Call<Response>
 }
 
-fun main () {
+fun fetchNews(): ArrayList<News>? {
     var BASE_API = "https://api.newscatcherapi.com/v2/"
     var headers = mapOf(
         "x-api-key" to "f_bhMwTqP8XH_b8pGDNGyVfDxt7O9asGvD3wrWwr3E4"
@@ -57,6 +57,8 @@ fun main () {
         for (a in articles)
             println(a.title)
     }
+    return articles
 }
+
 
 
