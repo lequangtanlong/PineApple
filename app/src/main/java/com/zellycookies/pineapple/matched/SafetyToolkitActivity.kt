@@ -15,6 +15,8 @@ import com.google.firebase.database.*
 import com.zellycookies.pineapple.R
 import com.zellycookies.pineapple.login.Login
 import com.zellycookies.pineapple.utility.UtilityHistoryActivity
+import com.zellycookies.pineapple.utility.ViewWhoYouLikeActivity
+import com.zellycookies.pineapple.utils.User
 
 class SafetyToolkitActivity : AppCompatActivity() {
     private val mContext: Context = this@SafetyToolkitActivity
@@ -176,8 +178,29 @@ class SafetyToolkitActivity : AppCompatActivity() {
     }
 
     private fun uploadReport(content : String) {
+        otherRef!!.child("reports").child(userId!!).setValue(content)
+        checkOtherDeactivate()
         Log.d(TAG, content)
         Toast.makeText(this, "Report sent", Toast.LENGTH_SHORT).show()
+    }
+
+    // >= 3 reports --> deactivate
+    private fun checkOtherDeactivate() {
+        val reportList : MutableList<String> = ArrayList()
+        otherRef!!.child("reports").addChildEventListener(object : ChildEventListener {
+            override fun onChildAdded(snapshot: DataSnapshot, previousChildName: String?) {
+                reportList.add(snapshot.key.toString())
+                if (reportList.size >= 3) {
+                    Log.d(TAG, "$otherId has received ${reportList.size} reports")
+                    otherRef!!.child("deactivated").setValue(true)
+                }
+            }
+
+            override fun onChildChanged(snapshot: DataSnapshot, previousChildName: String?) {}
+            override fun onChildMoved(snapshot: DataSnapshot, previousChildName: String?) {}
+            override fun onChildRemoved(snapshot: DataSnapshot) {}
+            override fun onCancelled(error: DatabaseError) {}
+        })
     }
 
     private fun returnToMatched() {
