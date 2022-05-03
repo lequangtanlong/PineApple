@@ -38,6 +38,16 @@
                 android:textSize="20sp"/>
 
         <ImageButton
+            android:id="@+id/videoCallBtn"
+            android:layout_gravity="center_vertical"
+            android:layout_width="30dp"
+            android:layout_height="30dp"
+            android:src="@drawable/ic_baseline_cancel_24"
+            app:tint="@color/colorPrimaryDark"
+            android:background="@color/colorPrimary"
+            android:layout_marginEnd="20dp"
+            android:contentDescription="@string/dummy" />
+        <ImageButton
             android:id="@+id/checkInfoUserMatched"
             android:layout_gravity="center_vertical"
             android:layout_width="wrap_content"

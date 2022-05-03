@@ -3,6 +3,11 @@
   <component name="DesignSurface">
     <option name="filePathToZoomLevelMap">
       <map>
+        <entry key="..\:/Project/PineApple/app/src/main/res/drawable/ic_baseline_insert_photo_24.xml" value="0.1735" />
+        <entry key="..\:/Project/PineApple/app/src/main/res/drawable/ic_baseline_settings_24.xml" value="0.1735" />
+        <entry key="..\:/Project/PineApple/app/src/main/res/drawable/ic_baseline_thumb_up_24.xml" value="0.1735" />
+        <entry key="..\:/Project/PineApple/app/src/main/res/drawable/ic_baseline_videocall.xml" value="0.1735" />
+        <entry key="..\:/Project/PineApple/app/src/main/res/drawable/ic_new_info.xml" value="0.1735" />
         <entry key="..\:/Project/PineApple/app/src/main/res/layout/activity_profile.xml" value="0.146875" />
         <entry key="..\:/Project/PineApple/app/src/main/res/layout/conversation_activity.xml" value="0.15534420289855072" />
         <entry key="..\:/Project/PineApple/app/src/main/res/layout/conversation_image_left.xml" value="0.146875" />
@@ -10,6 +15,7 @@
         <entry key="..\:/Project/PineApple/app/src/main/res/layout/conversation_input_panel.xml" value="0.6" />
         <entry key="..\:/Project/PineApple/app/src/main/res/layout/conversation_message_left.xml" value="0.15534420289855072" />
         <entry key="..\:/Project/PineApple/app/src/main/res/layout/conversation_message_right.xml" value="0.15534420289855072" />
+        <entry key="..\:/Project/PineApple/app/src/main/res/layout/layout_top_navigation_chat.xml" value="0.17552083333333332" />
         <entry key="..\:/Users/Minh Duc/Desktop/PineApple/app/src/main/res/layout/activity_main.xml" value="0.136" />
         <entry key="..\:/Users/lequa/OneDrive/Documents/GitHub/PineApple/app/src/main/res/drawable/custom_switch.xml" value="0.121" />
         <entry key="..\:/Users/lequa/OneDrive/Documents/GitHub/PineApple/app/src/main/res/drawable/ic_check_no.xml" value="0.2265" />
