@@ -87,7 +87,9 @@
         <activity android:name=".conversation.ConversationActivity" />
         <activity android:name=".matched.ProfileCheckinMatched" />
         <activity android:name=".introduction.IntroductionMain" />
-        <activity android:name=".profile.FilterActivity" />
+        <activity
+            android:name=".profile.FilterActivity"
+            android:exported="false"/>
     </application>
 
 </manifest>

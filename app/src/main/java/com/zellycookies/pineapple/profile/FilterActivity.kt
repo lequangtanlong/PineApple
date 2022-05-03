@@ -2,6 +2,7 @@ package com.zellycookies.pineapple.profile
 
 import android.content.Intent
 import android.os.Bundle
+import android.util.Log
 import android.view.View
 import android.widget.*
 import android.widget.SeekBar.OnSeekBarChangeListener
@@ -76,6 +77,8 @@ class FilterActivity : AppCompatActivity() {
             intent.putExtra("distance", distance.progress)
             intent.putExtra("minAge", minDistance)
             intent.putExtra("maxAge", maxDistance)
+
+            startActivity(intent)
 
             onBackPressed()
         }

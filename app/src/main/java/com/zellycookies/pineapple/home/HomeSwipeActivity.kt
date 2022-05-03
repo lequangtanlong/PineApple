@@ -71,6 +71,13 @@ class HomeSwipeActivity : Activity() {
     private var mAuthListener: FirebaseAuth.AuthStateListener? = null
     private var usersDb: DatabaseReference? = null
     private var mFirebaseFirestore: FirebaseFirestore? = null
+
+    //filter
+    private var maxAge: Int = 100
+    private var minAge: Int = 16
+    private var distancePreference: Int = 50
+    private var genderPreference: String = "male"
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_home_swipe)
@@ -88,6 +95,23 @@ class HomeSwipeActivity : Activity() {
         arrayAdapter = PhotoAdapter(this, R.layout.item, rowItems as ArrayList<Cards>)
         updateSwipeCard()
         initButton()
+
+        val intent: Intent = getIntent()
+        if (intent.getStringExtra("genderPreference") != null)
+            genderPreference = intent.getStringExtra("genderPreference").toString().lowercase()
+        /*if (intent.getStringExtra("distance") != null)
+            distancePreference = intent.getStringExtra("distance")!!.toInt()
+        if (intent.getStringExtra("minAge") != null)
+            minAge = intent.getStringExtra("minAge")!!.toInt()
+        if (intent.getStringExtra("maxAge") != null)
+            maxAge = intent.getStringExtra("maxAge")!!.toInt()*/
+
+        Log.d("Home Filter Activity", genderPreference)
+        Log.d("Home Filter Activity", distancePreference.toString())
+        Log.d("Home Filter Activity", distancePreference.toString())
+        Log.d("Home Filter Activity", distancePreference.toString())
+        //usersDb!!.child(lookforSex!!).child(thisUserId!!).child("preferSex").setValue(genderPreference)
+
     }
 
     private fun checkCardCache() {
