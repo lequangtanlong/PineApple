@@ -13,6 +13,7 @@ import android.util.Log
 import android.view.View
 import android.widget.Button
 import android.widget.ListView
+import android.widget.TextView
 import android.widget.Toast
 import androidx.core.app.ActivityCompat
 import androidx.core.app.NotificationCompat
@@ -32,6 +33,7 @@ import com.lorentzos.flingswipe.SwipeFlingAdapterView
 import com.zellycookies.pineapple.R
 import com.zellycookies.pineapple.introduction.IntroductionMain
 import com.zellycookies.pineapple.main.*
+import com.zellycookies.pineapple.matched.SafetyToolkitActivity
 import com.zellycookies.pineapple.utility.UtilityHistoryActivity
 import com.zellycookies.pineapple.utils.CalculateAge
 import com.zellycookies.pineapple.utils.GPS
@@ -63,8 +65,8 @@ class HomeSwipeActivity : Activity() {
     var gps: GPS? = null
     private var thisUserId : String? = null
     private var flingContainer : SwipeFlingAdapterView? = null
-
     private var tabLayout : TabLayout? = null
+    private var user : FirebaseUser? = null
 
     //firebase
     private var mAuth: FirebaseAuth? = null
@@ -76,7 +78,7 @@ class HomeSwipeActivity : Activity() {
     private var maxAge: Int = 100
     private var minAge: Int = 16
     private var distancePreference: Int = 50
-    private var genderPreference: String = "male"
+    private var genderPreference: String? = "male"
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -95,19 +97,16 @@ class HomeSwipeActivity : Activity() {
         arrayAdapter = PhotoAdapter(this, R.layout.item, rowItems as ArrayList<Cards>)
         updateSwipeCard()
         initButton()
+    }
 
-        val intent: Intent = getIntent()
-        genderPreference = intent.getStringExtra("genderPreference").toString().lowercase()
-        distancePreference = intent.getIntExtra("distance", 50)
-        minAge = intent.getIntExtra("minAge", 16)
-        maxAge = intent.getIntExtra("maxAge", 100)
+    private fun findFilter(dataSnapshot: DataSnapshot) {
+        distancePreference = dataSnapshot.getValue(User::class.java)!!.preferDistance!!
+        minAge = dataSnapshot.getValue(User::class.java)!!.preferMinAge!!
+        maxAge = dataSnapshot.getValue(User::class.java)!!.preferMaxAge!!
 
-        Log.d("Home Filter Activity", genderPreference)
-        Log.d("Home Filter Activity", distancePreference.toString())
-        Log.d("Home Filter Activity", minAge.toString())
-        Log.d("Home Filter Activity", maxAge.toString())
-        //usersDb!!.child(lookforSex!!).child(thisUserId!!).child("preferSex").setValue(genderPreference)
-
+        /*usersDb!!.child(userSex!!).child(currentUID!!).child("preferDistance").setValue(distancePreference)
+        usersDb!!.child(userSex!!).child(currentUID!!).child("preferMinAge").setValue(minAge)
+        usersDb!!.child(userSex!!).child(currentUID!!).child("preferMaxAge").setValue(maxAge)*/
     }
 
     private fun checkCardCache() {
@@ -365,6 +364,8 @@ class HomeSwipeActivity : Activity() {
                             User::class.java
                         )!!.preferSex
                         findInterest(dataSnapshot)
+                        findFilter(dataSnapshot)
+
                         potentialMatch
                     }
                 }
@@ -389,6 +390,9 @@ class HomeSwipeActivity : Activity() {
                             User::class.java
                         )!!.preferSex
                         findInterest(dataSnapshot)
+
+                        findFilter(dataSnapshot)
+
                         potentialMatch
                     }
                 }
@@ -424,13 +428,13 @@ class HomeSwipeActivity : Activity() {
                         val curUser = dataSnapshot.getValue(
                             User::class.java
                         )
-                        val tempDatabase = curUser!!.isHobby_food
+                        val tempFood = curUser!!.isHobby_food
                         val tempMusic = curUser.isHobby_music
                         val tempArt = curUser.isHobby_art
                         val tempMovies = curUser.isHobby_movies
                         val showDoB = curUser.isShowDoB
                         val showDistance = curUser.isShowDistance
-                        if (tempMusic == music || tempArt == art || tempDatabase == food || tempMovies == movies) {
+                        if (tempMusic == music || tempArt == art || tempFood == food || tempMovies == movies) {
                             //calculate age
                             val dob = curUser.dateOfBirth
                             val cal = CalculateAge(dob!!)
@@ -456,8 +460,8 @@ class HomeSwipeActivity : Activity() {
                             if (tempArt) {
                                 interest.append("Art   ")
                             }
-                            if (tempDatabase) {
-                                interest.append("Database   ")
+                            if (tempFood) {
+                                interest.append("Food   ")
                             }
 
                             //calculate distance
@@ -483,12 +487,23 @@ class HomeSwipeActivity : Activity() {
                                 TAG,
                                 "distance is " + distance
                             )
-                            val item = Cards(
-                                dataSnapshot.key!!, username, dob, age,
-                                profileImageUrl, bio, interest.toString(), distance, showDoB, showDistance
-                            )
-                            rowItems!!.add(item)
-                            arrayAdapter?.notifyDataSetChanged()
+
+                            if (age in minAge..maxAge && distance <= distancePreference) {
+                                val item = Cards(
+                                    dataSnapshot.key!!,
+                                    username,
+                                    dob,
+                                    age,
+                                    profileImageUrl,
+                                    bio,
+                                    interest.toString(),
+                                    distance,
+                                    showDoB,
+                                    showDistance
+                                )
+                                rowItems!!.add(item)
+                                arrayAdapter?.notifyDataSetChanged()
+                            }
                         }
                     }
                 }

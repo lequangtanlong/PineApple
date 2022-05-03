@@ -22,6 +22,9 @@ class User : Serializable {
     var description: String? = null
     var sex: String? = null
     var preferSex: String? = null
+    var preferDistance: Int? = null
+    var preferMinAge: Int? = null
+    var preferMaxAge: Int? = null
 
     // Added new attribute date of birth.
     var dateOfBirth: String? = null
@@ -37,6 +40,9 @@ class User : Serializable {
     constructor(
         sex: String?,
         preferSex: String?,
+        preferDistance: Int?,
+        preferMinAge: Int?,
+        preferMaxAge: Int?,
         user_id: String?,
         phone_number: String?,
         email: String?,
@@ -64,6 +70,9 @@ class User : Serializable {
         isShowDistance = true
         this.description = description
         this.preferSex = preferSex
+        this.preferDistance = preferDistance
+        this.preferMinAge = preferMinAge
+        this.preferMaxAge = preferMaxAge
         this.dateOfBirth = dateOfBirth
         this.profileImageUrl = profileImageUrl
         this.latitude = latitude
