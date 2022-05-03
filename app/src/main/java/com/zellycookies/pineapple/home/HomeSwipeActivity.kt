@@ -318,6 +318,7 @@ class HomeSwipeActivity : Activity() {
             .setContentTitle("PineApple")
             .setContentText("You've got a new match!")
             .setPriority(NotificationCompat.PRIORITY_DEFAULT)
+            .setAutoCancel(true)
 
         with(NotificationManagerCompat.from(this)) {
             notify(0, builder.build())

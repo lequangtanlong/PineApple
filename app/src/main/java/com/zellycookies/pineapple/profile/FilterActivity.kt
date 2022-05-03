@@ -142,9 +142,10 @@ class FilterActivity : AppCompatActivity() {
     private fun initFilter() {
         if (gender.compareTo("male") == 0) {
             genderSpinner.setSelection(0)
-            distance.max = distanceInSeekBar
+            distance.progress = distanceInSeekBar
             rangeSeekBar.selectedMaxValue = maxAge
             rangeSeekBar.selectedMinValue = minAge
+            ageRange.text = "$minAge - $maxAge"
         }
         else if (gender.compareTo("female") == 0) {
             genderSpinner.setSelection(1)
