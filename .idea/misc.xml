@@ -3,6 +3,17 @@
   <component name="DesignSurface">
     <option name="filePathToZoomLevelMap">
       <map>
+        <entry key="..\:/Project/PineApple/app/src/main/res/drawable-hdpi/circle_background.xml" value="0.184" />
+        <entry key="..\:/Project/PineApple/app/src/main/res/drawable/bg_sender.xml" value="0.184" />
+        <entry key="..\:/Project/PineApple/app/src/main/res/drawable/btn_danger.xml" value="0.184" />
+        <entry key="..\:/Project/PineApple/app/src/main/res/drawable/btn_option_danger_default.xml" value="0.184" />
+        <entry key="..\:/Project/PineApple/app/src/main/res/drawable/ic_baseline_cancel_24.xml" value="0.184" />
+        <entry key="..\:/Project/PineApple/app/src/main/res/drawable/ic_baseline_chatsupport.xml" value="0.13333333333333333" />
+        <entry key="..\:/Project/PineApple/app/src/main/res/drawable/ic_baseline_exit_to_app_36.xml" value="0.184" />
+        <entry key="..\:/Project/PineApple/app/src/main/res/drawable/ic_baseline_notifications_24.xml" value="0.184" />
+        <entry key="..\:/Project/PineApple/app/src/main/res/layout/activity_edit_profile.xml" value="0.17346014492753623" />
+        <entry key="..\:/Project/PineApple/app/src/main/res/layout/activity_new_settings.xml" value="0.17346014492753623" />
+        <entry key="..\:/Project/PineApple/app/src/main/res/layout/activity_settings_account.xml" value="0.17346014492753623" />
         <entry key="..\:/Users/Minh Duc/Desktop/PineApple/app/src/main/res/layout/activity_main.xml" value="0.136" />
         <entry key="..\:/Users/Minh Duc/Desktop/PineApple/app/src/main/res/layout/activity_news.xml" value="0.128" />
         <entry key="..\:/Users/Minh Duc/Desktop/PineApple/app/src/main/res/layout/activity_profile.xml" value="0.1" />

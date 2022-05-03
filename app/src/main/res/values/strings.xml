@@ -133,6 +133,7 @@
     <string name="activity">Activity</string>
     <string name="upload_more_images">Upload more images</string>
     <string name="additional_images">Additional Images</string>
+    <string name="chatSupport">Chat support</string>
 
     <!-- introduction pictures-->
     <integer-array name="img_id_arr">

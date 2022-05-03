@@ -34,7 +34,9 @@ import com.zellycookies.pineapple.home.HomeSwipeActivity
 import com.zellycookies.pineapple.profile.EditProfileActivity
 
 import com.zellycookies.pineapple.profile.Profile_Activity
-import java.lang.NullPointerException
+import im.crisp.client.ChatActivity
+import im.crisp.client.Crisp
+
 
 //import android.support.annotation.NonNull;
 //import android.support.annotation.Nullable;
@@ -50,6 +52,8 @@ class Login : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         FirebaseApp.initializeApp(this)
+
+
         setContentView(R.layout.activity_login)
         mEmail = findViewById<View>(R.id.input_email) as EditText?
         mPassword = findViewById<View>(R.id.input_password) as EditText?
