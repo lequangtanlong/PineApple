@@ -1,9 +1,14 @@
 package com.zellycookies.pineapple.news
 
+import android.annotation.SuppressLint
 import android.app.Activity
 import android.content.Context
+import android.graphics.Bitmap
+import android.graphics.BitmapFactory
 import android.net.Uri
+import android.os.AsyncTask
 import android.os.Bundle
+import android.util.Log
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ArrayAdapter
@@ -58,7 +63,34 @@ class NewsListAdapter (
 
         titleTxtView.setText(articles[position].title)
         dateTxtView.setText(articles[position].published_date)
-        imgView.setImageURI(Uri.parse(articles[position].media))
+//        imgView.setImageURI(Uri.parse(articles[position].media))
+
+        DownloadImageFromInternet(imgView).execute(articles[position].media)
         return rowView
     }
+
+    @SuppressLint("StaticFieldLeak")
+    @Suppress("DEPRECATION")
+    private inner class DownloadImageFromInternet(var imageView: ImageView) : AsyncTask<String, Void, Bitmap?>() {
+        init {
+        }
+        override fun doInBackground(vararg urls: String): Bitmap? {
+            val imageURL = urls[0]
+            var image: Bitmap? = null
+            try {
+                val `in` = java.net.URL(imageURL).openStream()
+                image = BitmapFactory.decodeStream(`in`)
+            }
+            catch (e: Exception) {
+                Log.e("Error Message", e.message.toString())
+                e.printStackTrace()
+            }
+            return image
+        }
+        override fun onPostExecute(result: Bitmap?) {
+            imageView.setImageBitmap(result)
+        }
+    }
 }
+
+
