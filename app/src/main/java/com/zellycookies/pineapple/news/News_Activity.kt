@@ -44,7 +44,7 @@ class NewsActivity: AppCompatActivity() {
                 this.newsListView.adapter = adapter
             })
         }).start()
-
+    
     }
 
 }
