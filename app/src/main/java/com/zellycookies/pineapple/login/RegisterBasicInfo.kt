@@ -67,6 +67,9 @@ class RegisterBasicInfo : AppCompatActivity() {
                 val user = User(
                     "",
                     "",
+                    50,
+                    16,
+                    100,
                     "",
                     "",
                     email,
