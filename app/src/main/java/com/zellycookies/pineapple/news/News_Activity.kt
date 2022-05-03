@@ -3,6 +3,7 @@ package com.zellycookies.pineapple.news
 import android.annotation.SuppressLint
 import android.app.Activity
 import android.content.Context
+import android.content.Intent
 import android.graphics.Bitmap
 import android.graphics.BitmapFactory
 import android.net.Uri
@@ -15,6 +16,8 @@ import android.widget.ArrayAdapter
 import android.widget.ImageView
 import android.widget.ListView
 import android.widget.TextView
+import androidx.activity.result.ActivityResult
+import androidx.activity.result.contract.ActivityResultContracts
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
@@ -42,8 +45,16 @@ class NewsActivity: AppCompatActivity() {
             this@NewsActivity.runOnUiThread(Runnable {
                 this.adapter = NewsListAdapter(context, articles)
                 this.newsListView.adapter = adapter
+                this.newsListView.setOnItemClickListener {adapterView, view, i, l ->
+                    val intent = Intent(context, NewsDetailActivity::class.java)
+                    intent.putExtra("link", articles[i].link)
+                    startForResult.launch(intent)
+                }
             })
         }).start()
+
+    }
+    private val startForResult = registerForActivityResult(ActivityResultContracts.StartActivityForResult()) { result: ActivityResult ->
 
     }
 
