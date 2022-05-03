@@ -1,26 +1,23 @@
 package com.zellycookies.pineapple.conversation.Adapter
 
-import android.annotation.SuppressLint
 import android.content.Context
 import android.graphics.Bitmap
 import android.graphics.BitmapFactory
-import android.os.AsyncTask
+import android.os.StrictMode
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.TextView
-import android.widget.Toast
-import androidx.core.view.isVisible
 import androidx.recyclerview.widget.RecyclerView
-import com.bumptech.glide.Glide
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.FirebaseUser
 import com.zellycookies.pineapple.R
 import com.zellycookies.pineapple.conversation.Object.MessageObject
-import com.zellycookies.pineapple.conversation.Object.MessageType
 import java.io.IOException
+import java.io.InputStream
+import java.net.HttpURLConnection
 import java.net.URL
 
 
@@ -66,38 +63,41 @@ class ConversationAdapter(messageList: ArrayList<MessageObject>) :
     override fun onBindViewHolder(holder: MessageViewHolder, position: Int) {
         holder.mTimeSend.text = messageList[position].datetime
 
-        if(messageList[position].message == ""){
-            holder.mImage?.let { DownloadImageFromInternet(it).execute() }
-        } else {
-            holder.mMessage?.text =  messageList[position].message
+        if(messageList[position].message == null || messageList[position].message == ""){
+            val newurl = URL(messageList[position].imagePath)
+            holder.mImage?.setImageBitmap(BitmapFactory.decodeStream(newurl.openConnection().getInputStream()))
+            holder.mMessage?.visibility = View.INVISIBLE
 
-        }
+            val policy = StrictMode.ThreadPolicy.Builder().permitAll().build()
+            StrictMode.setThreadPolicy(policy)
 
-    }
-
-    @SuppressLint("StaticFieldLeak")
-    @Suppress("DEPRECATION")
-    private inner class DownloadImageFromInternet(var imageView: ImageView) : AsyncTask<String, Void, Bitmap?>() {
-        init {
-         //   Toast.makeText(applicationContext, "Please wait, it may take a few minute...",     Toast.LENGTH_SHORT).show()
-        }
-        override fun doInBackground(vararg urls: String): Bitmap? {
-            val imageURL = urls[0]
-            var image: Bitmap? = null
+            var mIcon_val: Bitmap? = null
             try {
-                val `in` = java.net.URL(imageURL).openStream()
-                image = BitmapFactory.decodeStream(`in`)
-            }
-            catch (e: Exception) {
-                Log.e("Error Message", e.message.toString())
+                val conn: HttpURLConnection = newurl.openConnection() as HttpURLConnection
+                conn.setDoInput(true)
+                conn.connect()
+                val length: Int = conn.getContentLength()
+                val bitmapData = IntArray(length)
+                val bitmapData2 = ByteArray(length)
+                val `is`: InputStream = conn.getInputStream()
+                val options = BitmapFactory.Options()
+                mIcon_val = BitmapFactory.decodeStream(`is`, null, options)
+                if(holder.mImage != null){
+                    holder.mImage!!.setImageBitmap(mIcon_val)
+                }
+                holder.mImage?.visibility = View.VISIBLE
+
+                var bitmap: Bitmap? = null
+                bitmap = bitmap?.let { Bitmap.createScaledBitmap(it, 120, 120, false) };
+                holder.mImage?.setImageBitmap(bitmap)
+            } catch (e: IOException) {
                 e.printStackTrace()
             }
-            return image
-        }
-        override fun onPostExecute(result: Bitmap?) {
-            imageView.setImageBitmap(result)
-        }
+        } else {
+            holder.mMessage?.text =  messageList[position].message }
     }
+
+
 
     override fun getItemCount(): Int {
         return messageList.size
@@ -115,11 +115,10 @@ class ConversationAdapter(messageList: ArrayList<MessageObject>) :
             //mLayout = itemView.findViewById(R.id.sendLayout)
             mTimeSend = itemView.findViewById(R.id.time_send)
 
-            try {
-                mMessage = itemView.findViewById(R.id.message)
-            }catch (e: IOException){
-                mImage = itemView.findViewById(R.id.imageMessage)
-            }
+            mMessage = itemView.findViewById(R.id.message)
+
+            mImage = itemView.findViewById(R.id.imageMessage)
+
         }
 
     }

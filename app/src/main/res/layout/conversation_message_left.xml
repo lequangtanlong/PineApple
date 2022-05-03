@@ -17,6 +17,12 @@
                 android:id="@+id/person_image"
                 app:civ_border_color="@color/white"
                 android:src="@drawable/img_ava_male" />
+        <ImageView
+            android:layout_width="150dp"
+            android:layout_height="150dp"
+            android:layout_marginLeft="10dp"
+            android:id="@+id/imageMessage"
+            />
 
         <TextView
                 android:layout_width="wrap_content"
