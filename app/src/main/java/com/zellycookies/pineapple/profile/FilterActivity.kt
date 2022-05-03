@@ -39,7 +39,7 @@ class FilterActivity : AppCompatActivity() {
         })
 
         rangeSeekBar.setOnRangeSeekBarChangeListener { bar, number, number2 ->
-            ageRange.setText("$number-$number2")
+            ageRange.setText("$number - $number2")
         }
 
         back.setOnClickListener { onBackPressed() }

@@ -161,8 +161,8 @@
                         android:layout_marginLeft="10dp"
                         android:layout_marginRight="10dp"
                         android:layout_marginBottom="10dp"
-                        rsb:absoluteMaxValue="100"
-                        rsb:absoluteMinValue="16" />
+                        rsb:absoluteMaxValue="16"
+                        rsb:absoluteMinValue="100" />
                 </LinearLayout>
             </androidx.cardview.widget.CardView>
         </LinearLayout>
