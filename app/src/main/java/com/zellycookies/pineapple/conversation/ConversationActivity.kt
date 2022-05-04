@@ -31,6 +31,8 @@ import com.google.firebase.database.DataSnapshot
 import com.google.firebase.database.DatabaseError
 import com.google.firebase.database.ValueEventListener
 import com.google.firebase.firestore.*
+import com.google.firebase.ktx.Firebase
+import com.google.firebase.ktx.initialize
 import com.google.firebase.storage.FirebaseStorage
 import java.util.*
 import com.zellycookies.pineapple.R
@@ -300,14 +302,17 @@ class ConversationActivity : AppCompatActivity() {
     }
 
     private fun videoCall(){
+
         if (!isPermissionGranted()) {
             askPermissions()
         }
 
         val intent = Intent(this, CallActivity::class.java)
         intent.putExtra("username", userId)
-        intent.putExtra("friend",userMatched)
+        intent.putExtra("friend",userMatched!!.user_id)
         startActivity(intent)
+
+
 
     }
 

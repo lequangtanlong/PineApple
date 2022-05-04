@@ -13,6 +13,7 @@ import android.widget.TextView
 import android.widget.Toast
 import com.google.firebase.database.DataSnapshot
 import com.google.firebase.database.DatabaseError
+import com.google.firebase.database.FirebaseDatabase
 import com.google.firebase.database.ValueEventListener
 import com.google.firebase.database.ktx.database
 import com.google.firebase.ktx.Firebase
@@ -26,40 +27,50 @@ class CallActivity : AppCompatActivity() {
 
     var isPeerConnected = false
 
-    var firebaseRef = Firebase.database.getReference("users")
+    var firebaseRef = FirebaseDatabase.getInstance().reference.child("videocall")
 
     var isAudio = true
     var isVideo = true
 
-    private var callBtn: ImageView = findViewById(R.id.videoCallBtn)
-    private var toggleAudioBtn: ImageView = findViewById(R.id.toggleAudioBtn)
-    private var toggleVideoBtn: ImageView = findViewById(R.id.toggleVideoBtn)
-    private var webView: WebView = findViewById(R.id.webView)
-    private var rejectBtn: ImageView = findViewById(R.id.rejectBtn)
-    private var callLayout: LinearLayout = findViewById(R.id.callLayout)
-    private var incomingCallTxt: TextView = findViewById(R.id.incomingCallTxt)
-    private var callControlLayout: LinearLayout = findViewById(R.id.callControlLayout)
-    private var acceptBtn: ImageView = findViewById(R.id.acceptBtn)
+    private var toggleAudioBtn: ImageView? = null
+    private var toggleVideoBtn: ImageView? = null
+    private var webView: WebView? = null
+    private var rejectBtn: ImageView? = null
+    private var callLayout: LinearLayout? = null
+    private var incomingCallTxt: TextView? = null
+    private var callControlLayout: LinearLayout? = null
+    private var acceptBtn: ImageView? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_video_call)
+
+
+
+        toggleAudioBtn = findViewById(R.id.toggleAudioBtn)
+        toggleVideoBtn = findViewById(R.id.toggleVideoBtn)
+        webView = findViewById(R.id.webView)
+        rejectBtn = findViewById(R.id.rejectBtn)
+        callLayout = findViewById(R.id.callLayout)
+        incomingCallTxt = findViewById(R.id.incomingCallTxt)
+        callControlLayout = findViewById(R.id.callControlLayout)
+        acceptBtn = findViewById(R.id.acceptBtn)
 
         username = intent.getStringExtra("username")!!
         friendsUsername = intent.getStringExtra("friend")!!
 
         sendCallRequest()
 
-        toggleAudioBtn.setOnClickListener {
+        toggleAudioBtn!!.setOnClickListener {
             isAudio = !isAudio
             callJavascriptFunction("javascript:toggleAudio(\"${isAudio}\")")
-            toggleAudioBtn.setImageResource(if (isAudio) R.drawable.ic_baseline_mic_24 else R.drawable.ic_baseline_mic_off_24 )
+            toggleAudioBtn!!.setImageResource(if (isAudio) R.drawable.ic_baseline_mic_24 else R.drawable.ic_baseline_mic_off_24 )
         }
 
-        toggleVideoBtn.setOnClickListener {
+        toggleVideoBtn!!.setOnClickListener {
             isVideo = !isVideo
             callJavascriptFunction("javascript:toggleVideo(\"${isVideo}\")")
-            toggleVideoBtn.setImageResource(if (isVideo) R.drawable.ic_baseline_videocam_24 else R.drawable.ic_baseline_videocam_off_24 )
+            toggleVideoBtn!!.setImageResource(if (isVideo) R.drawable.ic_baseline_videocam_24 else R.drawable.ic_baseline_videocam_off_24 )
         }
 
         setupWebView()
@@ -103,24 +114,24 @@ class CallActivity : AppCompatActivity() {
 
     private fun setupWebView() {
 
-        webView.webChromeClient = object: WebChromeClient() {
+        webView?.webChromeClient = object: WebChromeClient() {
             override fun onPermissionRequest(request: PermissionRequest?) {
                 request?.grant(request.resources)
             }
         }
 
-        webView.settings.javaScriptEnabled = true
-        webView.settings.mediaPlaybackRequiresUserGesture = false
-        webView.addJavascriptInterface(JavascriptInterface(this), "Android")
+        webView!!.settings.javaScriptEnabled = true
+        webView!!.settings.mediaPlaybackRequiresUserGesture = false
+        webView!!.addJavascriptInterface(JavascriptInterface(this), "Android")
 
         loadVideoCall()
     }
 
     private fun loadVideoCall() {
         val filePath = "file:android_asset/call.html"
-        webView.loadUrl(filePath)
+        webView?.loadUrl(filePath)
 
-        webView.webViewClient = object: WebViewClient() {
+        webView?.webViewClient = object: WebViewClient() {
             override fun onPageFinished(view: WebView?, url: String?) {
                 initializePeer()
             }
@@ -148,27 +159,27 @@ class CallActivity : AppCompatActivity() {
     private fun onCallRequest(caller: String?) {
         if (caller == null) return
 
-        callLayout.visibility = View.VISIBLE
-        incomingCallTxt.text = "$caller is calling..."
+        callLayout?.visibility = View.VISIBLE
+        incomingCallTxt?.text = "$caller is calling..."
 
-        acceptBtn.setOnClickListener {
+        acceptBtn?.setOnClickListener {
             firebaseRef.child(username).child("connId").setValue(uniqueId)
             firebaseRef.child(username).child("isAvailable").setValue(true)
 
-            callLayout.visibility = View.GONE
+            callLayout?.visibility = View.GONE
             switchToControls()
         }
 
-        rejectBtn.setOnClickListener {
+        rejectBtn?.setOnClickListener {
             firebaseRef.child(username).child("incoming").setValue(null)
-            callLayout.visibility = View.GONE
+            callLayout?.visibility = View.GONE
         }
 
     }
 
     private fun switchToControls() {
         // inputLayout.visibility = View.GONE
-        callControlLayout.visibility = View.VISIBLE
+        callControlLayout?.visibility   = View.VISIBLE
     }
 
 
@@ -177,7 +188,7 @@ class CallActivity : AppCompatActivity() {
     }
 
     private fun callJavascriptFunction(functionString: String) {
-        webView.post { webView.evaluateJavascript(functionString, null) }
+        webView?.post { webView!!.evaluateJavascript(functionString, null) }
     }
 
 
@@ -191,7 +202,7 @@ class CallActivity : AppCompatActivity() {
 
     override fun onDestroy() {
         firebaseRef.child(username).setValue(null)
-        webView.loadUrl("about:blank")
+        webView?.loadUrl("about:blank")
         super.onDestroy()
     }
 
