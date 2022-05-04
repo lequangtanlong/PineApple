@@ -11,9 +11,7 @@ import android.os.Build
 import android.os.Bundle
 import android.util.Log
 import android.view.View
-import android.widget.Button
 import android.widget.ListView
-import android.widget.TextView
 import android.widget.Toast
 import androidx.core.app.ActivityCompat
 import androidx.core.app.NotificationCompat
@@ -25,7 +23,6 @@ import com.android.volley.toolbox.JsonObjectRequest
 import com.android.volley.toolbox.Volley
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import com.google.android.material.floatingactionbutton.FloatingActionButton
-import com.google.android.material.snackbar.Snackbar
 import com.google.android.material.tabs.TabLayout
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.FirebaseAuth.AuthStateListener
@@ -33,11 +30,11 @@ import com.google.firebase.auth.FirebaseUser
 import com.google.firebase.database.*
 import com.google.firebase.firestore.FieldValue
 import com.google.firebase.firestore.FirebaseFirestore
+import com.google.firebase.messaging.FirebaseMessaging
 import com.lorentzos.flingswipe.SwipeFlingAdapterView
 import com.zellycookies.pineapple.R
 import com.zellycookies.pineapple.introduction.IntroductionMain
 import com.zellycookies.pineapple.main.*
-import com.zellycookies.pineapple.matched.SafetyToolkitActivity
 import com.zellycookies.pineapple.utility.UtilityHistoryActivity
 import com.zellycookies.pineapple.utils.CalculateAge
 import com.zellycookies.pineapple.utils.GPS
@@ -45,8 +42,7 @@ import com.zellycookies.pineapple.utils.TopNavigationViewHelper
 import com.zellycookies.pineapple.utils.User
 import org.json.JSONException
 import org.json.JSONObject
-import com.google.firebase.ktx.Firebase
-import com.google.firebase.messaging.FirebaseMessaging
+
 
 class HomeSwipeActivity : Activity() {
     private val MY_PERMISSIONS_REQUEST_LOCATION = 123
@@ -310,15 +306,16 @@ class HomeSwipeActivity : Activity() {
                         .child(dataSnapshot.key!!).setValue(key)
 
                     // remote notification
-                    val topic = "/PineApple/${dataSnapshot.key}"
+                    //val topic = "/topics/${currentUID}"
+                    val topic = "/topics/${dataSnapshot.key}"
                     val notification = JSONObject()
-                    val notifcationBody = JSONObject()
+                    val notificationBody = JSONObject()
 
                     try {
-                        notifcationBody.put("title", "PineApple")
-                        notifcationBody.put("message", "You've got a new match!")   //Enter your notification message
+                        notificationBody.put("title", "PineApple")
+                        notificationBody.put("message", "Wow! You've got a new match!")   //Enter your notification message
                         notification.put("to", topic)
-                        notification.put("data", notifcationBody)
+                        notification.put("data", notificationBody)
                         Log.e("TAG", "try")
                     } catch (e: JSONException) {
                         Log.e("TAG", "onCreate: " + e.message)
@@ -420,8 +417,6 @@ class HomeSwipeActivity : Activity() {
                         findInterest(dataSnapshot)
                         findFilter(dataSnapshot)
 
-                        FirebaseMessaging.getInstance().subscribeToTopic("/PineApple/${currentUID}")
-
                         potentialMatch
                     }
                 }
@@ -447,8 +442,6 @@ class HomeSwipeActivity : Activity() {
                         )!!.preferSex
                         findInterest(dataSnapshot)
                         findFilter(dataSnapshot)
-
-                        FirebaseMessaging.getInstance().subscribeToTopic("/PineApple/${currentUID}")
 
                         potentialMatch
                     }
@@ -735,6 +728,11 @@ class HomeSwipeActivity : Activity() {
                 // user is signed in
                 Log.d(TAG, "onAuthStateChanged: signed_in:" + user.uid)
                 thisUserId = user.uid
+
+                FirebaseMessaging.getInstance().subscribeToTopic("/topics/${user.uid}")
+                    .addOnSuccessListener {
+                        Log.d("onSubscribeToTopic", "Success")
+                    }
             } else {
                 //user is signed out
                 Log.d(TAG, "onAuthStateChanged: signed_out")
