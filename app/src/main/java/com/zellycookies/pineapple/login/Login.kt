@@ -38,6 +38,7 @@ import java.util.*
 import kotlin.collections.HashMap
 
 import at.favre.lib.crypto.bcrypt.BCrypt
+import com.google.android.gms.auth.api.signin.GoogleSignInOptions
 
 //import android.support.annotation.NonNull;
 //import android.support.annotation.Nullable;
@@ -62,7 +63,6 @@ class Login : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         FirebaseApp.initializeApp(this)
 
-
         setContentView(R.layout.activity_login)
         mEmail = findViewById<View>(R.id.input_email) as EditText?
         mPassword = findViewById<View>(R.id.input_password) as EditText?
@@ -71,17 +71,17 @@ class Login : AppCompatActivity() {
 
         init()
 
-        /*googleSignInButton = findViewById(R.id.btn_login_google)
+        googleSignInButton = findViewById(R.id.btn_login_google)
         googleSignInButton.setOnClickListener {
-            signIn();
+            googleSignIn();
         }
 
         val gso = GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
-            .requestIdToken(getString(R.string.default_web_client_id))
+            .requestIdToken(getString(R.string.web_client_id))
             .requestEmail()
             .build()
 
-        mGoogleSignInClient = GoogleSignIn.getClient(this, gso)*/
+        mGoogleSignInClient = GoogleSignIn.getClient(this, gso)
 
         callbackManager = CallbackManager.Factory.create();
 
@@ -89,7 +89,7 @@ class Login : AppCompatActivity() {
         loginButton!!.setReadPermissions("email", "public_profile", "user_friends");
 
         loginButton!!.setOnClickListener {
-
+            facebookSignIn()
         }
 
     }
@@ -199,7 +199,7 @@ class Login : AppCompatActivity() {
         }
     }
 
-    private fun signIn() {
+    private fun googleSignIn() {
         val signInIntent = mGoogleSignInClient!!.signInIntent
         startActivityForResult(signInIntent, RC_SIGN_IN)
     }
