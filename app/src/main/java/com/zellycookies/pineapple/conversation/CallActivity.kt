@@ -1,5 +1,7 @@
 package com.zellycookies.pineapple.conversation
 
+import android.Manifest
+import android.content.pm.PackageManager
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.View
@@ -7,10 +9,8 @@ import android.webkit.PermissionRequest
 import android.webkit.WebChromeClient
 import android.webkit.WebView
 import android.webkit.WebViewClient
-import android.widget.ImageView
-import android.widget.LinearLayout
-import android.widget.TextView
-import android.widget.Toast
+import android.widget.*
+import androidx.core.app.ActivityCompat
 import com.google.firebase.database.DataSnapshot
 import com.google.firebase.database.DatabaseError
 import com.google.firebase.database.FirebaseDatabase
@@ -34,12 +34,16 @@ class CallActivity : AppCompatActivity() {
 
     private var toggleAudioBtn: ImageView? = null
     private var toggleVideoBtn: ImageView? = null
-    private var webView: WebView? = null
+    private lateinit var webView: WebView
     private var rejectBtn: ImageView? = null
     private var callLayout: LinearLayout? = null
+    private var callBtn: Button? = null
     private var incomingCallTxt: TextView? = null
     private var callControlLayout: LinearLayout? = null
     private var acceptBtn: ImageView? = null
+
+    private val permissions = arrayOf(Manifest.permission.CAMERA, Manifest.permission.RECORD_AUDIO)
+    private val requestcode = 1
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -56,10 +60,11 @@ class CallActivity : AppCompatActivity() {
         callControlLayout = findViewById(R.id.callControlLayout)
         acceptBtn = findViewById(R.id.acceptBtn)
 
+
         username = intent.getStringExtra("username")!!
         friendsUsername = intent.getStringExtra("friend")!!
 
-        sendCallRequest()
+
 
         toggleAudioBtn!!.setOnClickListener {
             isAudio = !isAudio
@@ -74,12 +79,27 @@ class CallActivity : AppCompatActivity() {
         }
 
         setupWebView()
+        sendCallRequest()
+    }
+
+    private fun askPermissions() {
+        ActivityCompat.requestPermissions(this, permissions, requestcode)
+    }
+
+    private fun isPermissionGranted(): Boolean {
+
+        permissions.forEach {
+            if (ActivityCompat.checkSelfPermission(this, it) != PackageManager.PERMISSION_GRANTED)
+                return false
+        }
+
+        return true
     }
 
     private fun sendCallRequest() {
         if (!isPeerConnected) {
             Toast.makeText(this, "You're not connected. Check your internet", Toast.LENGTH_LONG).show()
-            return
+           // return
         }
 
         firebaseRef.child(friendsUsername).child("incoming").setValue(username)
@@ -114,24 +134,25 @@ class CallActivity : AppCompatActivity() {
 
     private fun setupWebView() {
 
-        webView?.webChromeClient = object: WebChromeClient() {
+        webView.webChromeClient = object: WebChromeClient() {
             override fun onPermissionRequest(request: PermissionRequest?) {
                 request?.grant(request.resources)
             }
         }
 
-        webView!!.settings.javaScriptEnabled = true
-        webView!!.settings.mediaPlaybackRequiresUserGesture = false
-        webView!!.addJavascriptInterface(JavascriptInterface(this), "Android")
+        webView.settings.javaScriptEnabled = true
+        webView.settings.useWideViewPort = true
+        webView.settings.mediaPlaybackRequiresUserGesture = false
+        webView.addJavascriptInterface(JavascriptInterface(this), "Android")
 
         loadVideoCall()
     }
 
     private fun loadVideoCall() {
         val filePath = "file:android_asset/call.html"
-        webView?.loadUrl(filePath)
+        webView.loadUrl(filePath)
 
-        webView?.webViewClient = object: WebViewClient() {
+        webView.webViewClient = object: WebViewClient() {
             override fun onPageFinished(view: WebView?, url: String?) {
                 initializePeer()
             }
@@ -188,7 +209,7 @@ class CallActivity : AppCompatActivity() {
     }
 
     private fun callJavascriptFunction(functionString: String) {
-        webView?.post { webView!!.evaluateJavascript(functionString, null) }
+        webView.post { webView.evaluateJavascript(functionString, null) }
     }
 
 

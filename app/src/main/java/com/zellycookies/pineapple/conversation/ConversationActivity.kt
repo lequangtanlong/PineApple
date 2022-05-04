@@ -114,6 +114,10 @@ class ConversationActivity : AppCompatActivity() {
         initializeMessage()
         chatMessage
         initTopBar()
+
+        if (!isPermissionGranted()) {
+            askPermissions()
+        }
     }
 
     var messageIdList: MutableList<DocumentSnapshot>? = null
@@ -303,9 +307,6 @@ class ConversationActivity : AppCompatActivity() {
 
     private fun videoCall(){
 
-        if (!isPermissionGranted()) {
-            askPermissions()
-        }
 
         val intent = Intent(this, CallActivity::class.java)
         intent.putExtra("username", userId)
