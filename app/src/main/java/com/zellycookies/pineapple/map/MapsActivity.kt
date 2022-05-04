@@ -125,7 +125,7 @@ class MapsActivity : AppCompatActivity(), OnMapReadyCallback  {
                 .position(me)
                 .title("Me")
                 .snippet(" here is my location")
-                .icon(BitmapDescriptorFactory.fromResource(R.drawable.charmander)))
+                .icon(BitmapDescriptorFactory.fromResource(R.drawable.me)))
             mMap!!.moveCamera(CameraUpdateFactory.newLatLngZoom(me, 14f))
         }
 

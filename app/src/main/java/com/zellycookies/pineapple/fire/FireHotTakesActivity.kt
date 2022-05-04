@@ -14,8 +14,7 @@ import android.util.Log
 import android.view.View
 import android.widget.Toast
 import androidx.core.app.ActivityCompat
-import com.bumptech.glide.Glide
-import com.bumptech.glide.util.Util
+import androidx.core.content.ContextCompat
 import com.google.android.gms.maps.CameraUpdateFactory
 import com.google.android.gms.maps.GoogleMap
 import com.google.android.gms.maps.OnMapReadyCallback
@@ -36,6 +35,8 @@ import com.zellycookies.pineapple.utils.GPS
 import com.zellycookies.pineapple.utils.TopNavigationViewHelper
 import com.zellycookies.pineapple.utils.User
 
+class anonymous(latitude: Double, longitude: Double, avatar: Int)
+
 class FireHotTakesActivity : AppCompatActivity(), OnMapReadyCallback {
 
     private var tabLayout : TabLayout? = null
@@ -48,6 +49,13 @@ class FireHotTakesActivity : AppCompatActivity(), OnMapReadyCallback {
     var longitude=106.70861138817237
     lateinit var user: User
     private lateinit var gps: GPS
+    var anonymousAvatars= arrayListOf(
+        R.drawable.a1,
+        R.drawable.a2,
+        R.drawable.a3,
+        R.drawable.a4,
+    )
+    var anonymousUsers = arrayListOf<anonymous>()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -61,14 +69,135 @@ class FireHotTakesActivity : AppCompatActivity(), OnMapReadyCallback {
         loadUserData()
 
         checkPermmison()
+        loadAnonymousUsers
 //        latitude = user?.latitude
     }
+
+
+    val loadAnonymousUsers: Unit
+        get() {
+            val potentialMatch = FirebaseDatabase.getInstance().reference.child("female")
+            potentialMatch.addChildEventListener(object : ChildEventListener {
+                override fun onChildAdded(dataSnapshot: DataSnapshot, s: String?) {
+                        val curUser = dataSnapshot.getValue(
+                            User::class.java
+                        )
+                        val lat = curUser?.latitude
+                        val long = curUser?.longtitude
+                        Log.i("ANONYMOUSSSSSS", lat.toString())
+                        Log.i("ANONYMOUSSSSSS", long.toString())
+
+                    if (lat != null && long != null)
+                            anonymousUsers.add(anonymous(lat, long, anonymousAvatars.random()))
+//                        val tempFood = curUser!!.isHobby_food
+//                        val tempMusic = curUser.isHobby_music
+//                        val tempArt = curUser.isHobby_art
+//                        val tempMovies = curUser.isHobby_movies
+//                        val showDoB = curUser.isShowDoB
+//                        val showDistance = curUser.isShowDistance
+//                        if (tempMusic == music || tempArt == art || tempFood == food || tempMovies == movies) {
+//                            //calculate age
+//                            val dob = curUser.dateOfBirth
+//                            val cal = CalculateAge(dob!!)
+//                            val age = cal.age
+//
+//                            //initialize card view
+//                            //check profile image first
+//                            var profileImageUrl =
+//                                if (lookforSex == "female") "defaultFemale" else "defaultMale"
+//                            if (dataSnapshot.child("profileImageUrl").value != null) {
+//                                profileImageUrl =
+//                                    dataSnapshot.child("profileImageUrl").value.toString()
+//                            }
+//                            val username = curUser.username
+//                            val bio = curUser.description
+//                            val interest = StringBuilder()
+//                            if (tempMovies) {
+//                                interest.append("Movies   ")
+//                            }
+//                            if (tempMusic) {
+//                                interest.append("Music   ")
+//                            }
+//                            if (tempArt) {
+//                                interest.append("Art   ")
+//                            }
+//                            if (tempFood) {
+//                                interest.append("Food   ")
+//                            }
+//
+//                            //calculate distance
+//                            // gps = GPS(mContext)
+//                            Log.d(
+//                                HomeSwipeActivity.TAG,
+//                                "onChildAdded: the x, y of user is $latitude, $longtitude"
+//                            )
+//                            Log.d(
+//                                HomeSwipeActivity.TAG,
+//                                "onChildAdded: the other user x y is " + curUser.latitude + ", " + curUser.longtitude
+//                            )
+//                            val distance =
+//                                if (gps != null)
+//                                    gps!!.calculateDistance(
+//                                        latitude,
+//                                        longtitude,
+//                                        curUser.latitude,
+//                                        curUser.longtitude
+//                                    )
+//                                else 0
+//                            Log.d(
+//                                HomeSwipeActivity.TAG,
+//                                "distance is " + distance
+//                            )
+
+//                            if (age in minAge..maxAge && distance <= distancePreference) {
+//                                val item = Cards(
+//                                    dataSnapshot.key!!,
+//                                    username,
+//                                    dob,
+//                                    age,
+//                                    profileImageUrl,
+//                                    bio,
+//                                    interest.toString(),
+//                                    distance,
+//                                    showDoB,
+//                                    showDistance
+//                                )
+//                                rowItems!!.add(item)
+//                                arrayAdapter?.notifyDataSetChanged()
+//                            }
+//                            val item = Cards(
+//                                dataSnapshot.key!!,
+//                                username,
+//                                dob,
+//                                age,
+//                                profileImageUrl,
+//                                bio,
+//                                interest.toString(),
+//                                distance,
+//                                showDoB,
+//                                showDistance
+//                            )
+//                            rowItems!!.add(item)
+//                            arrayAdapter?.notifyDataSetChanged()
+                        }
+
+
+                override fun onChildChanged(dataSnapshot: DataSnapshot, s: String?) {}
+                override fun onChildRemoved(dataSnapshot: DataSnapshot) {}
+                override fun onChildMoved(dataSnapshot: DataSnapshot, s: String?) {}
+                override fun onCancelled(databaseError: DatabaseError) {}
+            })
+        }
+
+
+
+
 
 
     override fun onMapReady(googleMap: GoogleMap) {
         mMap = googleMap
         Log.i("LOCATIONNNNNNNNNNNNNNN", location.toString())
-        drawUser(latitude, longitude)
+        drawUser(latitude, longitude, R.drawable.me)
     }
 
 
@@ -80,13 +209,13 @@ class FireHotTakesActivity : AppCompatActivity(), OnMapReadyCallback {
         maleDb.addChildEventListener(object : ChildEventListener {
             override fun onChildAdded(dataSnapshot: DataSnapshot, s: String?) {
                 if (dataSnapshot.key == user?.uid) {
-                    getUser(dataSnapshot)
+                    loadUser(dataSnapshot)
                 }
             }
 
             override fun onChildChanged(dataSnapshot: DataSnapshot, s: String?) {
                 if (Profile_Activity.active) {
-                    getUser(dataSnapshot)
+                    loadUser(dataSnapshot)
                 }
             }
             override fun onChildRemoved(dataSnapshot: DataSnapshot) {}
@@ -99,13 +228,13 @@ class FireHotTakesActivity : AppCompatActivity(), OnMapReadyCallback {
         femaleDb.addChildEventListener(object : ChildEventListener {
             override fun onChildAdded(dataSnapshot: DataSnapshot, s: String?) {
                 if (dataSnapshot.key == user?.uid) {
-                    getUser(dataSnapshot)
+                    loadUser(dataSnapshot)
                 }
             }
 
             override fun onChildChanged(dataSnapshot: DataSnapshot, s: String?) {
                 if (Profile_Activity.active) {
-                    getUser(dataSnapshot)
+                    loadUser(dataSnapshot)
                 }
             }
 
@@ -119,18 +248,18 @@ class FireHotTakesActivity : AppCompatActivity(), OnMapReadyCallback {
 
 
 
-    private fun getUser(dataSnapshot: DataSnapshot) {
+    private fun loadUser(dataSnapshot: DataSnapshot) {
         user = dataSnapshot.getValue(User::class.java)!!
         latitude = user.latitude
         longitude = user.longtitude
-        drawUser(latitude, longitude)
+        drawUser(latitude, longitude, R.drawable.me)
         Log.i("USERRRRRR", user.latitude.toString())
         Log.i("USERRRRRR", user.longtitude.toString())
     }
 
 
 
-    fun drawUser(latitude: Double, longitude: Double){
+    fun drawUser(latitude: Double, longitude: Double, avatar: Int){
         if (mMap != null) {
             val me = LatLng(latitude, longitude)
             mMap!!.addMarker(
@@ -138,13 +267,10 @@ class FireHotTakesActivity : AppCompatActivity(), OnMapReadyCallback {
                 .position(me)
                 .title("You")
                 .snippet("You are here")
-                .icon(BitmapDescriptorFactory.fromResource(R.drawable.charmander)))
+                .icon(BitmapDescriptorFactory.fromResource(avatar)))
             mMap!!.moveCamera(CameraUpdateFactory.newLatLngZoom(me, 14f))
-            BitmapDescriptorFactory.fromFile()
         }
-
     }
-
 
 
     fun checkPermmison(){
@@ -209,6 +335,8 @@ class FireHotTakesActivity : AppCompatActivity(), OnMapReadyCallback {
 //        }
 
     }
+
+
 
 
 
