@@ -9,6 +9,7 @@ import android.view.View
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import com.google.android.material.tabs.TabLayout
 import com.zellycookies.pineapple.R
+import com.zellycookies.pineapple.news.NewsActivity
 import com.zellycookies.pineapple.utils.TopNavigationViewHelper
 
 class UtilityTopPicksActivity : AppCompatActivity() {
@@ -44,6 +45,10 @@ class UtilityTopPicksActivity : AppCompatActivity() {
                     }
                     2 -> {
                         val intent = Intent(mContext, UtilityHistoryActivity::class.java)
+                        startActivity(intent)
+                    }
+                    3 -> {
+                        val intent = Intent(mContext, NewsActivity::class.java)
                         startActivity(intent)
                     }
                 }

@@ -18,6 +18,7 @@ import com.google.firebase.database.*
 import com.google.firebase.firestore.FirebaseFirestore
 import java.util.*
 import com.zellycookies.pineapple.R
+import com.zellycookies.pineapple.news.NewsActivity
 import com.zellycookies.pineapple.utility.adapter.ActivityAdapter
 import com.zellycookies.pineapple.utility.adapter.ActivityObject
 import com.zellycookies.pineapple.utils.TopNavigationViewHelper
@@ -133,6 +134,10 @@ class UtilityHistoryActivity : AppCompatActivity() {
                     }
                     1 -> {
                         val intent = Intent(mContext, UtilityTopPicksActivity::class.java)
+                        startActivity(intent)
+                    }
+                    3 -> {
+                        val intent = Intent(mContext, NewsActivity::class.java)
                         startActivity(intent)
                     }
                 }
