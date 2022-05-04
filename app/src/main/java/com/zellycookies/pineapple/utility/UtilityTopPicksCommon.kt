@@ -486,6 +486,8 @@ class UtilityTopPicksCommon : AppCompatActivity() {
     private fun isCommon(otherUser : User) : Boolean {
         val result = food == otherUser.isHobby_food && music == otherUser.isHobby_music &&
                 movies == otherUser.isHobby_movies && art == otherUser.isHobby_art
+        Log.d(TAG, "$food | $music | $art | $movies")
+        Log.d(TAG, "${otherUser.isHobby_food} \n ${otherUser.isHobby_music} \n ${otherUser.isHobby_art} \n ${otherUser.isHobby_movies}")
         Log.d(TAG, "Common Passion: ${otherUser.user_id}: $result")
         return result
     }
