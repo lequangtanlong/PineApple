@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
     package="com.zellycookies.pineapple">
     <!-- <application -->
     <!-- android:allowBackup="true" -->
@@ -14,6 +15,7 @@
     <!-- android:label="@string/title_activity_main" -->
     <!-- android:theme="@style/NoActionBar" /> -->
     <!-- </application> -->
+    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
     <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
     <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
@@ -38,7 +40,8 @@
         <service
             android:name=".home.MyFirebaseMessagingService"
             android:exported="true"
-            android:permission="com.google.android.c2dm.permission.SEND">
+            android:permission="com.google.android.c2dm.permission.SEND"
+            tools:ignore="Instantiatable">
             <intent-filter>
                 <action android:name="com.google.firebase.MESSAGING_EVENT" />
                 <action android:name="com.google.android.c2dm.intent.RECEIVE" />
@@ -116,7 +119,6 @@
         <activity android:name=".matched.ProfileCheckinMatched" />
         <activity android:name=".introduction.IntroductionMain" />
         <activity android:name=".news.NewsDetailActivity" />
-        <activity android:name=".news.NewsActivity" />
 
         <activity android:name=".map.MapsActivity" />
 
@@ -136,9 +138,7 @@
 <!--        </activity>-->
         <meta-data android:name="com.google.android.geo.API_KEY"
             android:value="@string/google_maps_key" />
-        <activity
-            android:name=".profile.FilterActivity"
-            android:exported="false" />
+
     </application>
 
 </manifest>
