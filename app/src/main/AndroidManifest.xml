@@ -17,8 +17,10 @@
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
     <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
     <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
+
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
     <uses-permission android:name="android.permission.INTERNET" />
+
 
     <application
         android:allowBackup="true"
@@ -61,7 +63,12 @@
             android:exported="false" />
         <activity
             android:name=".home.HomeSwipeActivity"
-            android:exported="true">
+            android:exported="true" >
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+            </intent-filter>
+
+
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -87,9 +94,23 @@
         <activity android:name=".conversation.ConversationActivity" />
         <activity android:name=".matched.ProfileCheckinMatched" />
         <activity android:name=".introduction.IntroductionMain" />
+        <activity android:name=".news.NewsDetailActivity" />
+        <activity android:name=".news.NewsActivity" />
+
+
         <activity
             android:name=".profile.FilterActivity"
             android:exported="false"/>
+
+<!--        <activity android:name=".news.NewsActivity"-->
+<!--            android:exported="true">-->
+<!--            <intent-filter>-->
+<!--                <action android:name="android.intent.action.MAIN" />-->
+
+<!--                <category android:name="android.intent.category.LAUNCHER" />-->
+<!--            </intent-filter>-->
+<!--        </activity>-->
+
     </application>
 
 </manifest>

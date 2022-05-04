@@ -22,10 +22,17 @@
         <entry key="..\:/Project/PineApple/app/src/main/res/layout/conversation_message_left.xml" value="0.15534420289855072" />
         <entry key="..\:/Project/PineApple/app/src/main/res/layout/conversation_message_right.xml" value="0.15534420289855072" />
         <entry key="..\:/Users/Minh Duc/Desktop/PineApple/app/src/main/res/layout/activity_main.xml" value="0.136" />
-        <entry key="..\:/Users/Minh Duc/Desktop/PineApple/app/src/main/res/layout/activity_news.xml" value="0.128" />
-        <entry key="..\:/Users/Minh Duc/Desktop/PineApple/app/src/main/res/layout/activity_profile.xml" value="0.1" />
+        <entry key="..\:/Users/Minh Duc/Desktop/PineApple/app/src/main/res/layout/activity_matched.xml" value="0.1621376811594203" />
+        <entry key="..\:/Users/Minh Duc/Desktop/PineApple/app/src/main/res/layout/activity_news.xml" value="0.25" />
+        <entry key="..\:/Users/Minh Duc/Desktop/PineApple/app/src/main/res/layout/activity_news_detail.xml" value="0.1375" />
+        <entry key="..\:/Users/Minh Duc/Desktop/PineApple/app/src/main/res/layout/activity_profile.xml" value="0.2" />
+        <entry key="..\:/Users/Minh Duc/Desktop/PineApple/app/src/main/res/layout/activity_register_gender.xml" value="0.1621376811594203" />
         <entry key="..\:/Users/Minh Duc/Desktop/PineApple/app/src/main/res/layout/activity_settings_account.xml" value="0.10144927536231885" />
-        <entry key="..\:/Users/Minh Duc/Desktop/PineApple/app/src/main/res/layout/news_item.xml" value="0.10144927536231885" />
+        <entry key="..\:/Users/Minh Duc/Desktop/PineApple/app/src/main/res/layout/activity_utility_news.xml" value="0.11851851851851852" />
+        <entry key="..\:/Users/Minh Duc/Desktop/PineApple/app/src/main/res/layout/activity_utility_top_picks.xml" value="0.1" />
+        <entry key="..\:/Users/Minh Duc/Desktop/PineApple/app/src/main/res/layout/activity_view_who_likes_you.xml" value="0.1" />
+        <entry key="..\:/Users/Minh Duc/Desktop/PineApple/app/src/main/res/layout/activity_view_who_you_like.xml" value="0.16259057971014493" />
+        <entry key="..\:/Users/Minh Duc/Desktop/PineApple/app/src/main/res/layout/news_item.xml" value="0.4" />
         <entry key="..\:/Users/lequa/OneDrive/Documents/GitHub/PineApple/app/src/main/res/drawable/ic_check_no.xml" value="0.2265" />
         <entry key="..\:/Users/lequa/OneDrive/Documents/GitHub/PineApple/app/src/main/res/drawable/ic_check_yes.xml" value="0.2265" />
         <entry key="..\:/Users/lequa/OneDrive/Documents/GitHub/PineApple/app/src/main/res/drawable/ic_menu_chat.xml" value="0.2265" />
@@ -117,13 +124,11 @@
         <entry key="..\:/Work/Temp/MAD/New-PineApple/PineApple/app/src/main/res/layout/btn_option_full.xml" value="0.22604166666666667" />
         <entry key="..\:/Work/Temp/MAD/New-PineApple/PineApple/app/src/main/res/layout/conversation_activity.xml" value="0.22604166666666667" />
         <entry key="..\:/Work/Temp/MAD/New-PineApple/PineApple/app/src/main/res/layout/conversation_input_panel.xml" value="0.22604166666666667" />
-
         <entry key="..\:/Work/Temp/MAD/New-PineApple/PineApple/app/src/main/res/layout/dialog_block.xml" value="0.22604166666666667" />
         <entry key="..\:/Work/Temp/MAD/New-PineApple/PineApple/app/src/main/res/layout/dialog_report.xml" value="0.22604166666666667" />
         <entry key="..\:/Work/Temp/MAD/New-PineApple/PineApple/app/src/main/res/layout/dialog_report_other.xml" value="0.22604166666666667" />
         <entry key="..\:/Work/Temp/MAD/New-PineApple/PineApple/app/src/main/res/layout/history_item.xml" value="0.22604166666666667" />
         <entry key="..\:/Work/Temp/MAD/New-PineApple/PineApple/app/src/main/res/layout/item.xml" value="0.22604166666666667" />
-
         <entry key="..\:/Work/Temp/MAD/New-PineApple/PineApple/app/src/main/res/layout/layout_top_navigation_back.xml" value="0.22604166666666667" />
         <entry key="..\:/Work/Temp/MAD/New-PineApple/PineApple/app/src/main/res/layout/layout_top_navigation_chat.xml" value="0.22604166666666667" />
         <entry key="..\:/Work/Temp/MAD/New-PineApple/PineApple/app/src/main/res/layout/layout_top_navigation_view.xml" value="0.22604166666666667" />
@@ -163,5 +168,12 @@
   </component>
   <component name="ProjectType">
     <option name="id" value="Android" />
+  </component>
+  <component name="VisualizationToolProject">
+    <option name="state">
+      <ProjectState>
+        <option name="scale" value="0.1375" />
+      </ProjectState>
+    </option>
   </component>
 </project>
