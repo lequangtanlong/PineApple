@@ -28,6 +28,7 @@ class UtilityTopPicksActivity : AppCompatActivity() {
         val btnKOL = findViewById<Button>(R.id.btn_kol)
         btnKOL.setOnClickListener {
             startActivity(Intent(mContext, UtilityTopPicksKOL::class.java))
+            finish()
         }
     }
 
