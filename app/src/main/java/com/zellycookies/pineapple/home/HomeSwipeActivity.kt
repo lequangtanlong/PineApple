@@ -308,6 +308,11 @@ class HomeSwipeActivity : Activity() {
 
                     // remote notification
                     //val topic = "/topics/${currentUID}"
+                    FirebaseMessaging.getInstance().subscribeToTopic("/topics/${dataSnapshot.key}")
+                        .addOnSuccessListener {
+                            Log.d("onSubscribeToTopic", "Success")
+                        }
+
                     val topic = "/topics/${dataSnapshot.key}"
                     val notification = JSONObject()
                     val notificationBody = JSONObject()
@@ -322,7 +327,7 @@ class HomeSwipeActivity : Activity() {
                         Log.e("TAG", "onCreate: " + e.message)
                     }
 
-                    sendNotification(notification)
+                    sendNotification(notification, dataSnapshot.key.toString())
                 }
             }
 
@@ -355,7 +360,7 @@ class HomeSwipeActivity : Activity() {
         Volley.newRequestQueue(this.applicationContext)
     }
 
-    private fun sendNotification(notification: JSONObject) {
+    private fun sendNotification(notification: JSONObject, topicName: String) {
         Log.e("TAG", "sendNotification")
         val jsonObjectRequest = object : JsonObjectRequest(FCM_API, notification,
             Response.Listener<JSONObject> { response ->
@@ -374,6 +379,11 @@ class HomeSwipeActivity : Activity() {
             }
         }
         requestQueue.add(jsonObjectRequest)
+
+        FirebaseMessaging.getInstance().unsubscribeFromTopic("/topics/${topicName}")
+            .addOnSuccessListener {
+                Log.d("onUnsubscribeFromTopic", "Success")
+            }
     }
 
     private fun createNotificationChannel() {
