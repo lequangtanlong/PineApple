@@ -414,7 +414,7 @@ class UtilityTopPicksKOL : AppCompatActivity() {
                         val curUser = dataSnapshot.getValue(
                             User::class.java
                         )
-                        val rankObject = RankObject(curUser!!, 0)
+                        val rankObject = RankObject(curUser!!, 0, dataSnapshot)
                         rankList.add(rankObject)
                         checkKOL(rankObject, rankList)
                     }
@@ -431,6 +431,7 @@ class UtilityTopPicksKOL : AppCompatActivity() {
         val user = rankObject.getUser()!!
         val likeMeRef = FirebaseDatabase.getInstance().reference.child(user.sex!!).child(user.user_id!!)
             .child("connections").child("likeme")
+        Log.d("RankList", "checkKOL : ${user.user_id}")
         likeMeRef.addChildEventListener(object : ChildEventListener {
             override fun onChildAdded(snapshot: DataSnapshot, previousChildName: String?) {
                 if (snapshot.exists()) {
@@ -438,6 +439,10 @@ class UtilityTopPicksKOL : AppCompatActivity() {
                     Log.d("RankList", "-----------------------------")
                     Log.d("RankList", "${rankObject.getUser()!!.user_id}")
                     rankList.sort()
+                    rowItems!!.clear()
+                    for (i in rankList.list) {
+                        addToRowItems(i.getUser()!!, i.getSnapshot())
+                    }
                 }
             }
 
