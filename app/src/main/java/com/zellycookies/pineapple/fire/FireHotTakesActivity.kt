@@ -7,6 +7,8 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
 import android.view.View
+import com.bumptech.glide.Glide
+import com.bumptech.glide.util.Util
 import com.google.android.gms.maps.CameraUpdateFactory
 import com.google.android.gms.maps.GoogleMap
 import com.google.android.gms.maps.OnMapReadyCallback
@@ -15,10 +17,16 @@ import com.google.android.gms.maps.model.LatLng
 import com.google.android.gms.maps.model.MarkerOptions
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import com.google.android.material.tabs.TabLayout
-import com.google.firebase.auth.FirebaseUser
+import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.database.ChildEventListener
+import com.google.firebase.database.DataSnapshot
+import com.google.firebase.database.DatabaseError
+import com.google.firebase.database.FirebaseDatabase
 import com.zellycookies.pineapple.R
+import com.zellycookies.pineapple.profile.Profile_Activity
 import com.zellycookies.pineapple.utils.GPS
 import com.zellycookies.pineapple.utils.TopNavigationViewHelper
+import com.zellycookies.pineapple.utils.User
 
 class FireHotTakesActivity : AppCompatActivity(), OnMapReadyCallback {
 
@@ -30,7 +38,7 @@ class FireHotTakesActivity : AppCompatActivity(), OnMapReadyCallback {
     var location: Location?=null
     var latitude=10.79474099959847
     var longitude=106.70861138817237
-    lateinit var user: FirebaseUser
+    lateinit var user: User
     private lateinit var gps: GPS
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -38,10 +46,75 @@ class FireHotTakesActivity : AppCompatActivity(), OnMapReadyCallback {
         setContentView(R.layout.activity_fire_hot_takes)
         setupTabLayout()
         setupTopNavigationView()
+
+        loadUserData()
+
+//        latitude = user?.latitude
     }
 
 
-    
+    override fun onMapReady(googleMap: GoogleMap) {
+        mMap = googleMap
+        Log.i("LOCATIONNNNNNNNNNNNNNN", location.toString())
+        drawUser(latitude, longitude)
+    }
+
+
+    fun loadUserData() {
+        val user = FirebaseAuth.getInstance().currentUser
+
+        //male user's data
+        val maleDb = FirebaseDatabase.getInstance().reference.child("male")
+        maleDb.addChildEventListener(object : ChildEventListener {
+            override fun onChildAdded(dataSnapshot: DataSnapshot, s: String?) {
+                if (dataSnapshot.key == user?.uid) {
+                    getUser(dataSnapshot)
+                }
+            }
+
+            override fun onChildChanged(dataSnapshot: DataSnapshot, s: String?) {
+                if (Profile_Activity.active) {
+                    getUser(dataSnapshot)
+                }
+            }
+            override fun onChildRemoved(dataSnapshot: DataSnapshot) {}
+            override fun onChildMoved(dataSnapshot: DataSnapshot, s: String?) {}
+            override fun onCancelled(databaseError: DatabaseError) {}
+        })
+
+        //female user's data
+        val femaleDb = FirebaseDatabase.getInstance().reference.child("female")
+        femaleDb.addChildEventListener(object : ChildEventListener {
+            override fun onChildAdded(dataSnapshot: DataSnapshot, s: String?) {
+                if (dataSnapshot.key == user?.uid) {
+                    getUser(dataSnapshot)
+                }
+            }
+
+            override fun onChildChanged(dataSnapshot: DataSnapshot, s: String?) {
+                if (Profile_Activity.active) {
+                    getUser(dataSnapshot)
+                }
+            }
+
+            override fun onChildRemoved(dataSnapshot: DataSnapshot) {}
+            override fun onChildMoved(dataSnapshot: DataSnapshot, s: String?) {}
+            override fun onCancelled(databaseError: DatabaseError) {}
+        })
+    }
+
+
+
+
+
+    private fun getUser(dataSnapshot: DataSnapshot) {
+        user = dataSnapshot.getValue(User::class.java)!!
+        latitude = user.latitude
+        longitude = user.longtitude
+        drawUser(latitude, longitude)
+        Log.i("USERRRRRR", user.toString())
+    }
+
 
 
     fun drawUser(latitude: Double, longitude: Double){
@@ -57,6 +130,11 @@ class FireHotTakesActivity : AppCompatActivity(), OnMapReadyCallback {
         }
 
     }
+
+
+
+
+
 
 
 
