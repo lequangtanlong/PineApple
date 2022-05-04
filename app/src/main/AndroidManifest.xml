@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
     package="com.zellycookies.pineapple">
     <!-- <application -->
     <!-- android:allowBackup="true" -->
@@ -14,20 +15,39 @@
     <!-- android:label="@string/title_activity_main" -->
     <!-- android:theme="@style/NoActionBar" /> -->
     <!-- </application> -->
+    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
     <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
     <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
-
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
     <uses-permission android:name="android.permission.INTERNET" />
 
+    <uses-permission android:name="android.permission.CAMERA" />
+    <uses-permission android:name="android.permission.RECORD_AUDIO" />
+    <uses-permission android:name="android.permission.MODIFY_AUDIO_SETTINGS" />
 
     <application
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher_true"
         android:label="@string/app_name"
         android:supportsRtl="true"
+        android:usesCleartextTraffic="true"
         android:theme="@style/AppTheme">
+        <activity
+            android:name=".conversation.CallActivity"
+            android:exported="true" />
+
+        <service
+            android:name=".home.MyFirebaseMessagingService"
+            android:exported="true"
+            android:permission="com.google.android.c2dm.permission.SEND"
+            tools:ignore="Instantiatable">
+            <intent-filter>
+                <action android:name="com.google.firebase.MESSAGING_EVENT" />
+                <action android:name="com.google.android.c2dm.intent.RECEIVE" />
+            </intent-filter>
+        </service>
+
         <activity
             android:name=".utility.UtilityHistoryActivity"
             android:exported="false" />
@@ -62,13 +82,17 @@
             android:name=".utility.ViewWhoYouLikeActivity"
             android:exported="false" />
         <activity
+            android:name=".utility.UtilityNewsActivity"
+            android:exported="false" />
+        <activity
+            android:name=".news.NewsActivity"
+            android:exported="false" />
+        <activity
             android:name=".home.HomeSwipeActivity"
-            android:exported="true" >
+            android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
             </intent-filter>
-
-
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -95,7 +119,9 @@
         <activity android:name=".matched.ProfileCheckinMatched" />
         <activity android:name=".introduction.IntroductionMain" />
         <activity android:name=".news.NewsDetailActivity" />
-        <activity android:name=".news.NewsActivity" />
+
+        <activity android:name=".map.MapsActivity" />
+
 
 
         <activity
@@ -110,6 +136,8 @@
 <!--                <category android:name="android.intent.category.LAUNCHER" />-->
 <!--            </intent-filter>-->
 <!--        </activity>-->
+        <meta-data android:name="com.google.android.geo.API_KEY"
+            android:value="@string/google_maps_key" />
 
     </application>
 
