@@ -154,5 +154,9 @@
     <string name="rp_hate_speech">Hate speech</string>
     <string name="rp_other">Other</string>
     <string name="google_maps_key">"AIzaSyBulyTj2UyG7tnyG_5xf4DGk70o08hEC1c"</string>
+    <string name="key_opinion_leaders">Key Opinion Leaders</string>
+    <string name="common_passion">Common Passion</string>
+
+    <string name="crips_client_id">942b95e5-7079-4736-9381-ae51bea55428</string>
 
 </resources>

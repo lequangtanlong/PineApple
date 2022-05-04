@@ -22,6 +22,7 @@ import com.zellycookies.pineapple.R
 import com.zellycookies.pineapple.utility.UtilityLikesActivity
 
 
+
 class NewsDetailActivity: AppCompatActivity() {
     lateinit var webView: WebView
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -40,16 +41,21 @@ class NewsDetailActivity: AppCompatActivity() {
         val webSettings = webView.settings
         webSettings.javaScriptEnabled = true
 
+        val back = findViewById<ImageButton>(R.id.back)
+        back.setOnClickListener { onBackPressed() }
     }
 
     override fun onBackPressed() {
-        if (webView.canGoBack()) {
-            webView.goBack()
-        } else {
-            super.onBackPressed()
-        }
-    }
+        //if (webView.canGoBack()) {
+        //    webView.goBack()
+        //} else {
+            //super.onBackPressed()
 
+            val intent = Intent(this, NewsActivity::class.java)
+            startActivity(intent)
+            finish()
+        //}
+    }
 
 
 }

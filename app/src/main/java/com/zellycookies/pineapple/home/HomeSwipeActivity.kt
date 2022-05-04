@@ -11,17 +11,18 @@ import android.os.Build
 import android.os.Bundle
 import android.util.Log
 import android.view.View
-import android.widget.Button
 import android.widget.ListView
-import android.widget.TextView
 import android.widget.Toast
 import androidx.core.app.ActivityCompat
 import androidx.core.app.NotificationCompat
 import androidx.core.app.NotificationManagerCompat
 import androidx.core.content.ContextCompat
+import com.android.volley.RequestQueue
+import com.android.volley.Response
+import com.android.volley.toolbox.JsonObjectRequest
+import com.android.volley.toolbox.Volley
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import com.google.android.material.floatingactionbutton.FloatingActionButton
-import com.google.android.material.snackbar.Snackbar
 import com.google.android.material.tabs.TabLayout
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.FirebaseAuth.AuthStateListener
@@ -29,16 +30,18 @@ import com.google.firebase.auth.FirebaseUser
 import com.google.firebase.database.*
 import com.google.firebase.firestore.FieldValue
 import com.google.firebase.firestore.FirebaseFirestore
+import com.google.firebase.messaging.FirebaseMessaging
 import com.lorentzos.flingswipe.SwipeFlingAdapterView
 import com.zellycookies.pineapple.R
 import com.zellycookies.pineapple.introduction.IntroductionMain
 import com.zellycookies.pineapple.main.*
-import com.zellycookies.pineapple.matched.SafetyToolkitActivity
 import com.zellycookies.pineapple.utility.UtilityHistoryActivity
 import com.zellycookies.pineapple.utils.CalculateAge
 import com.zellycookies.pineapple.utils.GPS
 import com.zellycookies.pineapple.utils.TopNavigationViewHelper
 import com.zellycookies.pineapple.utils.User
+import org.json.JSONException
+import org.json.JSONObject
 
 
 class HomeSwipeActivity : Activity() {
@@ -79,6 +82,11 @@ class HomeSwipeActivity : Activity() {
     private var minAge: Int = 16
     private var distancePreference: Int = 50
     private var genderPreference: String? = "male"
+
+    //notification
+    private val FCM_API = "https://fcm.googleapis.com/fcm/send"
+    private val serverKey = "key=" + "AAAAMGvAgKs:APA91bGuK2dVm9cIUrNA5Wr5cMT0bemGxjx8hewU8WnJOqWHpeAPLsNSFK5oGxO6xeohtf_i0kLoLBmtHX0re225pgyBhKjPXRV04JcCGCz4rkb6TnmC7Mwl1MpXNC5XnxgzflVKYQ8W"
+    private val contentType = "application/json"
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -268,7 +276,6 @@ class HomeSwipeActivity : Activity() {
         currentUserConnectionsDb.addListenerForSingleValueEvent(object : ValueEventListener {
             override fun onDataChange(dataSnapshot: DataSnapshot) {
                 if (dataSnapshot.exists()) {
-
                     //prompt user that match
                     //later change to notification
                     sendNotification()
@@ -298,6 +305,24 @@ class HomeSwipeActivity : Activity() {
                     ).setValue(key)
                     usersDb!!.child(userSex!!).child(currentUID!!).child("group")
                         .child(dataSnapshot.key!!).setValue(key)
+
+                    // remote notification
+                    //val topic = "/topics/${currentUID}"
+                    val topic = "/topics/${dataSnapshot.key}"
+                    val notification = JSONObject()
+                    val notificationBody = JSONObject()
+
+                    try {
+                        notificationBody.put("title", "PineApple")
+                        notificationBody.put("message", "Wow! You've got a new match!")   //Enter your notification message
+                        notification.put("to", topic)
+                        notification.put("data", notificationBody)
+                        Log.e("TAG", "try")
+                    } catch (e: JSONException) {
+                        Log.e("TAG", "onCreate: " + e.message)
+                    }
+
+                    sendNotification(notification)
                 }
             }
 
@@ -324,6 +349,31 @@ class HomeSwipeActivity : Activity() {
         with(NotificationManagerCompat.from(this)) {
             notify(0, builder.build())
         }
+    }
+
+    private val requestQueue: RequestQueue by lazy {
+        Volley.newRequestQueue(this.applicationContext)
+    }
+
+    private fun sendNotification(notification: JSONObject) {
+        Log.e("TAG", "sendNotification")
+        val jsonObjectRequest = object : JsonObjectRequest(FCM_API, notification,
+            Response.Listener<JSONObject> { response ->
+                Log.i("TAG", "onResponse: $response")
+            },
+            Response.ErrorListener {
+                Toast.makeText(this@HomeSwipeActivity, "Request error", Toast.LENGTH_LONG).show()
+                Log.i("TAG", "onErrorResponse: Didn't work")
+            }) {
+
+            override fun getHeaders(): Map<String, String> {
+                val params = HashMap<String, String>()
+                params["Authorization"] = serverKey
+                params["Content-Type"] = contentType
+                return params
+            }
+        }
+        requestQueue.add(jsonObjectRequest)
     }
 
     private fun createNotificationChannel() {
@@ -392,7 +442,6 @@ class HomeSwipeActivity : Activity() {
                             User::class.java
                         )!!.preferSex
                         findInterest(dataSnapshot)
-
                         findFilter(dataSnapshot)
 
                         potentialMatch
@@ -694,6 +743,11 @@ class HomeSwipeActivity : Activity() {
                 // user is signed in
                 Log.d(TAG, "onAuthStateChanged: signed_in:" + user.uid)
                 thisUserId = user.uid
+
+                FirebaseMessaging.getInstance().subscribeToTopic("/topics/${user.uid}")
+                    .addOnSuccessListener {
+                        Log.d("onSubscribeToTopic", "Success")
+                    }
             } else {
                 //user is signed out
                 Log.d(TAG, "onAuthStateChanged: signed_out")
