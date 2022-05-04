@@ -25,7 +25,7 @@
     <uses-permission android:name="android.permission.CAMERA" />
     <uses-permission android:name="android.permission.RECORD_AUDIO" />
     <uses-permission android:name="android.permission.MODIFY_AUDIO_SETTINGS" />
-
+  
     <application
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher_true"
@@ -48,6 +48,12 @@
             </intent-filter>
         </service>
 
+        <activity
+            android:name=".utility.UtilityTopPicksCommon"
+            android:exported="false" />
+        <activity
+            android:name=".utility.UtilityTopPicksKOL"
+            android:exported="false" />
         <activity
             android:name=".utility.UtilityHistoryActivity"
             android:exported="false" />
@@ -119,11 +125,8 @@
         <activity android:name=".matched.ProfileCheckinMatched" />
         <activity android:name=".introduction.IntroductionMain" />
         <activity android:name=".news.NewsDetailActivity" />
-
+        <activity android:name=".news.NewsActivity" />
         <activity android:name=".map.MapsActivity" />
-
-
-
         <activity
             android:name=".profile.FilterActivity"
             android:exported="false"/>
