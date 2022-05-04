@@ -153,5 +153,6 @@
     <string name="rp_swearing">Swearing</string>
     <string name="rp_hate_speech">Hate speech</string>
     <string name="rp_other">Other</string>
+    <string name="google_maps_key">" AIzaSyBulyTj2UyG7tnyG_5xf4DGk70o08hEC1c"</string>
 
 </resources>
