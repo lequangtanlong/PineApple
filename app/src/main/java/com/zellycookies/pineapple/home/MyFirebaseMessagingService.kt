@@ -20,13 +20,7 @@ import com.google.firebase.messaging.FirebaseMessaging
 import java.util.*
 
 class MyFirebaseMessagingService : FirebaseMessagingService() {
-    private val ADMIN_CHANNEL_ID = "admin_channel"
-
-    override fun onNewToken(token: String) {
-        super.onNewToken(token)
-
-        FirebaseMessaging.getInstance().subscribeToTopic("HelloWorld");
-    }
+    private val ADMIN_CHANNEL_ID = "match_channel"
 
     override fun onMessageReceived(message: RemoteMessage) {
         super.onMessageReceived(message)

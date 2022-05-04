@@ -46,6 +46,7 @@ import com.zellycookies.pineapple.utils.User
 import org.json.JSONException
 import org.json.JSONObject
 import com.google.firebase.ktx.Firebase
+import com.google.firebase.messaging.FirebaseMessaging
 
 class HomeSwipeActivity : Activity() {
     private val MY_PERMISSIONS_REQUEST_LOCATION = 123
@@ -278,24 +279,6 @@ class HomeSwipeActivity : Activity() {
         currentUserConnectionsDb.addListenerForSingleValueEvent(object : ValueEventListener {
             override fun onDataChange(dataSnapshot: DataSnapshot) {
                 if (dataSnapshot.exists()) {
-                    val topic = "/topics/Enter_your_topic_name"
-
-                    val notification = JSONObject()
-                    val notifcationBody = JSONObject()
-
-                    try {
-                        notifcationBody.put("title", "PineApple")
-                        notifcationBody.put("message", "You've got a new match!")   //Enter your notification message
-                        notification.put("to", topic)
-                        notification.put("data", notifcationBody)
-                        Log.e("TAG", "try")
-                    } catch (e: JSONException) {
-                        Log.e("TAG", "onCreate: " + e.message)
-                    }
-
-                    sendNotification(notification)
-
-
                     //prompt user that match
                     //later change to notification
                     sendNotification()
@@ -325,6 +308,23 @@ class HomeSwipeActivity : Activity() {
                     ).setValue(key)
                     usersDb!!.child(userSex!!).child(currentUID!!).child("group")
                         .child(dataSnapshot.key!!).setValue(key)
+
+                    // remote notification
+                    val topic = "/PineApple/${dataSnapshot.key}"
+                    val notification = JSONObject()
+                    val notifcationBody = JSONObject()
+
+                    try {
+                        notifcationBody.put("title", "PineApple")
+                        notifcationBody.put("message", "You've got a new match!")   //Enter your notification message
+                        notification.put("to", topic)
+                        notification.put("data", notifcationBody)
+                        Log.e("TAG", "try")
+                    } catch (e: JSONException) {
+                        Log.e("TAG", "onCreate: " + e.message)
+                    }
+
+                    sendNotification(notification)
                 }
             }
 
@@ -420,6 +420,8 @@ class HomeSwipeActivity : Activity() {
                         findInterest(dataSnapshot)
                         findFilter(dataSnapshot)
 
+                        FirebaseMessaging.getInstance().subscribeToTopic("/PineApple/${currentUID}")
+
                         potentialMatch
                     }
                 }
@@ -444,8 +446,9 @@ class HomeSwipeActivity : Activity() {
                             User::class.java
                         )!!.preferSex
                         findInterest(dataSnapshot)
-
                         findFilter(dataSnapshot)
+
+                        FirebaseMessaging.getInstance().subscribeToTopic("/PineApple/${currentUID}")
 
                         potentialMatch
                     }
