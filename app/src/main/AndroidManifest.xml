@@ -64,6 +64,9 @@
         <activity
             android:name=".home.HomeSwipeActivity"
             android:exported="true" >
+
+
+
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
             </intent-filter>
@@ -97,6 +100,9 @@
         <activity android:name=".news.NewsDetailActivity" />
         <activity android:name=".news.NewsActivity" />
 
+        <activity android:name=".map.MapsActivity" />
+
+
 
         <activity
             android:name=".profile.FilterActivity"
@@ -110,7 +116,8 @@
 <!--                <category android:name="android.intent.category.LAUNCHER" />-->
 <!--            </intent-filter>-->
 <!--        </activity>-->
-
+        <meta-data android:name="com.google.android.geo.API_KEY"
+            android:value="@string/google_maps_key" />
     </application>
 
 </manifest>

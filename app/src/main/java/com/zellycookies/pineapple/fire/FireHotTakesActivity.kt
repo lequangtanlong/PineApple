@@ -2,13 +2,17 @@ package com.zellycookies.pineapple.fire
 
 import android.content.Context
 import android.content.Intent
+import android.location.Location
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
 import android.view.View
+import com.google.android.gms.maps.GoogleMap
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import com.google.android.material.tabs.TabLayout
+import com.google.firebase.auth.FirebaseUser
 import com.zellycookies.pineapple.R
+import com.zellycookies.pineapple.utils.GPS
 import com.zellycookies.pineapple.utils.TopNavigationViewHelper
 
 class FireHotTakesActivity : AppCompatActivity() {
@@ -16,6 +20,13 @@ class FireHotTakesActivity : AppCompatActivity() {
     private var tabLayout : TabLayout? = null
 
     private val mContext: Context = this@FireHotTakesActivity
+
+    private var mMap: GoogleMap? = null
+    var location: Location?=null
+    var latitude=10.79474099959847
+    var longitude=106.70861138817237
+    lateinit var user: FirebaseUser
+    private lateinit var gps: GPS
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)

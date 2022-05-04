@@ -3,15 +3,21 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    >
 
-    <fragment xmlns:map="http://schemas.android.com/apk/res-auto"
-        xmlns:tools="http://schemas.android.com/tools"
-        android:id="@+id/mapFragment"
+<!--    <include layout="@layout/layout_top_navigation_back" />-->
+
+    <androidx.fragment.app.FragmentContainerView
+        android:id="@+id/map_Fragment"
         android:name="com.google.android.gms.maps.SupportMapFragment"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
+        android:layout_height="613dp"
         tools:context="com.hussein.pockemonandroid.MapsActivity" />
+
+    <include layout="@layout/layout_top_navigation_view" />
+
 </LinearLayout>
 
 
