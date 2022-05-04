@@ -1,17 +1,25 @@
 package com.zellycookies.pineapple.fire
 
+import android.Manifest
 import android.content.Context
 import android.content.Intent
+import android.content.pm.PackageManager
 import android.location.Location
+import android.location.LocationListener
+import android.location.LocationManager
+import android.os.Build
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
 import android.view.View
+import android.widget.Toast
+import androidx.core.app.ActivityCompat
 import com.bumptech.glide.Glide
 import com.bumptech.glide.util.Util
 import com.google.android.gms.maps.CameraUpdateFactory
 import com.google.android.gms.maps.GoogleMap
 import com.google.android.gms.maps.OnMapReadyCallback
+import com.google.android.gms.maps.SupportMapFragment
 import com.google.android.gms.maps.model.BitmapDescriptorFactory
 import com.google.android.gms.maps.model.LatLng
 import com.google.android.gms.maps.model.MarkerOptions
@@ -47,8 +55,12 @@ class FireHotTakesActivity : AppCompatActivity(), OnMapReadyCallback {
         setupTabLayout()
         setupTopNavigationView()
 
+        val mapFragment = supportFragmentManager.findFragmentById(R.id.map_Fragment) as SupportMapFragment
+        mapFragment.getMapAsync(this)
+
         loadUserData()
 
+        checkPermmison()
 //        latitude = user?.latitude
     }
 
@@ -112,7 +124,8 @@ class FireHotTakesActivity : AppCompatActivity(), OnMapReadyCallback {
         latitude = user.latitude
         longitude = user.longtitude
         drawUser(latitude, longitude)
-        Log.i("USERRRRRR", user.toString())
+        Log.i("USERRRRRR", user.latitude.toString())
+        Log.i("USERRRRRR", user.longtitude.toString())
     }
 
 
@@ -123,13 +136,81 @@ class FireHotTakesActivity : AppCompatActivity(), OnMapReadyCallback {
             mMap!!.addMarker(
                 MarkerOptions()
                 .position(me)
-                .title("Me")
-                .snippet(" here is my location")
+                .title("You")
+                .snippet("You are here")
                 .icon(BitmapDescriptorFactory.fromResource(R.drawable.charmander)))
             mMap!!.moveCamera(CameraUpdateFactory.newLatLngZoom(me, 14f))
+            BitmapDescriptorFactory.fromFile()
         }
 
     }
+
+
+
+    fun checkPermmison(){
+        if(Build.VERSION.SDK_INT>=23){
+            if(ActivityCompat.
+                checkSelfPermission(this,
+                    android.Manifest.permission.ACCESS_FINE_LOCATION)!= PackageManager.PERMISSION_GRANTED){
+
+                requestPermissions(arrayOf(android.Manifest.permission.ACCESS_FINE_LOCATION), 123)
+                return
+            }
+        }
+
+        GetUserLocation()
+    }
+
+    fun GetUserLocation(){
+        Toast.makeText(this,"User location access on", Toast.LENGTH_LONG).show()
+        var myLocation= MylocationListener()
+
+        var locationManager=getSystemService(Context.LOCATION_SERVICE) as LocationManager
+
+        if (ActivityCompat.checkSelfPermission(
+                this,
+                Manifest.permission.ACCESS_FINE_LOCATION
+            ) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(
+                this,
+                Manifest.permission.ACCESS_COARSE_LOCATION
+            ) != PackageManager.PERMISSION_GRANTED
+        ) {
+
+            return
+        }
+        locationManager.requestLocationUpdates(LocationManager.GPS_PROVIDER,3,3f,myLocation)
+
+    }
+
+
+    inner class MylocationListener: LocationListener {
+        constructor(){
+
+        }
+
+        override fun onLocationChanged(p0: Location) {
+             location=p0
+        }
+//
+//        override fun onLocationChanged(p0: Location) {
+//            //TODO("Not yet implemented")
+//        }
+//
+//        override fun onStatusChanged(p0: String?, p1: Int, p2: Bundle?) {
+//            //TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+//        }
+//
+//        override fun onProviderEnabled(p0: String?) {
+//           // TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+//        }
+//
+//        override fun onProviderDisabled(p0: String?) {
+//            //TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+//        }
+
+    }
+
+
 
 
 
