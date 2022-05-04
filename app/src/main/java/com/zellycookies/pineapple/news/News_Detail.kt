@@ -41,8 +41,6 @@ class NewsDetailActivity: AppCompatActivity() {
         val webSettings = webView.settings
         webSettings.javaScriptEnabled = true
 
-        val back = findViewById<ImageButton>(R.id.back)
-        back.setOnClickListener { onBackPressed() }
     }
 
     override fun onBackPressed() {
