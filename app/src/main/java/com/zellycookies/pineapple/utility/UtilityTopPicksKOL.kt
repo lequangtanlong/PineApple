@@ -86,10 +86,6 @@ class UtilityTopPicksKOL : AppCompatActivity() {
         distancePreference = dataSnapshot.getValue(User::class.java)!!.preferDistance!!
         minAge = dataSnapshot.getValue(User::class.java)!!.preferMinAge!!
         maxAge = dataSnapshot.getValue(User::class.java)!!.preferMaxAge!!
-
-        /*usersDb!!.child(userSex!!).child(currentUID!!).child("preferDistance").setValue(distancePreference)
-        usersDb!!.child(userSex!!).child(currentUID!!).child("preferMinAge").setValue(minAge)
-        usersDb!!.child(userSex!!).child(currentUID!!).child("preferMaxAge").setValue(maxAge)*/
     }
 
     private fun checkCardCache() {
