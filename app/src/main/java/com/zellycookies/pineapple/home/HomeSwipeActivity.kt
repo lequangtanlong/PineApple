@@ -404,11 +404,11 @@ class HomeSwipeActivity : Activity() {
             maleDb.addChildEventListener(object : ChildEventListener {
                 override fun onChildAdded(dataSnapshot: DataSnapshot, s: String?) {
                     if (dataSnapshot.key == currentUID) {
+                        userSex = "male"
                         Log.d(
                             TAG,
                             "onChildAdded: the sex is $userSex"
                         )
-                        userSex = "male"
                         //updateLocation
                         updateLocation()
                         lookforSex = dataSnapshot.getValue(
@@ -430,11 +430,11 @@ class HomeSwipeActivity : Activity() {
             femaleDb.addChildEventListener(object : ChildEventListener {
                 override fun onChildAdded(dataSnapshot: DataSnapshot, s: String?) {
                     if (dataSnapshot.key == currentUID) {
+                        userSex = "female"
                         Log.d(
                             TAG,
                             "onChildAdded: the sex is $userSex"
                         )
-                        userSex = "female"
                         //update location
                         updateLocation()
                         lookforSex = dataSnapshot.getValue(

@@ -29,6 +29,8 @@ import com.lorentzos.flingswipe.SwipeFlingAdapterView
 import com.zellycookies.pineapple.R
 import com.zellycookies.pineapple.introduction.IntroductionMain
 import com.zellycookies.pineapple.main.*
+import com.zellycookies.pineapple.utility.adapter.RankList
+import com.zellycookies.pineapple.utility.adapter.RankObject
 import com.zellycookies.pineapple.utils.CalculateAge
 import com.zellycookies.pineapple.utils.GPS
 import com.zellycookies.pineapple.utils.User
@@ -400,6 +402,7 @@ class UtilityTopPicksKOL : AppCompatActivity() {
             val potentialMatch = FirebaseDatabase.getInstance().reference.child(
                 lookForSex!!
             )
+            val rankList = RankList()
             potentialMatch.addChildEventListener(object : ChildEventListener {
                 override fun onChildAdded(dataSnapshot: DataSnapshot, s: String?) {
                     if (dataSnapshot.exists() && !dataSnapshot.child("connections")
@@ -411,68 +414,9 @@ class UtilityTopPicksKOL : AppCompatActivity() {
                         val curUser = dataSnapshot.getValue(
                             User::class.java
                         )
-                        val tempFood = curUser!!.isHobby_food
-                        val tempMusic = curUser.isHobby_music
-                        val tempArt = curUser.isHobby_art
-                        val tempMovies = curUser.isHobby_movies
-                        val showDoB = curUser.isShowDoB
-                        val showDistance = curUser.isShowDistance
-                        if (tempMusic == music || tempArt == art || tempFood == food || tempMovies == movies) {
-                            //calculate age
-                            val dob = curUser.dateOfBirth
-                            val cal = CalculateAge(dob!!)
-                            val age = cal.age
-
-                            //initialize card view
-                            //check profile image first
-                            var profileImageUrl =
-                                if (lookForSex == "female") "defaultFemale" else "defaultMale"
-                            if (dataSnapshot.child("profileImageUrl").value != null) {
-                                profileImageUrl =
-                                    dataSnapshot.child("profileImageUrl").value.toString()
-                            }
-                            val username = curUser.username
-                            val bio = curUser.description
-                            val interest = StringBuilder()
-                            if (tempMovies) {
-                                interest.append("Movies   ")
-                            }
-                            if (tempMusic) {
-                                interest.append("Music   ")
-                            }
-                            if (tempArt) {
-                                interest.append("Art   ")
-                            }
-                            if (tempFood) {
-                                interest.append("Food   ")
-                            }
-
-                            //calculate distance
-                            // gps = GPS(mContext)
-                            Log.d(TAG, "onChildAdded: the x, y of user is $latitude, $longitude")
-                            Log.d(TAG, "onChildAdded: the other user x y is " + curUser.latitude + ", " + curUser.longtitude)
-                            val distance =
-                                if (gps != null) gps!!.calculateDistance(latitude, longitude,
-                                    curUser.latitude,  curUser.longtitude) else 0
-                            Log.d(TAG, "distance is $distance")
-
-                            if (age in minAge..maxAge && distance <= distancePreference) {
-                                val item = Cards(
-                                    dataSnapshot.key!!,
-                                    username,
-                                    dob,
-                                    age,
-                                    profileImageUrl,
-                                    bio,
-                                    interest.toString(),
-                                    distance,
-                                    showDoB,
-                                    showDistance
-                                )
-                                rowItems!!.add(item)
-                                arrayAdapter?.notifyDataSetChanged()
-                            }
-                        }
+                        val rankObject = RankObject(curUser!!, 0)
+                        rankList.add(rankObject)
+                        checkKOL(rankObject, rankList)
                     }
                 }
 
@@ -482,6 +426,92 @@ class UtilityTopPicksKOL : AppCompatActivity() {
                 override fun onCancelled(databaseError: DatabaseError) {}
             })
         }
+
+    private fun checkKOL(rankObject: RankObject, rankList : RankList) {
+        val user = rankObject.getUser()!!
+        val likeMeRef = FirebaseDatabase.getInstance().reference.child(user.sex!!).child(user.user_id!!)
+            .child("connections").child("likeme")
+        likeMeRef.addChildEventListener(object : ChildEventListener {
+            override fun onChildAdded(snapshot: DataSnapshot, previousChildName: String?) {
+                if (snapshot.exists()) {
+                    rankObject.upLikeCount()
+                    Log.d("RankList", "-----------------------------")
+                    Log.d("RankList", "${rankObject.getUser()!!.user_id}")
+                    rankList.sort()
+                }
+            }
+
+            override fun onChildChanged(snapshot: DataSnapshot, previousChildName: String?) {}
+            override fun onChildRemoved(snapshot: DataSnapshot) {}
+            override fun onChildMoved(snapshot: DataSnapshot, previousChildName: String?) {}
+            override fun onCancelled(error: DatabaseError) {}
+        })
+    }
+
+    private fun addToRowItems(curUser : User, dataSnapshot: DataSnapshot) {
+        val tempFood = curUser.isHobby_food
+        val tempMusic = curUser.isHobby_music
+        val tempArt = curUser.isHobby_art
+        val tempMovies = curUser.isHobby_movies
+        val showDoB = curUser.isShowDoB
+        val showDistance = curUser.isShowDistance
+        if (tempMusic == music || tempArt == art || tempFood == food || tempMovies == movies) {
+            //calculate age
+            val dob = curUser.dateOfBirth
+            val cal = CalculateAge(dob!!)
+            val age = cal.age
+
+            //initialize card view
+            //check profile image first
+            var profileImageUrl =
+                if (lookForSex == "female") "defaultFemale" else "defaultMale"
+            if (dataSnapshot.child("profileImageUrl").value != null) {
+                profileImageUrl =
+                    dataSnapshot.child("profileImageUrl").value.toString()
+            }
+            val username = curUser.username
+            val bio = curUser.description
+            val interest = StringBuilder()
+            if (tempMovies) {
+                interest.append("Movies   ")
+            }
+            if (tempMusic) {
+                interest.append("Music   ")
+            }
+            if (tempArt) {
+                interest.append("Art   ")
+            }
+            if (tempFood) {
+                interest.append("Food   ")
+            }
+
+            //calculate distance
+            // gps = GPS(mContext)
+            Log.d(TAG, "onChildAdded: the x, y of user is $latitude, $longitude")
+            Log.d(TAG, "onChildAdded: the other user x y is " + curUser.latitude + ", " + curUser.longtitude)
+            val distance =
+                if (gps != null) gps!!.calculateDistance(latitude, longitude,
+                    curUser.latitude,  curUser.longtitude) else 0
+            Log.d(TAG, "distance is $distance")
+
+            if (age in minAge..maxAge && distance <= distancePreference) {
+                val item = Cards(
+                    dataSnapshot.key!!,
+                    username,
+                    dob,
+                    age,
+                    profileImageUrl,
+                    bio,
+                    interest.toString(),
+                    distance,
+                    showDoB,
+                    showDistance
+                )
+                rowItems!!.add(item)
+                arrayAdapter?.notifyDataSetChanged()
+            }
+        }
+    }
 
     //Dislike Button = Swipe left
     private fun dislikeBtn() {
