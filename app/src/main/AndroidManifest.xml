@@ -1,57 +1,116 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.ZellyCookies.PineApple">
-
-<!--    <application-->
-<!--        android:allowBackup="true"-->
-<!--        android:icon="@mipmap/ic_launcher_true"-->
-<!--        android:label="@string/app_name"-->
-<!--        android:roundIcon="@mipmap/ic_launcher_true_round"-->
-<!--        android:supportsRtl="true"-->
-<!--        android:theme="@style/AppTheme">-->
-<!--        <activity-->
-<!--            android:name=".MainActivity"-->
-<!--            android:exported="false"-->
-<!--            android:label="@string/title_activity_main"-->
-<!--            android:theme="@style/NoActionBar" />-->
-<!--    </application>-->
-
+    package="com.zellycookies.pineapple">
+    <!-- <application -->
+    <!-- android:allowBackup="true" -->
+    <!-- android:icon="@mipmap/ic_launcher_true" -->
+    <!-- android:label="@string/app_name" -->
+    <!-- android:roundIcon="@mipmap/ic_launcher_true_round" -->
+    <!-- android:supportsRtl="true" -->
+    <!-- android:theme="@style/AppTheme"> -->
+    <!-- <activity -->
+    <!-- android:name=".MainActivity" -->
+    <!-- android:exported="false" -->
+    <!-- android:label="@string/title_activity_main" -->
+    <!-- android:theme="@style/NoActionBar" /> -->
+    <!-- </application> -->
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
-    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION"/>
-    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION"/>
+    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
+    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
+
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+    <uses-permission android:name="android.permission.INTERNET" />
+
 
     <application
         android:allowBackup="true"
-        android:label="@string/app_name"
         android:icon="@mipmap/ic_launcher_true"
+        android:label="@string/app_name"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-
         <activity
-            android:name="com.ZellyCookies.PineApple.Login.Login"
-            android:exported="true">
+            android:name=".utility.UtilityHistoryActivity"
+            android:exported="false" />
+        <activity
+            android:name=".profile.BlockedList"
+            android:exported="false" />
+        <activity
+            android:name=".matched.SafetyToolkitActivity"
+            android:exported="false" />
+        <activity
+            android:name=".fire.FireSearchActivity"
+            android:exported="false" />
+        <activity
+            android:name=".profile.NewSettingsActivity"
+            android:exported="false" />
+        <activity
+            android:name=".fire.FireHotTakesActivity"
+            android:exported="false" />
+        <activity
+            android:name=".utility.UtilityTopPicksActivity"
+            android:exported="false" />
+        <activity
+            android:name=".profile.DeleteAccountActivity"
+            android:exported="false" />
+        <activity
+            android:name=".utility.UtilityLikesActivity"
+            android:exported="false" />
+        <activity
+            android:name=".profile.ViewWhoLikesYouActivity"
+            android:exported="false" />
+        <activity
+            android:name=".utility.ViewWhoYouLikeActivity"
+            android:exported="false" />
+        <activity
+            android:name=".home.HomeSwipeActivity"
+            android:exported="true" >
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+            </intent-filter>
+
+
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-<!--        <activity android:name="com.ZellyCookies.PineApple.Login.Login" />-->
-        <activity android:name="com.ZellyCookies.PineApple.Login.RegisterBasicInfo" />
-<!--        <activity android:name="com.ZellyCookies.PineApple.Matched.Matched_Activity" />-->
-<!--        <activity android:name="com.ZellyCookies.PineApple.Conversation.ConversationActivity"/>-->
-<!--        <activity android:name="com.ZellyCookies.PineApple.Profile.Profile_Activity" />-->
-<!--        <activity android:name="com.ZellyCookies.PineApple.Main.ProfileCheckinMain" />-->
-<!--        <activity android:name="com.ZellyCookies.PineApple.Matched.ProfileCheckinMatched" />-->
-<!--        <activity android:name="com.ZellyCookies.PineApple.Profile.EditProfileActivity" />-->
-        <activity android:name="com.ZellyCookies.PineApple.Introduction.IntroductionMain" />
-        <activity android:name="com.ZellyCookies.PineApple.Login.RegisterGender" />
-        <activity android:name="com.ZellyCookies.PineApple.Login.RegisterGenderPrefection" />
-        <activity android:name="com.ZellyCookies.PineApple.Login.RegisterAge" />
-        <activity android:name="com.ZellyCookies.PineApple.Login.RegisterHobby" />
-<!--        <activity android:name="com.ZellyCookies.PineApple.Profile.SettingsActivity" />-->
-<!--        <activity android:name="com.ZellyCookies.PineApple.Main.BtnLikeActivity" />-->
-<!--        <activity android:name="com.ZellyCookies.PineApple.Main.BtnDislikeActivity"></activity>-->
+        <activity android:name=".login.RegisterBasicInfo" />
+        <activity android:name=".login.RegisterGender" />
+        <activity android:name=".login.RegisterGenderPrefection" />
+        <activity android:name=".login.RegisterAge" />
+        <activity android:name=".login.RegisterHobby" />
+        <activity android:name=".login.ForgotPasswordActivity" />
+        <activity android:name=".login.Login" />
+        <activity android:name=".main.BtnDislikeActivity" />
+        <activity android:name=".main.BtnLikeActivity" />
+        <activity android:name=".main.ProfileCheckinMain" />
+        <activity android:name=".main.TestingActivity" />
+        <activity android:name=".profile.EditProfileActivity" />
+        <activity android:name=".profile.Profile_Activity" />
+        <activity android:name=".profile.AccountActivity" />
+        <activity android:name=".profile.ChangePasswordActivity" />
+        <activity android:name=".matched.Matched_Activity" />
+        <activity android:name=".conversation.ConversationActivity" />
+        <activity android:name=".matched.ProfileCheckinMatched" />
+        <activity android:name=".introduction.IntroductionMain" />
+        <activity android:name=".news.NewsDetailActivity" />
+        <activity android:name=".news.NewsActivity" />
+
+
+        <activity
+            android:name=".profile.FilterActivity"
+            android:exported="false"/>
+
+<!--        <activity android:name=".news.NewsActivity"-->
+<!--            android:exported="true">-->
+<!--            <intent-filter>-->
+<!--                <action android:name="android.intent.action.MAIN" />-->
+
+<!--                <category android:name="android.intent.category.LAUNCHER" />-->
+<!--            </intent-filter>-->
+<!--        </activity>-->
+
     </application>
 
 </manifest>

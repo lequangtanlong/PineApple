@@ -3,7 +3,8 @@
 <ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="fill_parent"
-    android:layout_height="wrap_content">
+    android:layout_height="wrap_content"
+    android:background="@color/white">
 
 
     <LinearLayout
@@ -18,13 +19,24 @@
         <!--<include layout="@layout/layout_top_navigation_back"/>-->
         <include layout="@layout/layout_top_navigation_back" />
 
-        <com.ZellyCookies.PineApple.Utils.SquareImageView
+        <com.zellycookies.pineapple.utils.SquareImageView
             android:id="@+id/profileImage"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:adjustViewBounds="true"
             android:contentDescription="Click to change profile photo"
             android:scaleType="centerCrop" />
+
+        <TextView
+            android:id="@+id/tvUserName"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center_horizontal"
+            android:text="@string/username"
+            android:fontFamily="@font/iciel_cadena"
+            android:textSize="32sp"
+            android:paddingBottom="8dp"
+            android:textColor="@color/colorPrimaryDark"/>
 
         <TextView
             android:layout_width="match_parent"
@@ -66,25 +78,26 @@
             android:fontFamily="@font/bubbler_one"
             android:textStyle="bold"
             android:textColor="@color/white"
-            android:textSize="18sp" />
+            android:textSize="18sp"
+            android:layout_marginTop="16dp"/>
 
         <LinearLayout
             android:orientation="horizontal"
             android:layout_width="match_parent"
             android:layout_height="match_parent">
-            <CheckBox android:id="@+id/checkbox_se"
+            <CheckBox android:id="@+id/checkbox_movies"
                 android:layout_width="192dp"
                 android:layout_height="wrap_content"
                 android:fontFamily="@font/bubbler_one"
                 android:textStyle="bold"
                 android:textColor="@color/colorPrimaryDark"
                 android:textSize="18sp"
-                android:text="@string/software_engineering"
+                android:text="@string/cb_movies"
                 android:onClick="onHobbyCheckBoxClicked"/>
-            <CheckBox android:id="@+id/checkbox_database"
+            <CheckBox android:id="@+id/checkbox_food"
                 android:layout_width="192dp"
                 android:layout_height="wrap_content"
-                android:text="@string/database"
+                android:text="@string/cb_food"
                 android:fontFamily="@font/bubbler_one"
                 android:textStyle="bold"
                 android:textColor="@color/colorPrimaryDark"
@@ -95,19 +108,19 @@
             android:orientation="horizontal"
             android:layout_width="match_parent"
             android:layout_height="match_parent">
-            <CheckBox android:id="@+id/checkbox_design"
+            <CheckBox android:id="@+id/checkbox_art"
                 android:layout_width="192dp"
                 android:layout_height="wrap_content"
-                android:text="@string/ui_design"
+                android:text="@string/cb_art"
                 android:fontFamily="@font/bubbler_one"
                 android:textStyle="bold"
                 android:textColor="@color/colorPrimaryDark"
                 android:textSize="18sp"
                 android:onClick="onHobbyCheckBoxClicked"/>
-            <CheckBox android:id="@+id/checkbox_oop"
+            <CheckBox android:id="@+id/checkbox_music"
                 android:layout_width="192dp"
                 android:layout_height="wrap_content"
-                android:text="@string/oop"
+                android:text="@string/cb_music"
                 android:fontFamily="@font/bubbler_one"
                 android:textStyle="bold"
                 android:textColor="@color/colorPrimaryDark"
@@ -128,7 +141,8 @@
             android:fontFamily="@font/bubbler_one"
             android:textStyle="bold"
             android:textColor="@color/white"
-            android:textSize="18sp" />
+            android:textSize="18sp"
+            android:layout_marginTop="16dp"/>
 
         <RadioGroup
             android:id="@+id/radioGroupUserSex"
@@ -166,7 +180,8 @@
             android:fontFamily="@font/bubbler_one"
             android:textStyle="bold"
             android:textColor="@color/white"
-            android:textSize="18sp" />
+            android:textSize="18sp"
+            android:layout_marginTop="16dp"/>
 
         <EditText
             android:id="@+id/edit_phone"
@@ -182,6 +197,94 @@
             android:textColor="@color/colorPrimaryDark"
             android:textSize="18sp" />
 
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_vertical"
+            android:background="@color/colorPrimaryGrey"
+            android:paddingBottom="5dp"
+            android:paddingLeft="10dp"
+            android:paddingTop="5dp"
+            android:text="@string/interests"
+            android:fontFamily="@font/bubbler_one"
+            android:textStyle="bold"
+            android:textColor="@color/white"
+            android:textSize="18sp"
+            android:layout_marginTop="16dp" />
+
+        <LinearLayout
+            android:orientation="horizontal"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+            <CheckBox android:id="@+id/settings_showDoB"
+                android:layout_width="192dp"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/bubbler_one"
+                android:textStyle="bold"
+                android:textColor="@color/colorPrimaryDark"
+                android:textSize="18sp"
+                android:text="@string/show_birthday"
+                android:onClick="onHobbyCheckBoxClicked"/>
+            <CheckBox android:id="@+id/settings_showDistance"
+                android:layout_width="192dp"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/bubbler_one"
+                android:textStyle="bold"
+                android:textColor="@color/colorPrimaryDark"
+                android:textSize="18sp"
+                android:text="@string/show_distance"
+                android:onClick="onHobbyCheckBoxClicked"/>
+        </LinearLayout>
+
+        <androidx.appcompat.widget.LinearLayoutCompat
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:gravity="center_horizontal">
+
+            <com.zellycookies.pineapple.utils.SquareImageView
+                android:id="@+id/image_1"
+                android:layout_width="102dp"
+                android:layout_height="wrap_content"
+                android:adjustViewBounds="true"
+                android:scaleType="centerCrop" />
+
+            <com.zellycookies.pineapple.utils.SquareImageView
+                android:id="@+id/image_2"
+                android:layout_width="102dp"
+                android:layout_height="wrap_content"
+                android:adjustViewBounds="true"
+                android:scaleType="centerCrop" />
+
+            <com.zellycookies.pineapple.utils.SquareImageView
+                android:id="@+id/image_3"
+                android:layout_width="102dp"
+                android:layout_height="wrap_content"
+                android:adjustViewBounds="true"
+                android:scaleType="centerCrop" />
+
+            <com.zellycookies.pineapple.utils.SquareImageView
+                android:id="@+id/image_4"
+                android:layout_width="102dp"
+                android:layout_height="wrap_content"
+                android:adjustViewBounds="true"
+                android:scaleType="centerCrop" />
+
+        </androidx.appcompat.widget.LinearLayoutCompat>
+
+        <Button
+            android:id="@+id/btn_upload_images"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:background="@drawable/btn_main"
+            android:gravity="center"
+            android:text="@string/upload_more_images"
+            android:fontFamily="@font/iciel_cadena"
+            android:textStyle="bold"
+            android:textColor="@drawable/fnt_col_main"
+            android:textSize="18sp"
+            android:layout_marginTop="32dp"/>
 
         <Button
             android:layout_width="match_parent"
@@ -194,7 +297,8 @@
             android:fontFamily="@font/iciel_cadena"
             android:textStyle="bold"
             android:textColor="@drawable/fnt_col_main"
-            android:textSize="18sp" />
+            android:textSize="18sp"
+            android:layout_marginTop="16dp"/>
 
     </LinearLayout>
 

@@ -2,6 +2,20 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android">
 
     <item
+        android:id="@+id/ic_main"
+        android:icon="@drawable/ic_icon_baseline_pineapple_24"
+        android:title="@string/home">
+
+    </item>
+
+    <item
+        android:id="@+id/ic_fire"
+        android:icon="@drawable/ic_baseline_local_fire_department_24"
+        android:title="@string/fire">
+
+    </item>
+
+    <item
         android:id="@+id/ic_matched"
         android:icon="@drawable/ic_menu_chat"
         android:title="@string/chat">
@@ -9,16 +23,16 @@
     </item>
 
     <item
-        android:id="@+id/ic_main"
-        android:icon="@drawable/ic_menu_star"
-        android:title="@string/match">
+        android:id="@+id/ic_utility"
+        android:icon="@drawable/ic_baseline_dashboard_24"
+        android:title="@string/utility">
 
     </item>
 
     <item
-        android:id="@+id/ic_profile"
-        android:icon="@drawable/ic_menu_profile"
-        android:title="@string/profile">
+        android:id="@+id/ic_settings"
+        android:icon="@drawable/ic_baseline_settings_24"
+        android:title="@string/settings">
 
     </item>
 

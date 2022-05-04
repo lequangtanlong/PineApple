@@ -1,0 +1,108 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/white"
+    tools:context=".profile.NewSettingsActivity">
+
+    <LinearLayout
+        android:layout_width="351dp"
+        android:layout_height="515dp"
+        android:layout_marginStart="32dp"
+        android:layout_marginTop="16dp"
+        android:layout_marginEnd="32dp"
+        android:orientation="vertical"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+
+        <Button
+            android:id="@+id/btn_settings_profile"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
+            android:background="@drawable/btn_option"
+            android:drawableStart="@drawable/ic_menu_profile"
+            android:fontFamily="@font/iciel_cadena"
+            android:text="@string/edit_profile"
+            android:textColor="@color/colorPrimaryDark"
+            android:textSize="20sp" />
+
+        <Button
+            android:id="@+id/btn_settings_filter"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
+            android:background="@drawable/btn_option"
+            android:drawableStart="@drawable/ic_baseline_filter_alt_36"
+            android:fontFamily="@font/iciel_cadena"
+            android:text="@string/filter"
+            android:textColor="@color/colorPrimaryDark"
+            android:textSize="20sp" />
+
+        <Button
+            android:id="@+id/btn_settings_info"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
+            android:background="@drawable/btn_option"
+            android:drawableStart="@drawable/ic_baseline_info_36"
+            android:fontFamily="@font/iciel_cadena"
+            android:text="@string/account"
+            android:textColor="@color/colorPrimaryDark"
+            android:textSize="20sp" />
+
+        <Button
+            android:id="@+id/btn_settings_noti"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
+            android:background="@drawable/btn_option"
+            android:drawableStart="@drawable/ic_baseline_notifications_36"
+            android:fontFamily="@font/iciel_cadena"
+            android:text="@string/notifications"
+            android:textColor="@color/colorPrimaryDark"
+            android:textSize="20sp" />
+
+        <Button
+            android:id="@+id/btn_chatSupport"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
+            android:background="@drawable/btn_option"
+            android:drawableStart="@drawable/ic_baseline_chatsupport"
+            android:fontFamily="@font/iciel_cadena"
+            android:text="@string/chatSupport"
+            android:textColor="@color/colorPrimaryDark"
+            android:textSize="20sp" />
+
+        <Button
+            android:id="@+id/btn_blocked_users"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textColor="@color/colorPrimaryDark"
+            android:drawableStart="@drawable/ic_baseline_block_24"
+            android:text="@string/blocked_users"
+            android:textSize="20sp"
+            android:fontFamily="@font/iciel_cadena"
+            android:background="@drawable/btn_option"
+            android:layout_marginTop="16dp"/>
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent">
+
+        <!-- top navigation -->
+        <include layout="@layout/layout_top_navigation_view" />
+
+    </LinearLayout>
+
+</androidx.constraintlayout.widget.ConstraintLayout>

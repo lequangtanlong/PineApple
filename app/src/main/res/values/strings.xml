@@ -20,11 +20,13 @@
     <string name="already_have_an_account_login">Already have an account? Login!</string>
     <string name="splash_welcome">splash_welcome</string>
     <string name="welcome_to_pineapple">Welcome to PineApple</string>
+    <string name="confirm_delete_account">You\'re about to delete your account\nEnter your password to confirm</string>
     <string name="a_place_where">A place where you can connect to people\nwho can help with your study, and vice versa</string>
     <string name="welcome_back">Welcome back!</string>
     <string name="email">Email</string>
     <string name="password">Password</string>
     <string name="have_no_account"><u>Haven\'t got an account yet? Sign up!</u></string>
+    <string name="forgot_password"><u>Forgot password</u></string>
     <string name="configure_your_profile">Configure your profile</string>
     <string name="splash_profile">splash_profile</string>
     <string name="_1_5">1/5</string>
@@ -44,6 +46,8 @@
     <string name="_4_4">4/4</string>
     <string name="configure_your_interests">Configure your interests</string>
     <string name="select_subjects">Select hobbies that you are interested in and evaluate yourself so you get matched with appropriate people.</string>
+    <string name="changepw_des">Press the button below so we can send you an email\nfor you to reset your password.</string>
+    <string name="forgotpw_des">Please enter your email so we can send you an email\nfor you to reset your password.</string>
     <string name="software_engineering">Software Engineering</string>
     <string name="database">Database</string>
     <string name="ui_design">UI Design</string>
@@ -69,7 +73,7 @@
     <string name="dummy">dummy</string>
     <string name="rose_j">Rose J</string>
     <string name="august_5th_2001_male">August 5th, 2001 | Male</string>
-    <string name="oop">OOP</string>
+    <string name="oop">Movies</string>
     <string name="gender">Gender</string>
     <string name="interests">Interests</string>
     <string name="about_me">About me</string>
@@ -77,6 +81,59 @@
     <string name="log_out">Log out</string>
     <string name="about">About</string>
     <string name="something_about_victoria">Something about Victoria</string>
+    <string name="hello_world">Hello world!</string>
+    <string name="change_password">Change Password</string>
+    <string name="current_password">Current password</string>
+    <string name="new_password">New password</string>
+    <string name="confirm_new_password">Confirm new password</string>
+    <string name="submit">Submit</string>
+    <string name="cancel">Cancel</string>
+    <string name="send_email">Send email</string>
+    <string name="view_who_likes_you">View who likes you</string>
+    <string name="utility">Utility</string>
+    <string name="delete_account">Delete Account</string>
+    <string name="are_you_sure">Are you sure?</string>
+    <string name="settings">Settings</string>
+    <string name="fire">Fire</string>
+    <string name="edit_profile">Edit Profile</string>
+    <string name="filter">Filter</string>
+    <string name="information">Information</string>
+    <string name="notifications">Notifications</string>
+    <string name="logout">Logout</string>
+    <string name="home">Home</string>
+    <string name="account">Account</string>
+    <string name="confirm">Confirm</string>
+    <string name="login_with_google">Login with Google</string>
+    <string name="login_with_facebook">Login with Facebook</string>
+    <string name="web_client_id">365322481758-peo9njteob2bv50ktue6n49nfceb2tfq.apps.googleusercontent.com</string>
+    <string name="show_birthday">Show birthday</string>
+    <string name="show_distance">Show Distance</string>
+    <string name="back">Back</string>
+    <string name="block_user">Block user</string>
+    <string name="block">Block</string>
+    <string name="unmatch_user">Unmatch user</string>
+    <string name="unmatch">Unmatch</string>
+    <string name="report_user">Report user</string>
+    <string name="report">Report</string>
+    <string name="safety_toolkit">Safety Toolkit</string>
+    <string name="blocked_users">Blocked Users</string>
+    <string name="select_a_user_to_unblock_them">Select a user to unblock them</string>
+    <string name="are_you_sure_you_want_to_block">Are you sure you want to block</string>
+    <string name="are_you_sure_you_want_to_unmatch_with">Are you sure you want to unmatch with</string>
+    <string name="report_an_issue_your_have_with_this_user">Report an issue you have with this user</string>
+
+    <string name="cb_movies">Movies</string>
+    <string name="cb_music">Music</string>
+    <string name="cb_art">Art</string>
+    <string name="cb_food">Food</string>
+
+    <string name="yes">Yes</string>
+    <string name="no">No</string>
+    <string name="time">Time</string>
+    <string name="activity">Activity</string>
+    <string name="upload_more_images">Upload more images</string>
+    <string name="additional_images">Additional Images</string>
+    <string name="chatSupport">Chat support</string>
 
     <!-- introduction pictures-->
     <integer-array name="img_id_arr">
@@ -85,4 +142,16 @@
         <item>@drawable/img3</item>
         <item>@drawable/img4</item>
     </integer-array>
+
+    <string-array name="gender_preferences">
+        <item>Male</item>
+        <item>Female</item>
+    </string-array>
+
+    <string name="rp_harassment">Harassment</string>
+    <string name="rp_pretend">Pretending to be someone</string>
+    <string name="rp_swearing">Swearing</string>
+    <string name="rp_hate_speech">Hate speech</string>
+    <string name="rp_other">Other</string>
+
 </resources>
