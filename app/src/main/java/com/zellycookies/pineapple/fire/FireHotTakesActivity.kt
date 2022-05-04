@@ -45,8 +45,8 @@ class FireHotTakesActivity : AppCompatActivity(), OnMapReadyCallback {
 
     private var mMap: GoogleMap? = null
     var location: Location?=null
-    var latitude=10.79474099959847
-    var longitude=106.70861138817237
+    var latitude=10.795524512999489
+    var longitude=106.7231634875081
     lateinit var user: User
     private lateinit var gps: GPS
     var anonymousAvatars= arrayListOf(
@@ -66,12 +66,171 @@ class FireHotTakesActivity : AppCompatActivity(), OnMapReadyCallback {
         val mapFragment = supportFragmentManager.findFragmentById(R.id.map_Fragment) as SupportMapFragment
         mapFragment.getMapAsync(this)
 
+
         loadUserData()
 
         checkPermmison()
-        loadAnonymousUsers
 //        latitude = user?.latitude
     }
+
+
+
+
+
+
+
+    override fun onMapReady(googleMap: GoogleMap) {
+        mMap = googleMap
+        loadUserData()
+        Log.i("LOCATIONNNNNNNNNNNNNNN", location.toString())
+        drawUser(latitude, longitude, R.drawable.me)
+        loadAnonymousUsers
+
+    }
+
+
+    fun loadUserData() {
+        val user = FirebaseAuth.getInstance().currentUser
+
+        //male user's data
+        val maleDb = FirebaseDatabase.getInstance().reference.child("male")
+        maleDb.addChildEventListener(object : ChildEventListener {
+            override fun onChildAdded(dataSnapshot: DataSnapshot, s: String?) {
+                if (dataSnapshot.key == user?.uid) {
+                    loadUser(dataSnapshot)
+                }
+            }
+
+            override fun onChildChanged(dataSnapshot: DataSnapshot, s: String?) {
+                if (Profile_Activity.active) {
+                    loadUser(dataSnapshot)
+                }
+            }
+            override fun onChildRemoved(dataSnapshot: DataSnapshot) {}
+            override fun onChildMoved(dataSnapshot: DataSnapshot, s: String?) {}
+            override fun onCancelled(databaseError: DatabaseError) {}
+        })
+
+        //female user's data
+        val femaleDb = FirebaseDatabase.getInstance().reference.child("female")
+        femaleDb.addChildEventListener(object : ChildEventListener {
+            override fun onChildAdded(dataSnapshot: DataSnapshot, s: String?) {
+                if (dataSnapshot.key == user?.uid) {
+                    loadUser(dataSnapshot)
+                }
+            }
+
+            override fun onChildChanged(dataSnapshot: DataSnapshot, s: String?) {
+                if (Profile_Activity.active) {
+                    loadUser(dataSnapshot)
+                }
+            }
+
+            override fun onChildRemoved(dataSnapshot: DataSnapshot) {}
+            override fun onChildMoved(dataSnapshot: DataSnapshot, s: String?) {}
+            override fun onCancelled(databaseError: DatabaseError) {}
+        })
+    }
+
+
+
+
+
+    private fun loadUser(dataSnapshot: DataSnapshot) {
+        user = dataSnapshot.getValue(User::class.java)!!
+        latitude = user.latitude
+        longitude = user.longtitude
+//        drawUser(latitude, longitude, R.drawable.me)
+        drawUser(10.7933948075473, 106.72337195556752, R.drawable.a1)
+        Log.i("USERRRRRR", user.latitude.toString())
+        Log.i("USERRRRRR", user.longtitude.toString())
+    }
+
+
+
+    fun drawUser(latitude: Double, longitude: Double, avatar: Int){
+        if (mMap != null) {
+            Log.i("ANONYMOUSSSSSS", latitude.toString())
+            Log.i("ANONYMOUSSSSSS", longitude.toString())
+            val me = LatLng(latitude, longitude)
+            mMap!!.addMarker(
+                MarkerOptions()
+                .position(me)
+                .title("You")
+                .snippet("You are here")
+                .icon(BitmapDescriptorFactory.fromResource(avatar,)))
+            if (avatar == R.drawable.me)
+                mMap!!.moveCamera(CameraUpdateFactory.newLatLngZoom(me, 14f))
+        }
+    }
+    
+
+    fun checkPermmison(){
+        if(Build.VERSION.SDK_INT>=23){
+            if(ActivityCompat.
+                checkSelfPermission(this,
+                    android.Manifest.permission.ACCESS_FINE_LOCATION)!= PackageManager.PERMISSION_GRANTED){
+
+                requestPermissions(arrayOf(android.Manifest.permission.ACCESS_FINE_LOCATION), 123)
+                return
+            }
+        }
+
+        GetUserLocation()
+    }
+
+    fun GetUserLocation(){
+        Toast.makeText(this,"User location access on", Toast.LENGTH_LONG).show()
+        var myLocation= MylocationListener()
+
+        var locationManager=getSystemService(Context.LOCATION_SERVICE) as LocationManager
+
+        if (ActivityCompat.checkSelfPermission(
+                this,
+                Manifest.permission.ACCESS_FINE_LOCATION
+            ) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(
+                this,
+                Manifest.permission.ACCESS_COARSE_LOCATION
+            ) != PackageManager.PERMISSION_GRANTED
+        ) {
+
+            return
+        }
+        locationManager.requestLocationUpdates(LocationManager.GPS_PROVIDER,3,3f,myLocation)
+
+    }
+
+
+    inner class MylocationListener: LocationListener {
+        constructor(){
+
+        }
+
+        override fun onLocationChanged(p0: Location) {
+             location=p0
+        }
+//
+//        override fun onLocationChanged(p0: Location) {
+//            //TODO("Not yet implemented")
+//        }
+//
+//        override fun onStatusChanged(p0: String?, p1: Int, p2: Bundle?) {
+//            //TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+//        }
+//
+//        override fun onProviderEnabled(p0: String?) {
+//           // TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+//        }
+//
+//        override fun onProviderDisabled(p0: String?) {
+//            //TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+//        }
+
+    }
+
+
+
+
 
 
     val loadAnonymousUsers: Unit
@@ -79,16 +238,20 @@ class FireHotTakesActivity : AppCompatActivity(), OnMapReadyCallback {
             val potentialMatch = FirebaseDatabase.getInstance().reference.child("female")
             potentialMatch.addChildEventListener(object : ChildEventListener {
                 override fun onChildAdded(dataSnapshot: DataSnapshot, s: String?) {
-                        val curUser = dataSnapshot.getValue(
-                            User::class.java
-                        )
-                        val lat = curUser?.latitude
-                        val long = curUser?.longtitude
-                        Log.i("ANONYMOUSSSSSS", lat.toString())
-                        Log.i("ANONYMOUSSSSSS", long.toString())
+                    val curUser = dataSnapshot.getValue(
+                        User::class.java
+                    )
+                    val lat = curUser?.latitude
+                    val long = curUser?.longtitude
 
-                    if (lat != null && long != null)
-                            anonymousUsers.add(anonymous(lat, long, anonymousAvatars.random()))
+
+                    if (lat != null && long != null){
+                        val i = anonymousAvatars.random()
+                        anonymousUsers.add(anonymous(lat, long, i))
+
+                        drawUser(lat, long, i)
+
+                    }
 //                        val tempFood = curUser!!.isHobby_food
 //                        val tempMusic = curUser.isHobby_music
 //                        val tempArt = curUser.isHobby_art
@@ -179,7 +342,7 @@ class FireHotTakesActivity : AppCompatActivity(), OnMapReadyCallback {
 //                            )
 //                            rowItems!!.add(item)
 //                            arrayAdapter?.notifyDataSetChanged()
-                        }
+                }
 
 
                 override fun onChildChanged(dataSnapshot: DataSnapshot, s: String?) {}
@@ -188,157 +351,6 @@ class FireHotTakesActivity : AppCompatActivity(), OnMapReadyCallback {
                 override fun onCancelled(databaseError: DatabaseError) {}
             })
         }
-
-
-
-
-
-
-    override fun onMapReady(googleMap: GoogleMap) {
-        mMap = googleMap
-        Log.i("LOCATIONNNNNNNNNNNNNNN", location.toString())
-        drawUser(latitude, longitude, R.drawable.me)
-    }
-
-
-    fun loadUserData() {
-        val user = FirebaseAuth.getInstance().currentUser
-
-        //male user's data
-        val maleDb = FirebaseDatabase.getInstance().reference.child("male")
-        maleDb.addChildEventListener(object : ChildEventListener {
-            override fun onChildAdded(dataSnapshot: DataSnapshot, s: String?) {
-                if (dataSnapshot.key == user?.uid) {
-                    loadUser(dataSnapshot)
-                }
-            }
-
-            override fun onChildChanged(dataSnapshot: DataSnapshot, s: String?) {
-                if (Profile_Activity.active) {
-                    loadUser(dataSnapshot)
-                }
-            }
-            override fun onChildRemoved(dataSnapshot: DataSnapshot) {}
-            override fun onChildMoved(dataSnapshot: DataSnapshot, s: String?) {}
-            override fun onCancelled(databaseError: DatabaseError) {}
-        })
-
-        //female user's data
-        val femaleDb = FirebaseDatabase.getInstance().reference.child("female")
-        femaleDb.addChildEventListener(object : ChildEventListener {
-            override fun onChildAdded(dataSnapshot: DataSnapshot, s: String?) {
-                if (dataSnapshot.key == user?.uid) {
-                    loadUser(dataSnapshot)
-                }
-            }
-
-            override fun onChildChanged(dataSnapshot: DataSnapshot, s: String?) {
-                if (Profile_Activity.active) {
-                    loadUser(dataSnapshot)
-                }
-            }
-
-            override fun onChildRemoved(dataSnapshot: DataSnapshot) {}
-            override fun onChildMoved(dataSnapshot: DataSnapshot, s: String?) {}
-            override fun onCancelled(databaseError: DatabaseError) {}
-        })
-    }
-
-
-
-
-
-    private fun loadUser(dataSnapshot: DataSnapshot) {
-        user = dataSnapshot.getValue(User::class.java)!!
-        latitude = user.latitude
-        longitude = user.longtitude
-        drawUser(latitude, longitude, R.drawable.me)
-        Log.i("USERRRRRR", user.latitude.toString())
-        Log.i("USERRRRRR", user.longtitude.toString())
-    }
-
-
-
-    fun drawUser(latitude: Double, longitude: Double, avatar: Int){
-        if (mMap != null) {
-            val me = LatLng(latitude, longitude)
-            mMap!!.addMarker(
-                MarkerOptions()
-                .position(me)
-                .title("You")
-                .snippet("You are here")
-                .icon(BitmapDescriptorFactory.fromResource(avatar)))
-            mMap!!.moveCamera(CameraUpdateFactory.newLatLngZoom(me, 14f))
-        }
-    }
-
-
-    fun checkPermmison(){
-        if(Build.VERSION.SDK_INT>=23){
-            if(ActivityCompat.
-                checkSelfPermission(this,
-                    android.Manifest.permission.ACCESS_FINE_LOCATION)!= PackageManager.PERMISSION_GRANTED){
-
-                requestPermissions(arrayOf(android.Manifest.permission.ACCESS_FINE_LOCATION), 123)
-                return
-            }
-        }
-
-        GetUserLocation()
-    }
-
-    fun GetUserLocation(){
-        Toast.makeText(this,"User location access on", Toast.LENGTH_LONG).show()
-        var myLocation= MylocationListener()
-
-        var locationManager=getSystemService(Context.LOCATION_SERVICE) as LocationManager
-
-        if (ActivityCompat.checkSelfPermission(
-                this,
-                Manifest.permission.ACCESS_FINE_LOCATION
-            ) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(
-                this,
-                Manifest.permission.ACCESS_COARSE_LOCATION
-            ) != PackageManager.PERMISSION_GRANTED
-        ) {
-
-            return
-        }
-        locationManager.requestLocationUpdates(LocationManager.GPS_PROVIDER,3,3f,myLocation)
-
-    }
-
-
-    inner class MylocationListener: LocationListener {
-        constructor(){
-
-        }
-
-        override fun onLocationChanged(p0: Location) {
-             location=p0
-        }
-//
-//        override fun onLocationChanged(p0: Location) {
-//            //TODO("Not yet implemented")
-//        }
-//
-//        override fun onStatusChanged(p0: String?, p1: Int, p2: Bundle?) {
-//            //TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
-//        }
-//
-//        override fun onProviderEnabled(p0: String?) {
-//           // TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
-//        }
-//
-//        override fun onProviderDisabled(p0: String?) {
-//            //TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
-//        }
-
-    }
-
-
-
-
 
 
 
