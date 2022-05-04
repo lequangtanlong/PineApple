@@ -112,10 +112,6 @@ class FilterActivity : AppCompatActivity() {
         userRef!!.child("preferMaxAge").setValue(maxAge)
 
         UtilityHistoryActivity.uploadActivity(userSex!!, userId!!, "You adjusted Filter list!")
-
-        /*usersDb!!.child(userSex!!).child(currentUID!!).child("preferDistance").setValue(distancePreference)
-        usersDb!!.child(userSex!!).child(currentUID!!).child("preferMinAge").setValue(minAge)
-        usersDb!!.child(userSex!!).child(currentUID!!).child("preferMaxAge").setValue(maxAge)*/
     }
 
     private fun setupFirebaseAuth() {
