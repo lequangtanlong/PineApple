@@ -36,10 +36,8 @@ class NewsActivity: AppCompatActivity() {
         setContentView(R.layout.activity_news)
         val context = this
         newsListView = findViewById<ListView>(R.id.newsListView)
-
         val back = findViewById<ImageButton>(R.id.back)
-        back.setOnClickListener { onBackPressed() }
-
+        back.setOnClickListener { startActivity( Intent(this, UtilityLikesActivity::class.java)) }
         Thread(Runnable {
             articles = fetchNews()
             this@NewsActivity.runOnUiThread(Runnable {

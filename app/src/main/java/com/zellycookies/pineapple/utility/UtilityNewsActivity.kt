@@ -6,6 +6,8 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
 import android.view.View
+import android.widget.Button
+import android.widget.ImageButton
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import com.google.android.material.tabs.TabLayout
 import com.zellycookies.pineapple.R
@@ -23,6 +25,7 @@ class UtilityNewsActivity : AppCompatActivity() {
         setContentView(R.layout.activity_utility_news)
 //        setupTabLayout()
 //        setupTopNavigationView()
+
     }
 
     private fun setupTabLayout() {

@@ -20,7 +20,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.zellycookies.pineapple.R
 import com.zellycookies.pineapple.utility.UtilityLikesActivity
-import com.zellycookies.pineapple.utility.UtilityNewsActivity
+
 
 
 class NewsDetailActivity: AppCompatActivity() {
@@ -29,6 +29,9 @@ class NewsDetailActivity: AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_news_detail)
         val context = this
+        val back = findViewById<ImageButton>(R.id.back)
+        back.setOnClickListener { startActivity( Intent(this, NewsActivity::class.java)) }
+
         val webView = findViewById<WebView>(R.id.webView)
         val url = intent.getStringExtra("link")
         webView.webViewClient = WebViewClient()
@@ -38,8 +41,6 @@ class NewsDetailActivity: AppCompatActivity() {
         val webSettings = webView.settings
         webSettings.javaScriptEnabled = true
 
-        val back = findViewById<ImageButton>(R.id.back)
-        back.setOnClickListener { onBackPressed() }
     }
 
     override fun onBackPressed() {

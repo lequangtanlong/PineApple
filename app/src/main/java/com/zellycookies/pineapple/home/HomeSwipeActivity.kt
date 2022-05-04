@@ -179,6 +179,7 @@ class HomeSwipeActivity : Activity() {
                 currentUID!!
             )
             val userLoc: MutableMap<Any, Any> = mutableMapOf()
+
             userLoc["latitude"] = latitude
             userLoc["longtitude"] = longtitude
         }
@@ -538,22 +539,36 @@ class HomeSwipeActivity : Activity() {
                                 "distance is " + distance
                             )
 
-                            if (age in minAge..maxAge && distance <= distancePreference) {
-                                val item = Cards(
-                                    dataSnapshot.key!!,
-                                    username,
-                                    dob,
-                                    age,
-                                    profileImageUrl,
-                                    bio,
-                                    interest.toString(),
-                                    distance,
-                                    showDoB,
-                                    showDistance
-                                )
-                                rowItems!!.add(item)
-                                arrayAdapter?.notifyDataSetChanged()
-                            }
+//                            if (age in minAge..maxAge && distance <= distancePreference) {
+//                                val item = Cards(
+//                                    dataSnapshot.key!!,
+//                                    username,
+//                                    dob,
+//                                    age,
+//                                    profileImageUrl,
+//                                    bio,
+//                                    interest.toString(),
+//                                    distance,
+//                                    showDoB,
+//                                    showDistance
+//                                )
+//                                rowItems!!.add(item)
+//                                arrayAdapter?.notifyDataSetChanged()
+//                            }
+                            val item = Cards(
+                                dataSnapshot.key!!,
+                                username,
+                                dob,
+                                age,
+                                profileImageUrl,
+                                bio,
+                                interest.toString(),
+                                distance,
+                                showDoB,
+                                showDistance
+                            )
+                            rowItems!!.add(item)
+                            arrayAdapter?.notifyDataSetChanged()
                         }
                     }
                 }
