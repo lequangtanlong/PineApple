@@ -17,7 +17,6 @@
     <!-- </application> -->
     <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
-    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
     <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
     <uses-permission android:name="android.permission.INTERNET" />
@@ -125,7 +124,6 @@
         <activity android:name=".matched.ProfileCheckinMatched" />
         <activity android:name=".introduction.IntroductionMain" />
         <activity android:name=".news.NewsDetailActivity" />
-        <activity android:name=".news.NewsActivity" />
         <activity android:name=".map.MapsActivity" />
         <activity
             android:name=".profile.FilterActivity"
