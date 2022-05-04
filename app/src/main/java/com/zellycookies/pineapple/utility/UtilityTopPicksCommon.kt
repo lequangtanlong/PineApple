@@ -33,9 +33,9 @@ import com.zellycookies.pineapple.utils.CalculateAge
 import com.zellycookies.pineapple.utils.GPS
 import com.zellycookies.pineapple.utils.User
 
-class UtilityTopPicksKOL : AppCompatActivity() {
+class UtilityTopPicksCommon : AppCompatActivity() {
     private val myPermissionRequestLocation = 123
-    private val mContext: Context = this@UtilityTopPicksKOL
+    private val mContext: Context = this@UtilityTopPicksCommon
     private var userSex: String? = null
     private var lookForSex: String? = null
     private var latitude = 37.349642
@@ -133,7 +133,7 @@ class UtilityTopPicksKOL : AppCompatActivity() {
         val btnReturn = findViewById<View>(R.id.back) as ImageButton
         btnReturn.setOnClickListener { onReturn() }
         val toolbar = findViewById<TextView>(R.id.toolbartag)
-        toolbar.text = getString(R.string.kol)
+        toolbar.text = getString(R.string.common)
     }
 
     private fun updateLocation() {

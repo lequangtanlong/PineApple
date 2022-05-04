@@ -27,6 +27,9 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
         <activity
+            android:name=".utility.UtilityTopPicksCommon"
+            android:exported="false" />
+        <activity
             android:name=".utility.UtilityTopPicksKOL"
             android:exported="false" />
         <activity
