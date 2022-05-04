@@ -15,9 +15,9 @@ class RankList {
 
     fun sort() {
         list = quickSort(list.toList()).toMutableList()
-        Log.d("RankList" , "-----------------------------")
+        Log.d(TAG_RANK , "-----------------------------")
         for (i in 0 until list.size) {
-            Log.d("RankList", "$i - ${list[i].getUser()!!.user_id} : ${list[i].getLikeCount()}")
+            Log.d(TAG_RANK, "$i - ${list[i].getUser()!!.user_id} : ${list[i].getLikeCount()}")
         }
     }
 
@@ -34,5 +34,9 @@ class RankList {
         val greater = list.filter { it.getLikeCount() > pivot.getLikeCount() }
 
         return quickSort(less) + equal + quickSort(greater)
+    }
+
+    companion object {
+        private const val TAG_RANK = "RankList"
     }
 }

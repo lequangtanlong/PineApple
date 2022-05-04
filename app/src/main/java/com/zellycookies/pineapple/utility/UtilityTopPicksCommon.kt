@@ -551,7 +551,7 @@ class UtilityTopPicksCommon : AppCompatActivity() {
     private fun transferCache() {
         Log.d(TAG, "Transferring cache...")
         if (cardCache!!.size == 0) {
-            val intent = Intent(this, UtilityTopPicksKOL::class.java)
+            val intent = Intent(this, UtilityTopPicksCommon::class.java)
             intent.putExtra("isRewindActivity", false)
             startActivity(intent)
             finish()
@@ -579,7 +579,7 @@ class UtilityTopPicksCommon : AppCompatActivity() {
             listShowDoB.add(card.showDoB.toString())
             listShowDistance.add(card.showDistance.toString())
         }
-        val intent = Intent(this, UtilityTopPicksKOL::class.java)
+        val intent = Intent(this, UtilityTopPicksCommon::class.java)
         intent.putExtra("isRewindActivity", true)
         intent.putStringArrayListExtra("listUserId", ArrayList(listUserId))
         intent.putStringArrayListExtra("listName", ArrayList(listName))

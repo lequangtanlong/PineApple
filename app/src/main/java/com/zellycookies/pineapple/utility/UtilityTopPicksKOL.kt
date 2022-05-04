@@ -431,26 +431,31 @@ class UtilityTopPicksKOL : AppCompatActivity() {
         val user = rankObject.getUser()!!
         val likeMeRef = FirebaseDatabase.getInstance().reference.child(user.sex!!).child(user.user_id!!)
             .child("connections").child("likeme")
-        Log.d("RankList", "checkKOL : ${user.user_id}")
+        Log.d(TAG_RANK, "checkKOL : ${user.user_id}")
         likeMeRef.addChildEventListener(object : ChildEventListener {
             override fun onChildAdded(snapshot: DataSnapshot, previousChildName: String?) {
                 if (snapshot.exists()) {
+                    Log.d(TAG_RANK, "${user.user_id}: ${snapshot.key} exists.")
                     rankObject.upLikeCount()
-                    Log.d("RankList", "-----------------------------")
-                    Log.d("RankList", "${rankObject.getUser()!!.user_id}")
+                    Log.d(TAG_RANK, "-----------------------------")
+                    Log.d(TAG_RANK, "${rankObject.getUser()!!.user_id}")
                     rankList.sort()
                     rowItems!!.clear()
                     for (i in rankList.list) {
                         addToRowItems(i.getUser()!!, i.getSnapshot())
                     }
                     rowItems!!.reverse()
+                } else {
+                    Log.d(TAG_RANK, "${user.user_id}: ${snapshot.key} doesn't exist.")
                 }
             }
 
             override fun onChildChanged(snapshot: DataSnapshot, previousChildName: String?) {}
             override fun onChildRemoved(snapshot: DataSnapshot) {}
             override fun onChildMoved(snapshot: DataSnapshot, previousChildName: String?) {}
-            override fun onCancelled(error: DatabaseError) {}
+            override fun onCancelled(error: DatabaseError) {
+                Log.d(TAG_RANK, "onCancelled")
+            }
         })
     }
 
@@ -666,5 +671,6 @@ class UtilityTopPicksKOL : AppCompatActivity() {
 
     companion object {
         private const val TAG = "UtilityTopPicksKOL"
+        private const val TAG_RANK = "RankList"
     }
 }
