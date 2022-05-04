@@ -4,21 +4,22 @@ import android.Manifest
 import android.content.Context
 import android.content.Intent
 import android.content.pm.PackageManager
+import android.graphics.*
 import android.location.Location
 import android.location.LocationListener
 import android.location.LocationManager
 import android.os.Build
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
 import android.view.View
 import android.widget.Toast
+import androidx.appcompat.app.AppCompatActivity
 import androidx.core.app.ActivityCompat
-import androidx.core.content.ContextCompat
 import com.google.android.gms.maps.CameraUpdateFactory
 import com.google.android.gms.maps.GoogleMap
 import com.google.android.gms.maps.OnMapReadyCallback
 import com.google.android.gms.maps.SupportMapFragment
+import com.google.android.gms.maps.model.BitmapDescriptor
 import com.google.android.gms.maps.model.BitmapDescriptorFactory
 import com.google.android.gms.maps.model.LatLng
 import com.google.android.gms.maps.model.MarkerOptions
@@ -34,6 +35,7 @@ import com.zellycookies.pineapple.profile.Profile_Activity
 import com.zellycookies.pineapple.utils.GPS
 import com.zellycookies.pineapple.utils.TopNavigationViewHelper
 import com.zellycookies.pineapple.utils.User
+
 
 class anonymous(latitude: Double, longitude: Double, avatar: Int)
 
@@ -148,6 +150,14 @@ class FireHotTakesActivity : AppCompatActivity(), OnMapReadyCallback {
 
 
 
+
+    fun resizeMapIcons(icon: Int, width: Int, height: Int): BitmapDescriptor {
+        val imageBitmap = BitmapFactory.decodeResource(resources, icon)
+        val resizedBitmap = Bitmap.createScaledBitmap(imageBitmap, width, height, false);
+        return BitmapDescriptorFactory.fromBitmap(resizedBitmap);
+    }
+
+
     fun drawUser(latitude: Double, longitude: Double, avatar: Int){
         if (mMap != null) {
             Log.i("ANONYMOUSSSSSS", latitude.toString())
@@ -156,14 +166,28 @@ class FireHotTakesActivity : AppCompatActivity(), OnMapReadyCallback {
             mMap!!.addMarker(
                 MarkerOptions()
                 .position(me)
-                .title("You")
-                .snippet("You are here")
-                .icon(BitmapDescriptorFactory.fromResource(avatar,)))
+                .title(if(avatar == R.drawable.me) "You" else "Anonymous")
+                .snippet(if(avatar == R.drawable.me) "You are here" else "Hi!")
+                .icon(resizeMapIcons(avatar, 200, 200)))
             if (avatar == R.drawable.me)
-                mMap!!.moveCamera(CameraUpdateFactory.newLatLngZoom(me, 14f))
+                mMap!!.moveCamera(CameraUpdateFactory.newLatLngZoom(me, 15f))
         }
     }
-    
+
+//    fun getResizedBitmap(bitmap: Bitmap, newWidth: Int, newHeight: Int): Bitmap? {
+//        val resizedBitmap = Bitmap.createBitmap(newWidth, newHeight, Bitmap.Config.ARGB_8888)
+//        val scaleX = newWidth / bitmap.width.toFloat()
+//        val scaleY = newHeight / bitmap.height.toFloat()
+//        val pivotX = 0f
+//        val pivotY = 0f
+//        val scaleMatrix = Matrix()
+//        scaleMatrix.setScale(scaleX, scaleY, pivotX, pivotY)
+//        val canvas = Canvas(resizedBitmap)
+//        canvas.setMatrix(scaleMatrix)
+//        canvas.drawBitmap(bitmap,0, 0, Paint(Paint.FILTER_BITMAP_FLAG))
+//        (bitmap, Paint(Paint.FILTER_BITMAP_FLAG))
+//        return resizedBitmap
+//    }
 
     fun checkPermmison(){
         if(Build.VERSION.SDK_INT>=23){

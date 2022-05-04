@@ -26,7 +26,8 @@
         android:name="com.google.android.gms.maps.SupportMapFragment"
         android:layout_width="match_parent"
         android:layout_height="613dp"
-        tools:context="com.hussein.pockemonandroid.MapsActivity" />
+        tools:context="com.hussein.pockemonandroid.MapsActivity"
+        tools:ignore="MissingConstraints" />
     <!-- bottom navigation -->
     <LinearLayout
         android:id="@+id/layout_bottomnav"
