@@ -43,6 +43,8 @@ import kotlin.collections.HashMap
 
 import at.favre.lib.crypto.bcrypt.BCrypt
 import com.google.android.gms.auth.api.signin.GoogleSignInOptions
+import com.zellycookies.pineapple.utils.FirebaseMethods
+import com.zellycookies.pineapple.utils.User
 
 //import android.support.annotation.NonNull;
 //import android.support.annotation.Nullable;
@@ -62,6 +64,11 @@ class Login : AppCompatActivity() {
     private lateinit var callbackManager: CallbackManager
     var loginButton: LoginButton? = null
 
+    private var mAuthFBListener: FirebaseAuth.AuthStateListener? = null
+    private var firebaseMethods: FirebaseMethods? = null
+    private var mFirebaseDatabase: FirebaseDatabase? = null
+    private var myRef: DatabaseReference? = null
+    private var append = ""
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -130,7 +137,7 @@ class Login : AppCompatActivity() {
                 var flag = 0
 
                 // Save Facebook User to Firestore
-                val currentUserId = FirebaseAuth.getInstance().currentUser!!.uid
+                /*val currentUserId = FirebaseAuth.getInstance().currentUser!!.uid
                 val documentRef =
                     FirebaseFirestore.getInstance().collection("male").document(currentUserId)
                 val dbx =
@@ -179,15 +186,94 @@ class Login : AppCompatActivity() {
                                     this, task.exception!!.message.toString(), Toast.LENGTH_SHORT
                                 ).show()
                             }
+                        }*/
+
+                val userInfo = User(
+                    "male",
+                    "female",
+                    50,
+                    16,
+                    100,
+                    "",
+                    "",
+                    email,
+                    name,
+                    false,
+                    false,
+                    false,
+                    false,
+                    "",
+                    "01-01-2001",
+                    "defaultMale",
+                    10.794374959628545,
+                    106.71585601745473,
+                    "",
+                    "",
+                    "",
+                    "",
+                )
+
+                mFirebaseDatabase = FirebaseDatabase.getInstance() // get database instance
+                myRef = mFirebaseDatabase!!.getReference()
+                mAuthFBListener = object : FirebaseAuth.AuthStateListener {
+                    override fun onAuthStateChanged(firebaseAuth: FirebaseAuth) {
+                        val user: FirebaseUser? = firebaseAuth.getCurrentUser()
+                        if (user != null) {
+                            // user is signed in
+                            Log.d("onFacebookCreation", "onAuthStateChanged: signed_in:" + user.getUid())
+                            myRef!!.addListenerForSingleValueEvent(object : ValueEventListener {
+                                override fun onDataChange(snapshot: DataSnapshot) { //show when the data changes
+                                    //1st check: make sure the username is not already in use
+                                    if (userInfo?.username?.let {
+                                            firebaseMethods?.checkIfUsernameExists(
+                                                it,
+                                                snapshot
+                                            )
+                                        } == true
+                                    ) {
+                                        append = myRef?.push()?.getKey()?.substring(3, 10).toString()
+                                        Log.d(
+                                            "onFacebookCreation",
+                                            "onDataChange: username already exists. Appending random string to name: $append"
+                                        )
+                                    }
+                                    userInfo?.user_id = user.uid
+                                    userInfo?.username = userInfo?.username.toString() + append
+
+                                    //add new user to the database
+                                    //add new_user_account setting to the database
+                                    userInfo?.let { firebaseMethods?.addNewUser(it) }
+                                    Toast.makeText(
+                                        mContext,
+                                        "Signup successful. Sending verification email.",
+                                        Toast.LENGTH_SHORT
+                                    ).show()
+                                    mAuth!!.signOut()
+                                    val intent = Intent(this@Login, Login::class.java)
+                                    startActivity(intent)
+                                }
+
+                                override fun onCancelled(error: DatabaseError) {
+
+                                }
+
+
+//                        fun onCancelled(databaseError: DatabaseError?) {}
+                            })
+                        } else {
+                            //user is signed out
+                            Log.d("onFacebookCreation", "onAuthStateChanged: signed_out")
                         }
+                    }
+                }
 
                 // Start Homepage Activity
-                val intentToHomePageActivity =
+                /*val intentToHomePageActivity =
                     Intent(this, HomeSwipeActivity::class.java)
                 intentToHomePageActivity.flags =
                     Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
                 startActivity(intentToHomePageActivity)
-                finish()
+                finish()*/
             }
     }
 
@@ -256,6 +342,8 @@ class Login : AppCompatActivity() {
     //----------------------------------------Firebase----------------------------------------
     private fun init() {
         //initialize the button for logging in
+        firebaseMethods = FirebaseMethods(mContext!!)
+
         val btnLogin = findViewById<View>(R.id.btn_login) as Button
         btnLogin.setOnClickListener {
             Log.d(TAG, "onClick: attempting to log in")
