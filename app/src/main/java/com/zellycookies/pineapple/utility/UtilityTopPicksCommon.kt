@@ -417,7 +417,7 @@ class UtilityTopPicksCommon : AppCompatActivity() {
                         val tempMovies = curUser.isHobby_movies
                         val showDoB = curUser.isShowDoB
                         val showDistance = curUser.isShowDistance
-                        if (tempMusic == music || tempArt == art || tempFood == food || tempMovies == movies) {
+                        if (isCommon(curUser)) {
                             //calculate age
                             val dob = curUser.dateOfBirth
                             val cal = CalculateAge(dob!!)
@@ -483,8 +483,11 @@ class UtilityTopPicksCommon : AppCompatActivity() {
             })
         }
 
-    private fun compareHobbies() {
-        
+    private fun isCommon(otherUser : User) : Boolean {
+        val result = food == otherUser.isHobby_food && music == otherUser.isHobby_music &&
+                movies == otherUser.isHobby_movies && art == otherUser.isHobby_art
+        Log.d(TAG, "Common Passion: ${otherUser.user_id}: $result")
+        return result
     }
 
     //Dislike Button = Swipe left
@@ -633,6 +636,6 @@ class UtilityTopPicksCommon : AppCompatActivity() {
     }
 
     companion object {
-        private const val TAG = "UtilityTopPicksKOL"
+        private const val TAG = "UtilityTopPicksCommon"
     }
 }
