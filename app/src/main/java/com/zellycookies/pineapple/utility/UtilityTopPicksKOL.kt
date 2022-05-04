@@ -443,6 +443,7 @@ class UtilityTopPicksKOL : AppCompatActivity() {
                     for (i in rankList.list) {
                         addToRowItems(i.getUser()!!, i.getSnapshot())
                     }
+                    rowItems!!.reverse()
                 }
             }
 
