@@ -1,5 +1,7 @@
 package com.zellycookies.pineapple.login
 
+import android.app.ProgressDialog
+import android.content.ContentValues
 import android.content.Context
 import android.content.Intent
 import android.os.Bundle
@@ -10,23 +12,32 @@ import android.widget.EditText
 import android.widget.TextView
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
+import com.facebook.AccessToken
+import com.facebook.CallbackManager
+import com.facebook.FacebookCallback
+import com.facebook.FacebookException
+import com.facebook.login.LoginResult
+import com.facebook.login.widget.LoginButton
 import com.google.android.gms.auth.api.signin.GoogleSignIn
 import com.google.android.gms.auth.api.signin.GoogleSignInAccount
 import com.google.android.gms.auth.api.signin.GoogleSignInClient
-import com.google.android.gms.auth.api.signin.GoogleSignInOptions
 import com.google.android.gms.common.api.ApiException
 import com.google.android.gms.tasks.OnCompleteListener
 import com.google.android.gms.tasks.Task
 import com.google.firebase.FirebaseApp
-import com.google.firebase.auth.AuthResult
-import com.google.firebase.auth.FirebaseAuth
-import com.google.firebase.auth.FirebaseUser
-import com.google.firebase.auth.GoogleAuthProvider
+import com.google.firebase.auth.*
 import com.google.firebase.database.*
+import com.google.firebase.firestore.FieldValue
+import com.google.firebase.firestore.FirebaseFirestore
+import com.google.firebase.messaging.FirebaseMessaging
 import com.zellycookies.pineapple.R
 import com.zellycookies.pineapple.home.HomeSwipeActivity
 import com.zellycookies.pineapple.profile.Profile_Activity
+import java.text.DateFormat
+import java.util.*
+import kotlin.collections.HashMap
 
+import at.favre.lib.crypto.bcrypt.BCrypt
 
 //import android.support.annotation.NonNull;
 //import android.support.annotation.Nullable;
@@ -43,6 +54,10 @@ class Login : AppCompatActivity() {
     var mGoogleSignInClient: GoogleSignInClient? = null
     val RC_SIGN_IN = 123
 
+    private lateinit var callbackManager: CallbackManager
+    var loginButton: LoginButton? = null
+
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         FirebaseApp.initializeApp(this)
@@ -56,7 +71,7 @@ class Login : AppCompatActivity() {
 
         init()
 
-        googleSignInButton = findViewById(R.id.btn_login_google)
+        /*googleSignInButton = findViewById(R.id.btn_login_google)
         googleSignInButton.setOnClickListener {
             signIn();
         }
@@ -66,7 +81,122 @@ class Login : AppCompatActivity() {
             .requestEmail()
             .build()
 
-        mGoogleSignInClient = GoogleSignIn.getClient(this, gso)
+        mGoogleSignInClient = GoogleSignIn.getClient(this, gso)*/
+
+        callbackManager = CallbackManager.Factory.create();
+
+        loginButton = findViewById(R.id.login_button);
+        loginButton!!.setReadPermissions("email", "public_profile", "user_friends");
+
+        loginButton!!.setOnClickListener {
+
+        }
+
+    }
+
+    private fun facebookSignIn() {
+        loginButton!!.registerCallback(callbackManager, object : FacebookCallback<LoginResult> {
+            override fun onError(error: FacebookException) {
+                Log.e("ERROR_SIGNIN", error.message!!)
+            }
+
+            override fun onSuccess(result: LoginResult) {
+                handleFacebookAccessToken(result.accessToken)
+            }
+
+            override fun onCancel() {
+                Log.d("CANCEL", "Cancelled")
+            }
+        })
+    }
+
+    private fun handleFacebookAccessToken(accessToken: AccessToken?) {
+        val credential = FacebookAuthProvider.getCredential(accessToken!!.token)
+        FirebaseAuth.getInstance().signInWithCredential(credential)
+            .addOnFailureListener { e ->
+                Toast.makeText(this, e.message, Toast.LENGTH_LONG).show()
+            }
+            .addOnSuccessListener { result ->
+                val email = result.user!!.email
+                val fbid = result.user!!.uid
+                Log.d(ContentValues.TAG, "Error:$fbid")
+                val name = result.user!!.displayName
+                val pass = accessToken.userId
+                val passHash = BCrypt.withDefaults().hashToString(12, pass.toCharArray())
+                var flag = 0
+
+                // Save Facebook User to Firestore
+                val currentUserId = FirebaseAuth.getInstance().currentUser!!.uid
+                val documentRef =
+                    FirebaseFirestore.getInstance().collection("male").document(currentUserId)
+                val dbx =
+                    FirebaseFirestore.getInstance().collection("male").document(currentUserId).get()
+                        .addOnCompleteListener { task ->
+                            if (task.isSuccessful) {
+                                FirebaseFirestore.getInstance().collection("male").get()
+                                    .addOnSuccessListener { result ->
+                                        for (documents in result) {
+                                            if (documents.id == fbid) {
+                                                flag = 1
+                                            }
+                                        }
+                                        if (flag == 0) {
+                                            val user: MutableMap<String, Any> = HashMap()
+                                            user["dateOfBirth"] = "01-01-2001"
+                                            user["description"] = ""
+                                            user["email"] = email!!
+                                            user["hobby_art"] = false
+                                            user["hobby_food"] = false
+                                            user["hobby_movies"] = false
+                                            user["hobby_music"] = false
+                                            user["latitude"] = 10.794374959628545
+                                            user["longtitude"] = 106.71585601745473
+                                            user["phone_number"] = ""
+                                            user["preferDistance"] = 50
+                                            user["preferMaxAge"] = 100
+                                            user["preferMinAge"] = 16
+                                            user["preferSex"] = "female"
+                                            user["profileImageUrl"] = "defaultMale"
+                                            user["sex"] = "male"
+                                            user["showDistance"] = true
+                                            user["showDoB"] = true
+                                            user["user_id"] = ""
+                                            user["username"] = name!!
+                                            user["password"] = passHash
+                                            user["lastLogin"] = FieldValue.serverTimestamp()
+
+                                            documentRef.set(user)
+                                        }
+
+                                        updateRecipientToken()
+                                    }
+                            } else {
+                                Toast.makeText(
+                                    this, task.exception!!.message.toString(), Toast.LENGTH_SHORT
+                                ).show()
+                            }
+                        }
+
+                // Start Homepage Activity
+                val intentToHomePageActivity =
+                    Intent(this, HomeSwipeActivity::class.java)
+                intentToHomePageActivity.flags =
+                    Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
+                startActivity(intentToHomePageActivity)
+                finish()
+            }
+    }
+
+    private fun updateRecipientToken() {
+        val currentUserID = FirebaseAuth.getInstance().currentUser!!.uid
+        val dbRef = FirebaseFirestore.getInstance().collection("male")
+            .document(currentUserID)
+        FirebaseMessaging.getInstance().token.addOnCompleteListener{ task ->
+            if(task.isSuccessful){
+                val token = task.result.toString()
+                dbRef.update("user_id", token)
+            }
+        }
     }
 
     private fun signIn() {
