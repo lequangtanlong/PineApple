@@ -73,6 +73,12 @@
             android:name=".utility.ViewWhoYouLikeActivity"
             android:exported="false" />
         <activity
+            android:name=".utility.UtilityNewsActivity"
+            android:exported="false" />
+        <activity
+            android:name=".news.NewsActivity"
+            android:exported="false" />
+        <activity
             android:name=".home.HomeSwipeActivity"
             android:exported="true" >
             <intent-filter>
@@ -106,8 +112,6 @@
         <activity android:name=".matched.ProfileCheckinMatched" />
         <activity android:name=".introduction.IntroductionMain" />
         <activity android:name=".news.NewsDetailActivity" />
-        <activity android:name=".news.NewsActivity" />
-
 
         <activity
             android:name=".profile.FilterActivity"

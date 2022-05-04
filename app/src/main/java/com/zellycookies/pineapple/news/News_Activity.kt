@@ -2,26 +2,22 @@ package com.zellycookies.pineapple.news
 
 import android.annotation.SuppressLint
 import android.app.Activity
-import android.content.Context
 import android.content.Intent
 import android.graphics.Bitmap
 import android.graphics.BitmapFactory
-import android.net.Uri
 import android.os.AsyncTask
 import android.os.Bundle
 import android.util.Log
 import android.view.View
 import android.view.ViewGroup
-import android.widget.ArrayAdapter
-import android.widget.ImageView
-import android.widget.ListView
-import android.widget.TextView
+import android.widget.*
 import androidx.activity.result.ActivityResult
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.appcompat.app.AppCompatActivity
-import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.zellycookies.pineapple.R
+import com.zellycookies.pineapple.home.HomeSwipeActivity
+import com.zellycookies.pineapple.utility.UtilityLikesActivity
 
 
 private class FetchNewsTask(context: Activity): Thread() {
@@ -34,11 +30,15 @@ class NewsActivity: AppCompatActivity() {
     private lateinit var newsListView: ListView
     private lateinit var adapter: NewsListAdapter
 
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_news)
         val context = this
         newsListView = findViewById<ListView>(R.id.newsListView)
+
+        val back = findViewById<ImageButton>(R.id.back)
+        back.setOnClickListener { onBackPressed() }
 
         Thread(Runnable {
             articles = fetchNews()
@@ -56,6 +56,12 @@ class NewsActivity: AppCompatActivity() {
     }
     private val startForResult = registerForActivityResult(ActivityResultContracts.StartActivityForResult()) { result: ActivityResult ->
 
+    }
+
+    override fun onBackPressed() {
+        val intent = Intent(this, UtilityLikesActivity::class.java)
+        startActivity(intent)
+        finish()
     }
 
 }
