@@ -4,8 +4,8 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical"
     android:background="@color/white"
+    android:orientation="vertical"
     tools:context="com.zellycookies.pineapple.profile.AccountActivity">
 
     <com.google.android.material.tabs.TabLayout
@@ -13,31 +13,39 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:background="@color/white"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
         app:tabIndicatorColor="@color/colorPrimary"
         app:tabTextAppearance="@style/TabFont"
-        app:tabTextColor="@color/colorPrimaryDark"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent">
+        app:tabTextColor="@color/colorPrimaryDark">
 
     </com.google.android.material.tabs.TabLayout>
+
+    <!-- bottom navigation -->
     <androidx.fragment.app.FragmentContainerView
         android:id="@+id/map_Fragment"
         android:name="com.google.android.gms.maps.SupportMapFragment"
         android:layout_width="match_parent"
         android:layout_height="613dp"
+        app:layout_constraintBottom_toTopOf="@+id/layout_bottomnav"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
         tools:context="com.hussein.pockemonandroid.MapsActivity"
         tools:ignore="MissingConstraints" />
-    <!-- bottom navigation -->
+
     <LinearLayout
         android:id="@+id/layout_bottomnav"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="vertical"
-        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintBottom_toBottomOf="parent">
-        <include layout="@layout/layout_top_navigation_view"/>
+        app:layout_constraintStart_toStartOf="parent">
+
+        <include layout="@layout/layout_top_navigation_view" />
     </LinearLayout>
 
 
