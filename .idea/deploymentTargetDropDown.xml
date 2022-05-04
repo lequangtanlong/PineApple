@@ -7,7 +7,7 @@
         <deviceKey>
           <Key>
             <type value="VIRTUAL_DEVICE_PATH" />
-            <value value="C:\Users\Asus\.android\avd\Pixel_3_API_30.avd" />
+            <value value="C:\Users\lequa\.android\avd\Pixel_XL_API_Tiramisu_2_1.avd" />
           </Key>
         </deviceKey>
       </Target>

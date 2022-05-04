@@ -10,6 +10,11 @@ import android.widget.EditText
 import android.widget.TextView
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
+import com.google.android.gms.auth.api.signin.GoogleSignIn
+import com.google.android.gms.auth.api.signin.GoogleSignInAccount
+import com.google.android.gms.auth.api.signin.GoogleSignInClient
+import com.google.android.gms.auth.api.signin.GoogleSignInOptions
+import com.google.android.gms.common.api.ApiException
 import com.google.android.gms.tasks.OnCompleteListener
 import com.google.android.gms.tasks.Task
 import com.google.firebase.FirebaseApp
@@ -33,6 +38,10 @@ class Login : AppCompatActivity() {
     private var mEmail: EditText? = null
     private var mPassword: EditText? = null
 
+    private lateinit var googleSignInButton: Button
+    var mGoogleSignInClient: GoogleSignInClient? = null
+    val RC_SIGN_IN = 123
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         FirebaseApp.initializeApp(this)
@@ -45,7 +54,64 @@ class Login : AppCompatActivity() {
         setupFirebaseAuth()
 
         init()
+
+        googleSignInButton = findViewById(R.id.btn_login_google)
+        googleSignInButton.setOnClickListener {
+            signIn();
+        }
+
+        val gso = GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
+            .requestIdToken(getString(R.string.default_web_client_id))
+            .requestEmail()
+            .build()
+
+        mGoogleSignInClient = GoogleSignIn.getClient(this, gso)
     }
+
+    private fun signIn() {
+        val signInIntent = mGoogleSignInClient!!.signInIntent
+        startActivityForResult(signInIntent, RC_SIGN_IN)
+    }
+
+    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+        super.onActivityResult(requestCode, resultCode, data)
+
+        if (requestCode == RC_SIGN_IN) {
+            val task = GoogleSignIn.getSignedInAccountFromIntent(data)
+            try {
+                val account = task.getResult(ApiException::class.java)
+                firebaseAuthWithGoogle(account)
+            } catch (e: ApiException) {
+                Log.d(TAG, "Google sign in failed", e)
+            }
+        }
+    }
+
+    private fun firebaseAuthWithGoogle(acct: GoogleSignInAccount) {
+        Log.d(TAG, "firebaseAuthWithGoogle:" + acct.id)
+        val credential = GoogleAuthProvider.getCredential(acct.idToken, null)
+        mAuth!!.signInWithCredential(credential)
+            .addOnCompleteListener(
+                this
+            ) { task ->
+                if (task.isSuccessful) {
+                    // Sign in success, update UI with the signed-in user's information
+                    Log.d(TAG, "signInWithCredential:success")
+                    val intent = Intent(this@Login, HomeSwipeActivity::class.java)
+                    startActivity(intent)
+                } else {
+                    // If sign in fails, display a message to the user.
+                    Log.d(TAG, "signInWithCredential:failure", task.exception)
+                    Toast.makeText(
+                        this@Login,
+                        "Authentication Failed.",
+                        Toast.LENGTH_SHORT
+                    )
+                        .show()
+                }
+            }
+    }
+
 
     private fun isStringNull(string: String): Boolean {
         Log.d(TAG, "isStringNull: checking string if null.")
@@ -97,8 +163,6 @@ class Login : AppCompatActivity() {
                                     Toast.LENGTH_SHORT
                                 ).show()
                             }
-
-                            // ...
                         }
                     })
             }
@@ -131,7 +195,7 @@ class Login : AppCompatActivity() {
      */
     private fun setupFirebaseAuth() {
         mAuth = FirebaseAuth.getInstance()
-        mAuth!!.signOut()
+        //mAuth!!.signOut()
         mAuthListener = object : FirebaseAuth.AuthStateListener {
             override fun onAuthStateChanged(firebaseAuth: FirebaseAuth) {
                 val user: FirebaseUser? = firebaseAuth.getCurrentUser()
