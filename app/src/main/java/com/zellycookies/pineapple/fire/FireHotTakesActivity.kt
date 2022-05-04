@@ -7,7 +7,12 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
 import android.view.View
+import com.google.android.gms.maps.CameraUpdateFactory
 import com.google.android.gms.maps.GoogleMap
+import com.google.android.gms.maps.OnMapReadyCallback
+import com.google.android.gms.maps.model.BitmapDescriptorFactory
+import com.google.android.gms.maps.model.LatLng
+import com.google.android.gms.maps.model.MarkerOptions
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import com.google.android.material.tabs.TabLayout
 import com.google.firebase.auth.FirebaseUser
@@ -15,7 +20,7 @@ import com.zellycookies.pineapple.R
 import com.zellycookies.pineapple.utils.GPS
 import com.zellycookies.pineapple.utils.TopNavigationViewHelper
 
-class FireHotTakesActivity : AppCompatActivity() {
+class FireHotTakesActivity : AppCompatActivity(), OnMapReadyCallback {
 
     private var tabLayout : TabLayout? = null
 
@@ -34,6 +39,39 @@ class FireHotTakesActivity : AppCompatActivity() {
         setupTabLayout()
         setupTopNavigationView()
     }
+
+
+    
+
+
+    fun drawUser(latitude: Double, longitude: Double){
+        if (mMap != null) {
+            val me = LatLng(latitude, longitude)
+            mMap!!.addMarker(
+                MarkerOptions()
+                .position(me)
+                .title("Me")
+                .snippet(" here is my location")
+                .icon(BitmapDescriptorFactory.fromResource(R.drawable.charmander)))
+            mMap!!.moveCamera(CameraUpdateFactory.newLatLngZoom(me, 14f))
+        }
+
+    }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
     private fun setupTabLayout() {
         tabLayout = findViewById(R.id.tabLayout)
