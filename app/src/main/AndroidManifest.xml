@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.zellycookies.pineapple">
-
     <!-- <application -->
     <!-- android:allowBackup="true" -->
     <!-- android:icon="@mipmap/ic_launcher_true" -->
@@ -18,10 +17,8 @@
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
     <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
     <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
-
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
     <uses-permission android:name="android.permission.INTERNET" />
-
 
     <application
         android:allowBackup="true"
@@ -29,9 +26,13 @@
         android:label="@string/app_name"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
+        <activity
+            android:name=".conversation.CallActivity"
+            android:exported="false" />
 
         <service
-            android:name=".home.MyFirebaseMessagingService" android:exported="true"
+            android:name=".home.MyFirebaseMessagingService"
+            android:exported="true"
             android:permission="com.google.android.c2dm.permission.SEND">
             <intent-filter>
                 <action android:name="com.google.firebase.MESSAGING_EVENT" />
@@ -80,12 +81,10 @@
             android:exported="false" />
         <activity
             android:name=".home.HomeSwipeActivity"
-            android:exported="true" >
+            android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
             </intent-filter>
-
-
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -112,7 +111,6 @@
         <activity android:name=".matched.ProfileCheckinMatched" />
         <activity android:name=".introduction.IntroductionMain" />
         <activity android:name=".news.NewsDetailActivity" />
-
         <activity
             android:name=".profile.FilterActivity"
             android:exported="false" />
