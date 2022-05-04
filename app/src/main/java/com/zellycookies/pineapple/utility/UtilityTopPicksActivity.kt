@@ -6,6 +6,7 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
 import android.view.View
+import android.widget.Button
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import com.google.android.material.tabs.TabLayout
 import com.zellycookies.pineapple.R
@@ -23,6 +24,11 @@ class UtilityTopPicksActivity : AppCompatActivity() {
         setContentView(R.layout.activity_utility_top_picks)
         setupTabLayout()
         setupTopNavigationView()
+
+        val btnKOL = findViewById<Button>(R.id.btn_kol)
+        btnKOL.setOnClickListener {
+            startActivity(Intent(mContext, UtilityTopPicksKOL::class.java))
+        }
     }
 
     private fun setupTabLayout() {
