@@ -158,5 +158,8 @@
     <string name="common_passion">Common Passion</string>
 
     <string name="crips_client_id">942b95e5-7079-4736-9381-ae51bea55428</string>
+    <string name="facebook_app_id">417771843039840</string>
+    <string name="fb_login_protocol_scheme">fb417771843039840</string>
+    <string name="facebook_client_token">a59ac9a91d3ea653f1d1644956acfb60</string>
 
 </resources>
