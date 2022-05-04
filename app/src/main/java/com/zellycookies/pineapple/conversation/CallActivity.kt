@@ -15,8 +15,6 @@ import com.google.firebase.database.DataSnapshot
 import com.google.firebase.database.DatabaseError
 import com.google.firebase.database.FirebaseDatabase
 import com.google.firebase.database.ValueEventListener
-import com.google.firebase.database.ktx.database
-import com.google.firebase.ktx.Firebase
 import com.zellycookies.pineapple.R
 import java.util.*
 
@@ -24,14 +22,10 @@ class CallActivity : AppCompatActivity() {
 
     var username = ""
     var friendsUsername = ""
-
     var isPeerConnected = false
-
     var firebaseRef = FirebaseDatabase.getInstance().reference.child("videocall")
-
     var isAudio = true
     var isVideo = true
-
     private var toggleAudioBtn: ImageView? = null
     private var toggleVideoBtn: ImageView? = null
     private lateinit var webView: WebView
@@ -143,7 +137,7 @@ class CallActivity : AppCompatActivity() {
         webView.settings.javaScriptEnabled = true
         webView.settings.useWideViewPort = true
         webView.settings.mediaPlaybackRequiresUserGesture = false
-        webView.addJavascriptInterface(JavascriptInterface(this), "Android")
+     //   webView.addJavascriptInterface(JavascriptInterface(this), "Android")
 
         loadVideoCall()
     }
