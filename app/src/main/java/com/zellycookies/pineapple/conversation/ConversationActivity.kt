@@ -1,7 +1,9 @@
 package com.zellycookies.pineapple.conversation
 
+import android.Manifest
 import android.app.Activity
 import android.content.Intent
+import android.content.pm.PackageManager
 import android.graphics.Bitmap
 import android.os.Bundle
 import android.provider.MediaStore
@@ -11,6 +13,7 @@ import android.view.View
 import android.widget.*
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.appcompat.app.AppCompatActivity
+import androidx.core.app.ActivityCompat
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.zellycookies.pineapple.conversation.Adapter.ConversationAdapter
@@ -24,6 +27,9 @@ import com.bumptech.glide.Glide
 import com.bumptech.glide.util.Util
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.FirebaseAuth.AuthStateListener
+import com.google.firebase.database.DataSnapshot
+import com.google.firebase.database.DatabaseError
+import com.google.firebase.database.ValueEventListener
 import com.google.firebase.firestore.*
 import com.google.firebase.storage.FirebaseStorage
 import java.util.*
@@ -52,12 +58,17 @@ class ConversationActivity : AppCompatActivity() {
     private var tvNamePerson: TextView? = null
     private var mMessage: EditText? = null
     private var btnSend: ImageButton? = null
+    private var btnVideoCall: ImageButton? = null
     private var btnAddImage: ImageButton? = null
     private var btnBack: ImageButton? = null
     private var btnInfo: ImageButton? = null
     private val latitude = 37.349642
     private val longtitude = -121.938987
     private val RC_SELECT_IMAGE = 2
+
+    private val permissions = arrayOf(Manifest.permission.CAMERA, Manifest.permission.RECORD_AUDIO)
+    private val requestcode = 1
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.conversation_activity)
@@ -80,9 +91,11 @@ class ConversationActivity : AppCompatActivity() {
         tvNamePerson = findViewById(R.id.name_user_group)
         btnSend = findViewById(R.id.send)
         btnAddImage = findViewById(R.id.insertImage)
+        btnVideoCall = findViewById(R.id.videoCallBtn)
         mMessage = findViewById(R.id.messageInput)
         btnSend?.setOnClickListener(View.OnClickListener { sendMessage() })
         btnAddImage?.setOnClickListener(View.OnClickListener { sendImage() })
+        btnVideoCall?.setOnClickListener(View.OnClickListener { videoCall() })
         btnBack?.setOnClickListener(View.OnClickListener { onBackPressed() })
         btnInfo?.setOnClickListener(View.OnClickListener {
             val distance = gps!!.calculateDistance(
@@ -201,8 +214,8 @@ class ConversationActivity : AppCompatActivity() {
             action = Intent.ACTION_GET_CONTENT
             putExtra(Intent.EXTRA_MIME_TYPES, arrayOf("image/jpeg", "image/png"))
         }
-      //  startActivityForResult(Intent.createChooser(intent, "Select Image"), RC_SELECT_IMAGE)
-     //   val intent = Intent(this, SomeActivity::class.java)
+        //  startActivityForResult(Intent.createChooser(intent, "Select Image"), RC_SELECT_IMAGE)
+        //   val intent = Intent(this, SomeActivity::class.java)
         resultLauncher.launch(Intent.createChooser(intent, "Select Image"))
 //        val messageId = mGroupMessageDb!!.collection("messages").document().id
 //        val mMessageDb = mGroupMessageDb!!.collection("messages").document(messageId)
@@ -271,43 +284,31 @@ class ConversationActivity : AppCompatActivity() {
         }
     }
 
-    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
-        super.onActivityResult(requestCode, resultCode, data)
-        if (requestCode == RC_SELECT_IMAGE && resultCode == Activity.RESULT_OK &&
-            data != null && data.data != null) {
-            val selectedImagePath = data.data
 
-            val selectedImageBmp = MediaStore.Images.Media.getBitmap(contentResolver, selectedImagePath)
+    private fun askPermissions() {
+        ActivityCompat.requestPermissions(this, permissions, requestcode)
+    }
 
-            val outputStream = ByteArrayOutputStream()
+    private fun isPermissionGranted(): Boolean {
 
-            selectedImageBmp.compress(Bitmap.CompressFormat.JPEG, 90, outputStream)
-            val selectedImageBytes = outputStream.toByteArray()
-
-
-            val messageId = mGroupMessageDb!!.collection("messages").document().id
-            val cal = Calendar.getInstance(Locale.ENGLISH)
-            val dateTime = DateFormat.format("dd/MM/yyyy hh:mm aa", cal).toString()
-
-            FireStoreImage.uploadMessageImage(selectedImageBytes) { imagePath ->
-                val messageToSend =
-                    MessageObject(messageId, userId,
-                        imagePath,
-                        dateTime, MessageType.IMAGE)
-               // FirestoreUtil.sendMessage(messageToSend, currentChannelId)
-
-                val filepath = FirebaseStorage.getInstance().reference.child("messageImages").child(
-                    userId!!
-                )
-
-                filepath.putBytes(selectedImageBytes)
-                    .addOnSuccessListener {
-                       // onSuccess(ref.path)
-                        Toast.makeText(this, "OK", Toast.LENGTH_SHORT)
-                    }
-
-            }
+        permissions.forEach {
+            if (ActivityCompat.checkSelfPermission(this, it) != PackageManager.PERMISSION_GRANTED)
+                return false
         }
+
+        return true
+    }
+
+    private fun videoCall(){
+        if (!isPermissionGranted()) {
+            askPermissions()
+        }
+
+        val intent = Intent(this, CallActivity::class.java)
+        intent.putExtra("username", userId)
+        intent.putExtra("friend",userMatched)
+        startActivity(intent)
+
     }
 
     private fun updateDatabaseWithNewMessage(
