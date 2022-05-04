@@ -85,7 +85,7 @@ class HomeSwipeActivity : Activity() {
 
     //notification
     private val FCM_API = "https://fcm.googleapis.com/fcm/send"
-    private val serverKey = "key=" + "AAAAMGvAgKs:APA91bGuK2dVm9cIUrNA5Wr5cMT0bemGxjx8hewU8WnJOqWHpeAPLsNSFK5oGxO6xeohtf_i0kLoLBmtHX0re225pgyBhKjPXRV04JcCGCz4rkb6TnmC7Mwl1MpXNC5XnxgzflVKYQ8W"
+    private val serverKey = "key=" + "AAAACwSYRCE:APA91bGhBxbE6dg_W-zq-6JyA3H_m-8r2ohCHJ_G15nL6VUJVEN0QECk9t38EhuXfxKKvjqR8q0EoceH1eRqQxAwL4MmfoXnrJ2qt-uYPBKno4Mj4EsMdROCmc7TpFPyUvCIL-z-8WiR"
     private val contentType = "application/json"
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -308,10 +308,11 @@ class HomeSwipeActivity : Activity() {
 
                     // remote notification
                     //val topic = "/topics/${currentUID}"
-                    FirebaseMessaging.getInstance().subscribeToTopic("/topics/${dataSnapshot.key}")
+
+                    /*FirebaseMessaging.getInstance().subscribeToTopic("/topics/${dataSnapshot.key}")
                         .addOnSuccessListener {
                             Log.d("onSubscribeToTopic", "Success")
-                        }
+                        }*/
 
                     val topic = "/topics/${dataSnapshot.key}"
                     val notification = JSONObject()
@@ -380,10 +381,10 @@ class HomeSwipeActivity : Activity() {
         }
         requestQueue.add(jsonObjectRequest)
 
-        FirebaseMessaging.getInstance().unsubscribeFromTopic("/topics/${topicName}")
+       /* FirebaseMessaging.getInstance().unsubscribeFromTopic("/topics/${topicName}")
             .addOnSuccessListener {
                 Log.d("onUnsubscribeFromTopic", "Success")
-            }
+            }*/
     }
 
     private fun createNotificationChannel() {
