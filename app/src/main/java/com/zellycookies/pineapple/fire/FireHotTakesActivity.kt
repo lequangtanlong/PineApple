@@ -51,12 +51,10 @@ class FireHotTakesActivity : AppCompatActivity(), OnMapReadyCallback {
     var longitude=106.7231634875081
     lateinit var user: User
     private lateinit var gps: GPS
-    var anonymousAvatars= arrayListOf(
-        R.drawable.a1,
-        R.drawable.a2,
-        R.drawable.a3,
-        R.drawable.a4,
-    )
+    var anonymousAvatars= ArrayList<Int>()
+
+
+
     var anonymousUsers = arrayListOf<anonymous>()
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -72,9 +70,13 @@ class FireHotTakesActivity : AppCompatActivity(), OnMapReadyCallback {
         loadUserData()
 
         checkPermmison()
-//        latitude = user?.latitude
+        loadAnonymousAvatars()
     }
 
+    fun loadAnonymousAvatars(){
+        for (i in 1..9)
+            anonymousAvatars.add(resources.getIdentifier("a$i", "drawable", packageName))
+    }
 
 
 
@@ -163,14 +165,15 @@ class FireHotTakesActivity : AppCompatActivity(), OnMapReadyCallback {
             Log.i("ANONYMOUSSSSSS", latitude.toString())
             Log.i("ANONYMOUSSSSSS", longitude.toString())
             val me = LatLng(latitude, longitude)
+            val size = if(avatar == R.drawable.me) 350 else 200
             mMap!!.addMarker(
                 MarkerOptions()
                 .position(me)
                 .title(if(avatar == R.drawable.me) "You" else "Anonymous")
                 .snippet(if(avatar == R.drawable.me) "You are here" else "Hi!")
-                .icon(resizeMapIcons(avatar, 200, 200)))
+                .icon(resizeMapIcons(avatar, size, size)))
             if (avatar == R.drawable.me)
-                mMap!!.moveCamera(CameraUpdateFactory.newLatLngZoom(me, 15f))
+                mMap!!.moveCamera(CameraUpdateFactory.newLatLngZoom(me, 17f))
         }
     }
 
@@ -375,24 +378,6 @@ class FireHotTakesActivity : AppCompatActivity(), OnMapReadyCallback {
                 override fun onCancelled(databaseError: DatabaseError) {}
             })
         }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 
