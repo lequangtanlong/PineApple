@@ -8,63 +8,76 @@
     tools:context=".profile.NewSettingsActivity">
 
     <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        android:orientation="vertical"
+        android:layout_width="351dp"
+        android:layout_height="515dp"
         android:layout_marginStart="32dp"
+        android:layout_marginTop="16dp"
         android:layout_marginEnd="32dp"
-        android:layout_marginTop="16dp">
+        android:orientation="vertical"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
 
         <Button
             android:id="@+id/btn_settings_profile"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:textColor="@color/colorPrimaryDark"
-            android:drawableStart="@drawable/ic_menu_profile"
-            android:text="@string/edit_profile"
-            android:textSize="20sp"
-            android:fontFamily="@font/iciel_cadena"
+            android:layout_marginTop="16dp"
             android:background="@drawable/btn_option"
-            android:layout_marginTop="16dp"/>
+            android:drawableStart="@drawable/ic_menu_profile"
+            android:fontFamily="@font/iciel_cadena"
+            android:text="@string/edit_profile"
+            android:textColor="@color/colorPrimaryDark"
+            android:textSize="20sp" />
 
         <Button
             android:id="@+id/btn_settings_filter"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:textColor="@color/colorPrimaryDark"
-            android:drawableStart="@drawable/ic_baseline_filter_alt_36"
-            android:text="@string/filter"
-            android:textSize="20sp"
-            android:fontFamily="@font/iciel_cadena"
+            android:layout_marginTop="16dp"
             android:background="@drawable/btn_option"
-            android:layout_marginTop="16dp"/>
+            android:drawableStart="@drawable/ic_baseline_filter_alt_36"
+            android:fontFamily="@font/iciel_cadena"
+            android:text="@string/filter"
+            android:textColor="@color/colorPrimaryDark"
+            android:textSize="20sp" />
 
         <Button
             android:id="@+id/btn_settings_info"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:textColor="@color/colorPrimaryDark"
-            android:drawableStart="@drawable/ic_baseline_info_36"
-            android:text="@string/account"
-            android:textSize="20sp"
-            android:fontFamily="@font/iciel_cadena"
+            android:layout_marginTop="16dp"
             android:background="@drawable/btn_option"
-            android:layout_marginTop="16dp"/>
+            android:drawableStart="@drawable/ic_baseline_info_36"
+            android:fontFamily="@font/iciel_cadena"
+            android:text="@string/account"
+            android:textColor="@color/colorPrimaryDark"
+            android:textSize="20sp" />
 
         <Button
             android:id="@+id/btn_settings_noti"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:textColor="@color/colorPrimaryDark"
-            android:drawableStart="@drawable/ic_baseline_notifications_36"
-            android:text="@string/notifications"
-            android:textSize="20sp"
-            android:fontFamily="@font/iciel_cadena"
+            android:layout_marginTop="16dp"
             android:background="@drawable/btn_option"
-            android:layout_marginTop="16dp"/>
+            android:drawableStart="@drawable/ic_baseline_notifications_36"
+            android:fontFamily="@font/iciel_cadena"
+            android:text="@string/notifications"
+            android:textColor="@color/colorPrimaryDark"
+            android:textSize="20sp" />
+
+        <Button
+            android:id="@+id/btn_chatSupport"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
+            android:background="@drawable/btn_option"
+            android:drawableStart="@drawable/ic_baseline_chat_36"
+            android:fontFamily="@font/iciel_cadena"
+            android:text="@string/chatSupport"
+            android:textColor="@color/colorPrimaryDark"
+            android:textSize="20sp" />
 
         <Button
             android:id="@+id/btn_blocked_users"

@@ -87,6 +87,7 @@
     <string name="new_password">New password</string>
     <string name="confirm_new_password">Confirm new password</string>
     <string name="submit">Submit</string>
+    <string name="cancel">Cancel</string>
     <string name="send_email">Send email</string>
     <string name="view_who_likes_you">View who likes you</string>
     <string name="utility">Utility</string>
@@ -110,12 +111,16 @@
     <string name="back">Back</string>
     <string name="block_user">Block user</string>
     <string name="block">Block</string>
+    <string name="unmatch_user">Unmatch user</string>
     <string name="unmatch">Unmatch</string>
+    <string name="report_user">Report user</string>
+    <string name="report">Report</string>
     <string name="safety_toolkit">Safety Toolkit</string>
     <string name="blocked_users">Blocked Users</string>
     <string name="select_a_user_to_unblock_them">Select a user to unblock them</string>
     <string name="are_you_sure_you_want_to_block">Are you sure you want to block</string>
     <string name="are_you_sure_you_want_to_unmatch_with">Are you sure you want to unmatch with</string>
+    <string name="report_an_issue_your_have_with_this_user">Report an issue you have with this user</string>
 
     <string name="cb_movies">Movies</string>
     <string name="cb_music">Music</string>
@@ -128,6 +133,7 @@
     <string name="activity">Activity</string>
     <string name="upload_more_images">Upload more images</string>
     <string name="additional_images">Additional Images</string>
+    <string name="chatSupport">Chat support</string>
 
     <!-- introduction pictures-->
     <integer-array name="img_id_arr">
@@ -141,4 +147,13 @@
         <item>Male</item>
         <item>Female</item>
     </string-array>
+
+    <string name="rp_harassment">Harassment</string>
+    <string name="rp_pretend">Pretending to be someone</string>
+    <string name="rp_swearing">Swearing</string>
+    <string name="rp_hate_speech">Hate speech</string>
+    <string name="rp_other">Other</string>
+    <string name="key_opinion_leaders">Key Opinion Leaders</string>
+    <string name="common_passion">Common Passion</string>
+
 </resources>
