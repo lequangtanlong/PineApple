@@ -12,16 +12,14 @@ import android.os.Bundle
 import android.util.Log
 import android.view.View
 import android.view.ViewGroup
-import android.widget.ArrayAdapter
-import android.widget.ImageView
-import android.widget.ListView
-import android.widget.TextView
+import android.widget.*
 import androidx.activity.result.ActivityResult
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.zellycookies.pineapple.R
+import com.zellycookies.pineapple.utility.UtilityLikesActivity
 
 
 private class FetchNewsTask(context: Activity): Thread() {
@@ -39,7 +37,8 @@ class NewsActivity: AppCompatActivity() {
         setContentView(R.layout.activity_news)
         val context = this
         newsListView = findViewById<ListView>(R.id.newsListView)
-
+        val back = findViewById<ImageButton>(R.id.back)
+        back.setOnClickListener { startActivity( Intent(this, UtilityLikesActivity::class.java)) }
         Thread(Runnable {
             articles = fetchNews()
             this@NewsActivity.runOnUiThread(Runnable {
